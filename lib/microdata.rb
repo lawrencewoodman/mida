@@ -2,42 +2,82 @@ require 'hpricot'
 
 class Microdata
 
-	def initialize
-		# Should raise an error if this is not overloaded?
-	end
+	def self.find(*args)
+		target = args[0]
+		vocabulary = args[1] unless args[1].nil?
 
-	def find(target)
 		doc = Hpricot(target)
-		doc.search("*[@itemscope='#{@vocabulary}']")
+		itemscopes = doc.search("*[@itemscope and @itemtype]")
 
-		@properties.keys.each do |field|
-			element = doc.search("*[@itemprop='#{field}']")
-
-			if (element.length > 0)
-				@properties[field][:value] = case @properties[field][:type]
-					when :datetime    then element.first['datetime']
-					when :inner_text  then element.inner_text
-					when :inner_float then Float(element.inner_text)
+		# TODO: Work out why the following code can't be replaced using:
+		#	doc.search("*[@itemscope and ends-with(@itemtype, '#{vocabulary}')]")
+		matching_itemscopes = Hpricot::Elements.new
+		if !vocabulary.nil?
+			# Remove any non-matching vocabularies
+			itemscopes.each do |itemscope|
+				if itemscope.attributes["itemtype"].end_with?(vocabulary)
+					matching_itemscopes.push(itemscope)
 				end
-
-				# Define the getters for the fields
-				self.class.class_eval {
-					define_method( field ) do 
-						@properties[field][:value]
-					end
-				}
-
-			else
-				@properties.delete(field)
 			end
-
+			itemscopes = matching_itemscopes
 		end
 
-		return self
+		o = Array.new
+
+		itemscopes.each do |itemscope|
+			md = new
+			properties = md.get_properties(itemscope)
+			type = itemscope.attributes["itemtype"].gsub(/.*?\//,'')
+
+			if properties.size != 0
+				md.instance_variable_set(:@properties, properties)
+				md.instance_variable_set(:@type, type)
+				o.push(md)
+			end
+		end
+
+		case o.size
+			when 1 then o.first
+			when 0 then nil
+			else o
+		end
+
+	end
+
+	def type
+		@type
 	end
 
 	def properties
+		if @properties.nil? then return nil end
 		@properties.keys
+	end
+
+	def get_properties(itemscope)
+		itemprops = itemscope.search("*[@itemprop]")
+		properties = Hash.new
+
+		itemprops.each do |itemprop|
+			property = itemprop.attributes["itemprop"]
+
+			properties[property] = case itemprop.pathname
+				when "time" then itemprop.attributes["datetime"]
+				else itemprop.inner_text
+			end
+
+			# Define the getters for each property
+			self.class.class_eval {
+				define_method( property ) do
+					@properties[property]
+				end
+			}
+		end
+
+		if properties.keys == 0
+			return nil
+		else
+			return properties
+		end
 	end
 
 end
