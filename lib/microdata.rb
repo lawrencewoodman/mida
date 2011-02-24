@@ -2,6 +2,8 @@ require 'hpricot'
 
 class Microdata
 
+	attr_reader :type
+
 	def self.find(*args)
 		target = args[0]
 		vocabulary = args[1] unless args[1].nil?
@@ -42,10 +44,6 @@ class Microdata
 			else o
 		end
 
-	end
-
-	def type
-		@type
 	end
 
 	def properties
