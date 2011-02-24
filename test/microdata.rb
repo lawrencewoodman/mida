@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/test_helper'
+require_relative 'test_helper'
 require 'microdata'
 
 describe Microdata, "when run against a full html document containing one itemscope with no itemtype" do
