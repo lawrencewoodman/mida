@@ -7,7 +7,7 @@ class Microdata
 		vocabulary = args[1] unless args[1].nil?
 
 		doc = Hpricot(target)
-		itemscopes = doc.search("*[@itemscope and @itemtype]")
+		itemscopes = doc.search("*[@itemscope]")
 
 		# TODO: Work out why the following code can't be replaced using:
 		#	doc.search("*[@itemscope and ends-with(@itemtype, '#{vocabulary}')]")
