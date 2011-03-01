@@ -1,81 +1,88 @@
-require 'hpricot'
+require 'nokogiri'
 
 class Microdata
 
-	attr_reader :type
+	attr_reader :itemscopes
 
-	def self.find(*args)
-		target = args[0]
-		vocabulary = args[1] unless args[1].nil?
-
-		doc = Hpricot(target)
-		itemscopes = doc.search('*[@itemscope]')
-
-		# TODO: Work out why the following code can't be replaced using:
-		#	doc.search("*[@itemscope and ends-with(@itemtype, '#{vocabulary}')]")
-		matching_itemscopes = Hpricot::Elements.new
-		if !vocabulary.nil?
-			# Remove any non-matching vocabularies
-			itemscopes.each do |itemscope|
-				if itemscope.attributes['itemtype'].end_with?(vocabulary)
-					matching_itemscopes.push(itemscope)
-				end
-			end
-			itemscopes = matching_itemscopes
-		end
-
-		o = Array.new
-
-		itemscopes.each do |itemscope|
-			md = new
-			properties = md.get_properties(itemscope)
-			type = itemscope.attributes['itemtype'].gsub(/.*?\//,'')
-
-			if properties.size != 0
-				md.instance_variable_set(:@properties, properties)
-				md.instance_variable_set(:@type, type)
-				o.push(md)
-			end
-		end
-
-		case o.size
-			when 1 then o.first
-			when 0 then nil
-			else o
-		end
-
+	def initialize(target)
+		@doc = Nokogiri(target)
+		@itemscopes = get_itemscopes(@doc, true)
 	end
 
-	def properties
-		if @properties.nil? then return nil end
-		@properties.keys
+	def find(vocabulary=nil)
+		itemscopes = vocabulary.nil? ? @itemscopes : filter_vocabularies(@itemscopes, vocabulary)
+
+		itemscopes.empty? ? nil : itemscopes
+	end
+
+private
+	def get_itemscopes(doc, first)
+		itemscopes_doc = if first
+			doc.search('//*[@itemscope and not(ancestor::*/@itemscope)]')
+		else
+			doc.search('./*[@itemscope and not(ancestor::*/@itemscope)]')
+		end
+
+		if itemscopes_doc.nil? then return nil end
+
+		itemscopes = []
+
+		itemscopes_doc.each do |itemscope_doc|
+			itemscope = {}
+			if itemscope_doc.attribute('itemtype').nil?
+				itemscope[:type] = nil
+			else
+				itemscope[:type] = itemscope_doc.attribute('itemtype').value
+			end
+			itemscope[:properties] = get_properties(itemscope_doc)
+
+			itemscopes << itemscope
+		end
+
+		return itemscopes
 	end
 
 	def get_properties(itemscope)
-		itemprops = itemscope.search('*[@itemprop]')
-		properties = Hash.new
+		itemprops = itemscope.search('./*[@itemprop]')
+		properties = {}
 
 		itemprops.each do |itemprop|
-			property = itemprop.attributes['itemprop']
+			property = itemprop.attribute('itemprop').value
 
-			properties[property] = case itemprop.pathname
-				when 'time' then itemprop.attributes['datetime']
-				else itemprop.inner_text
+			if itemprop.attribute('itemscope').nil?
+				properties[property] = case itemprop.name
+					when 'time' then itemprop.attribute('datetime').value
+					else itemprop.inner_text
+				end
+			else
+				properties[property] = {}
+				if itemprop.attribute('itemtype').nil?
+					properties[property][:type] = nil
+				else
+					properties[property][:type] = itemprop.attribute('itemtype').value
+				end
+				properties[property][:properties] = get_properties(itemprop)
 			end
 
-			# Define the getters for each property
-			self.class.class_eval {
-				define_method( property ) do
-					@properties[property]
-				end
-			}
 		end
 
-		if properties.keys == 0
-			return nil
-		else
-			return properties
+		return (properties.keys == 0) ? nil : properties
+	end
+
+	def filter_vocabularies(itemscopes, vocabulary)
+		itemscope_vocabularies = []
+
+		itemscopes.each do |itemscope|
+			itemscope_vocabularies << itemscope unless itemscope[:type].to_s != vocabulary
+
+			itemscope[:properties].each do |property|
+				if property.is_a?(Hash)
+					itemscope_vocabularies << filter_vocabularies(property, vocabulary)
+				end
+			end
 		end
+
+		itemscope_vocabularies
 	end
 
 end
