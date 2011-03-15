@@ -324,3 +324,67 @@ describe Microdata, 'when run against a full html document containing two itemsc
 	end
 
 end
+
+describe Microdata, 'when run against a full html document containing one
+	itemscope nested within another and the inner block is
+	surrounded with another non itemscope block' do
+
+	before do
+		html = '
+			<html><body>
+				<div itemscope itemtype="http://data-vocabulary.org/Product">
+					<ul class="reviews">
+						<li id="model" itemprop="name">DC07</li>
+						<li id="make" itemprop="brand">Dyson</li>
+						<li itemprop="review" itemscope itemtype="http://data-vocabulary.org/Review-aggregate">
+							<span class="ratingDetails">
+								<span itemprop="count">1</span> Review,
+								Average: <span itemprop="rating">5.0</span>
+							</span>
+						</li>
+					</ul>
+				</div>
+			</body></html>
+		'
+
+		@md = Microdata.new(html)
+	end
+
+	it 'should not match itemscopes with different names' do
+		@md.find('nothing').should == nil
+	end
+
+	it 'should return the correct number of itemscopes' do
+		vocabularies = [
+			nil,
+			'http://data-vocabulary.org/Product',
+			'http://data-vocabulary.org/Review-aggregate'
+		]
+		vocabularies.each {|vocabulary| @md.find(vocabulary).size.should == 1}
+	end
+
+	context "when no vocabulary specified or looking at the outer vocabulary" do
+		it 'should return all the properties from the text with the correct values' do
+			expected_properties = {
+				'name' => 'DC07',
+				'brand' => 'Dyson',
+				'review' => {
+					type: 'http://data-vocabulary.org/Review-aggregate',
+					properties: {
+						'count' => '1',
+						'rating' => '5.0'
+					},
+				},
+			}
+
+			vocabularies = [
+				nil,
+				'http://data-vocabulary.org/Product',
+			]
+			vocabularies.each do |vocabulary|
+			 @md.find(vocabulary).first[:properties].should == expected_properties
+			end
+		end
+	end
+
+end
