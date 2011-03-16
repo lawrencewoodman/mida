@@ -6,3 +6,4 @@ Todo List
   http://www.google.com/support/webmasters/bin/answer.py?answer=172705 
 * Look at proper spec at: http://www.w3.org/TR/microdata/
 * Put nested itemscopes, that are not a property of its parent into the parents hash using [:nested]
+* Allow vocabulary to use a regex
