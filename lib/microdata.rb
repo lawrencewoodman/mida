@@ -1,11 +1,13 @@
 require 'nokogiri'
+require 'uri'
 
 class Microdata
 
 	attr_reader :itemscopes
 
-	def initialize(target)
+	def initialize(target, page_url=nil)
 		@doc = Nokogiri(target)
+		@page_url = page_url
 		@itemscopes = get_itemscopes(@doc)
 	end
 
@@ -15,6 +17,19 @@ class Microdata
 	end
 
 private
+
+	NON_TEXTCONTENT_ELEMENTS = {
+		'a' => 'href',     'area' => 'href',
+		'audio' => 'src',  'embed' => 'src',
+		'iframe' => 'src', 'img' => 'src',
+		'link' => 'href',  'meta' => 'content',
+		'object' => 'data', 'source' => 'src',
+		'time' => 'datetime', 'track' => 'src',
+		'video' => 'src'
+	}
+
+	URL_ATTRIBUTES = ['data', 'href', 'src']
+
 	def get_itemscopes(doc)
 		itemscopes_doc = doc.search('//*[@itemscope and not(@itemprop)]')
 
@@ -50,6 +65,25 @@ private
 		(itemprops.nil?) ? nil : itemprops
 	end
 
+	# Note that this returns an empty string if can't form a valid url
+	# as per the Microdata spec
+	def make_absolute_url(url)
+		return url unless URI.parse(url).relative?
+		return '' if @page_url.nil? or URI.parse(@page_url).relative?
+		URI.parse(@page_url).merge(url).to_s
+	end
+
+	def get_property_value(itemprop)
+		element = itemprop.name
+		value = if NON_TEXTCONTENT_ELEMENTS.has_key?(element)
+			attribute = NON_TEXTCONTENT_ELEMENTS[element]
+			value = itemprop.attribute(attribute).value
+			(URL_ATTRIBUTES.include?(attribute)) ? make_absolute_url(value) : value
+		else
+			itemprop.inner_text
+		end
+	end
+
 	def get_properties(itemscope)
 		itemprops = get_itemprops(itemscope)
 		return nil if itemprops.nil?
@@ -59,11 +93,7 @@ private
 			property = itemprop.attribute('itemprop').value
 
 			if itemprop.attribute('itemscope').nil?
-				properties[property] =
-					case itemprop.name
-					when 'time' then itemprop.attribute('datetime').value
-					else itemprop.inner_text
-					end
+				properties[property] = get_property_value(itemprop)
 			else
 				properties[property] = {}
 				if itemprop.attribute('itemtype').nil?
