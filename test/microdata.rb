@@ -472,3 +472,66 @@ describe Microdata, 'when run against a full html document containing one
 	end
 
 end
+
+describe Microdata, 'when run against a document containing an itemscope
+	that contains another non-linked itemscope' do
+
+	before do
+		html = '
+			<html><body>
+				<div itemscope itemtype="http://data-vocabulary.org/Product">
+					<ul class="reviews">
+						<li id="model" itemprop="name">DC07</li>
+						<li id="make" itemprop="brand">Dyson</li>
+						<li itemscope itemtype="http://data-vocabulary.org/Review-aggregate">
+							<span class="ratingDetails">
+								<span itemprop="count">1</span> Review,
+								Average: <span itemprop="rating">5.0</span>
+							</span>
+						</li>
+					</ul>
+				</div>
+			</body></html>
+		'
+
+		@md = Microdata.new(html)
+	end
+
+	it 'should return the correct number of itemscopes' do
+		vocabularies = {
+			nil => 2,
+			'http://data-vocabulary.org/Product' => 1,
+			'http://data-vocabulary.org/Review-aggregate' => 1
+		}
+		vocabularies.each {|vocabulary, num| @md.find(vocabulary).size.should == num}
+	end
+
+	context "when no vocabulary specified or looking at the outer vocabulary" do
+		it 'should return all the properties from the text with the correct values' do
+			pending("get the contains: feature working")
+			expected_result = {
+				type: 'http://data-vocabulary.org/Product',
+				properties: {
+					'name' => 'DC07',
+					'brand' => 'Dyson'
+				},
+				contains: {
+					type: 'http://data-vocabulary.org/Review-aggregate',
+					properties: {
+						'count' => '1',
+						'rating' => '5.0'
+					}
+				}
+			}
+
+			vocabularies = [
+				nil,
+				'http://data-vocabulary.org/Product',
+			]
+			vocabularies.each do |vocabulary|
+				@md.find(vocabulary).first.should == expected_result
+			end
+		end
+	end
+
+end
