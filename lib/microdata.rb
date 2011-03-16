@@ -63,7 +63,7 @@ private
 					case itemprop.name
 					when 'time' then itemprop.attribute('datetime').value
 					else itemprop.inner_text
-				end
+					end
 			else
 				properties[property] = {}
 				if itemprop.attribute('itemtype').nil?
