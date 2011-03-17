@@ -1,7 +1,7 @@
-mdparser
-========
+MiDa
+====
 
-A MicroData parser for ruby
+A Microdata parser for ruby
 
 License
 -------

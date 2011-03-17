@@ -1,5 +1,4 @@
-require_relative 'test_helper'
-require 'microdata'
+require 'mida'
 
 shared_examples_for 'one root itemscope' do
 	it 'should not match itemscopes with different names' do
@@ -15,7 +14,7 @@ shared_examples_for 'one root itemscope' do
 	end
 end
 
-describe Microdata, 'when run with a document containing textContent and non textContent itemprops' do
+describe MiDa::Microdata, 'when run with a document containing textContent and non textContent itemprops' do
 	before do
 		@html = '
 			<html>
@@ -64,7 +63,7 @@ describe Microdata, 'when run with a document containing textContent and non tex
 
 	context 'when not given a page_url' do
 		before do
-			@md = Microdata.new(@html)
+			@md = MiDa::Microdata.new(@html)
 		end
 
 		it 'should return all the properties and types with the correct values' do
@@ -98,7 +97,7 @@ describe Microdata, 'when run with a document containing textContent and non tex
 
 	context 'when given a page_url' do
 		before do
-			@md = Microdata.new(@html, 'http://example.com/start/')
+			@md = MiDa::Microdata.new(@html, 'http://example.com/start/')
 		end
 
 		it 'should return all the properties and types with the correct values' do
@@ -132,7 +131,7 @@ describe Microdata, 'when run with a document containing textContent and non tex
 
 end
 
-describe Microdata, 'when run against a full html document containing one itemscope with no itemtype' do
+describe MiDa::Microdata, 'when run against a full html document containing one itemscope with no itemtype' do
 
 	before do
 		html = '
@@ -154,7 +153,7 @@ describe Microdata, 'when run against a full html document containing one itemsc
 				</div>
 			</body></html>
 		'
-		@md = Microdata.new(html)
+		@md = MiDa::Microdata.new(html)
 
 	end
 
@@ -182,7 +181,7 @@ describe Microdata, 'when run against a full html document containing one itemsc
 
 end
 
-describe Microdata, 'when run against a full html document containing one itemscope nested within another' do
+describe MiDa::Microdata, 'when run against a full html document containing one itemscope nested within another' do
 
 	before do
 		html = '
@@ -202,7 +201,7 @@ describe Microdata, 'when run against a full html document containing one itemsc
 			</body></html>
 		'
 
-		@md = Microdata.new(html)
+		@md = MiDa::Microdata.new(html)
 
 	end
 
@@ -223,7 +222,7 @@ describe Microdata, 'when run against a full html document containing one itemsc
 
 end
 
-describe Microdata, 'when run against a full html document containing one itemscope nested within another within another' do
+describe MiDa::Microdata, 'when run against a full html document containing one itemscope nested within another within another' do
 
 	before do
 		html = '
@@ -246,7 +245,7 @@ describe Microdata, 'when run against a full html document containing one itemsc
 			</body></html>
 		'
 
-		@md = Microdata.new(html)
+		@md = MiDa::Microdata.new(html)
 	end
 
 	it_should_behave_like 'one root itemscope'
@@ -278,7 +277,7 @@ describe Microdata, 'when run against a full html document containing one itemsc
 
 end
 
-describe Microdata, 'when run against a full html document containing one itemscope with an itemtype' do
+describe MiDa::Microdata, 'when run against a full html document containing one itemscope with an itemtype' do
 
 	before do
 		html = '
@@ -299,7 +298,7 @@ describe Microdata, 'when run against a full html document containing one itemsc
 			</body></html>
 		'
 
-		@md = Microdata.new(html)
+		@md = MiDa::Microdata.new(html)
 
 	end
 
@@ -339,7 +338,7 @@ describe Microdata, 'when run against a full html document containing one itemsc
 
 end
 
-describe Microdata, 'when run against a full html document containing two non-nested itemscopes with itemtypes' do
+describe MiDa::Microdata, 'when run against a full html document containing two non-nested itemscopes with itemtypes' do
 
 	before do
 		html = '
@@ -359,7 +358,7 @@ describe Microdata, 'when run against a full html document containing two non-ne
 			</body></html>
 		'
 
-		@md = Microdata.new(html)
+		@md = MiDa::Microdata.new(html)
 
 	end
 
@@ -408,7 +407,7 @@ describe Microdata, 'when run against a full html document containing two non-ne
 
 end
 
-describe Microdata, 'when run against a full html document containing one
+describe MiDa::Microdata, 'when run against a full html document containing one
 	itemscope nested within another and the inner block is
 	surrounded with another non itemscope block' do
 
@@ -430,7 +429,7 @@ describe Microdata, 'when run against a full html document containing one
 			</body></html>
 		'
 
-		@md = Microdata.new(html)
+		@md = MiDa::Microdata.new(html)
 	end
 
 	it_should_behave_like 'one root itemscope'
@@ -473,7 +472,7 @@ describe Microdata, 'when run against a full html document containing one
 
 end
 
-describe Microdata, 'when run against a document containing an itemscope
+describe MiDa::Microdata, 'when run against a document containing an itemscope
 	that contains another non-linked itemscope' do
 
 	before do
@@ -494,7 +493,7 @@ describe Microdata, 'when run against a document containing an itemscope
 			</body></html>
 		'
 
-		@md = Microdata.new(html)
+		@md = MiDa::Microdata.new(html)
 	end
 
 	it 'should return the correct number of itemscopes' do
