@@ -1,4 +1,4 @@
-require 'mida'
+require_relative '../../lib/mida'
 
 shared_examples_for 'one root itemscope' do
 	it 'should not match itemscopes with different names' do
@@ -146,8 +146,7 @@ describe MiDa::Microdata, 'when run against a full html document containing one 
 						<meta itemprop="fielda" content="a5482">
 
 						<span itemprop="summary">Delicious, tasty pizza in Eastlake!</span>
-						<span itemprop="description">Romeo serves up traditional wood-fired Neapolitan-style pizza, ' \
-							+'brought to your table promptly and without fuss. An ideal neighborhood pizza joint.</span>
+						<span itemprop="description">This is a very nice pizza place.</span>
 						Rating: <span itemprop="rating">4.5</span>
 					</div>
 				</div>
@@ -168,10 +167,7 @@ describe MiDa::Microdata, 'when run against a full html document containing one 
 				'dtreviewed' => '2009-01-06',
 				'fielda' => 'a5482',
 				'summary' => 'Delicious, tasty pizza in Eastlake!',
-				'description' => 'Romeo serves up traditional wood-fired ' \
-												+'Neapolitan-style pizza, brought to your table ' \
-												+'promptly and without fuss. An ideal neighborhood ' \
-												+'pizza joint.',
+				'description' => 'This is a very nice pizza place.',
 				'rating' => '4.5'
 			}
 		}
@@ -290,8 +286,7 @@ describe MiDa::Microdata, 'when run against a full html document containing one 
 						Reviewed by <span itemprop="reviewer">Ulysses Grant</span> on
 						<time itemprop="dtreviewed" datetime="2009-01-06">Jan 6</time>.
 						<span itemprop="summary">Delicious, tasty pizza in Eastlake!</span>
-						<span itemprop="description">Romeo serves up traditional wood-fired Neapolitan-style pizza, ' \
-							+'brought to your table promptly and without fuss. An ideal neighborhood pizza joint.</span>
+						<span itemprop="description">This is a very nice pizza place.</span>
 						Rating: <span itemprop="rating">4.5</span>
 					</div>
 				</div>
@@ -326,10 +321,7 @@ describe MiDa::Microdata, 'when run against a full html document containing one 
 				'reviewer' => 'Ulysses Grant',
 				'dtreviewed' => '2009-01-06',
 				'summary' => 'Delicious, tasty pizza in Eastlake!',
-				'description'  => 'Romeo serves up traditional wood-fired ' \
-												 +'Neapolitan-style pizza, brought to your table ' \
-												 +'promptly and without fuss. An ideal neighborhood ' \
-												 +'pizza joint.',
+				'description'  => 'This is a very nice pizza place.',
 				'rating' => '4.5'
 			}
 		}
@@ -351,8 +343,8 @@ describe MiDa::Microdata, 'when run against a full html document containing two 
 						Rating: <span itemprop="rating">4.5</span>
 					</div>
 					<div itemscope itemtype="http://data-vocabulary.org/Organization">
-						<span itemprop="name">IBM</span>
-						<span itemprop="url">http://ibm.com</span>
+						<span itemprop="name">An org name</span>
+						<span itemprop="url">http://example.com</span>
 					</div>
 				</div>
 			</body></html>
@@ -397,8 +389,8 @@ describe MiDa::Microdata, 'when run against a full html document containing two 
 		expected_result = {
 			type: 'http://data-vocabulary.org/Organization',
 			properties: {
-				'name' => 'IBM',
-				'url' => 'http://ibm.com'
+				'name' => 'An org name',
+				'url' => 'http://example.com'
 			}
 		}
 		properties = @md.find('http://data-vocabulary.org/Organization').first
