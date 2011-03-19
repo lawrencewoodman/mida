@@ -95,16 +95,15 @@ module MiDa
 			properties = {}
 
 			itemprops.each do |itemprop|
-				property = itemprop.attribute('itemprop').value
-
-				if itemprop.attribute('itemscope').nil?
-					properties[property] = get_property_value(itemprop)
-				else
-					properties[property] = {}
-					properties[property][:type] = get_itemtype(itemprop)
-					properties[property][:properties] = get_properties(itemprop)
+				itemprop.attribute('itemprop').value.split().each do |property|
+					if itemprop.attribute('itemscope').nil?
+						properties[property] = get_property_value(itemprop)
+					else
+						properties[property] = {}
+						properties[property][:type] = get_itemtype(itemprop)
+						properties[property][:properties] = get_properties(itemprop)
+					end
 				end
-
 			end
 
 			(properties.keys == 0) ? nil : properties

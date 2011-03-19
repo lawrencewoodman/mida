@@ -601,7 +601,7 @@ describe MiDa::Microdata, 'when run against a document using an itemprop with mu
 		html = '
 			<html><body>
 				<div itemscope>
-					<span itemprop="favorite-colour favorite-fruit">orange</span>
+					<span itemprop="favourite-colour favourite-fruit">orange</span>
 				</div>
 			</body></html>
 		'
@@ -610,14 +610,13 @@ describe MiDa::Microdata, 'when run against a document using an itemprop with mu
 	end
 
 	it 'should return all the properties from the text with the correct values' do
-		pending("Allow multiple properties to be set from one itemprop")
-		expected_result = {
+		expected_result = [{
 			type: nil,
 			properties: {
 				'favourite-colour' => 'orange',
 				'favourite-fruit' => 'orange'
 			}
-		}
+		}]
 
 		@md.find().should == expected_result
 	end
