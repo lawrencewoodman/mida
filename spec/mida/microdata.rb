@@ -524,5 +524,101 @@ describe MiDa::Microdata, 'when run against a document containing an itemscope
 			end
 		end
 	end
+end
 
+describe MiDa::Microdata, 'when run against a document using itemrefs' do
+
+	before do
+		html = '
+			<html><body>
+				<div itemscope id="amanda" itemref="a b"></div>
+				<p id="a">Name: <span itemprop="name">Amanda</span></p>
+				<div id="b" itemprop="band" itemscope itemref="c"></div>
+				<div id="c">
+					<p>Band: <span itemprop="name">Jazz Band</span></p>
+					<p>Size: <span itemprop="size">12</span> players</p>
+				</div>
+			</body></html>
+		'
+
+		@md = MiDa::Microdata.new(html)
+	end
+
+	it 'should return all the properties from the text with the correct values' do
+		pending("recognize the itemref attribute")
+		expected_result = {
+			type: nil,
+			properties: {
+				'name' => 'Amanda',
+				'band' => {
+					type: nil,
+					properties: {
+						'name' => 'Jazz Band',
+						'size' => '12'
+					}
+				}
+			}
+		}
+
+		@md.find().should == expected_result
+	end
+end
+
+describe MiDa::Microdata, 'when run against a document using itemprops with the same name' do
+
+	before do
+		html = '
+			<html><body>
+				<div itemscope>
+					<p>Flavors in my favorite ice cream:</p>
+					<ul>
+						<li itemprop="flavor">Lemon sorbet</li>
+						<li itemprop="flavor">Apricot sorbet</li>
+					</ul>
+				</div>
+			</body></html>
+		'
+
+		@md = MiDa::Microdata.new(html)
+	end
+
+	it 'should return all the properties from the text with the correct values' do
+		pending("Allow multiple itemprops with the same name ")
+		expected_result = {
+			type: nil,
+			properties: {
+				'flavour' => ['Lemon sorbet', 'Apricot sorbet']
+			}
+		}
+
+		@md.find().should == expected_result
+	end
+end
+
+describe MiDa::Microdata, 'when run against a document using an itemprop with multiple properties' do
+
+	before do
+		html = '
+			<html><body>
+				<div itemscope>
+					<span itemprop="favorite-colour favorite-fruit">orange</span>
+				</div>
+			</body></html>
+		'
+
+		@md = MiDa::Microdata.new(html)
+	end
+
+	it 'should return all the properties from the text with the correct values' do
+		pending("Allow multiple properties to be set from one itemprop")
+		expected_result = {
+			type: nil,
+			properties: {
+				'favourite-colour' => 'orange',
+				'favourite-fruit' => 'orange'
+			}
+		}
+
+		@md.find().should == expected_result
+	end
 end
