@@ -12,7 +12,9 @@ spec = Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.required_ruby_version = '>=1.9'
   s.files       = Dir['lib/**/*.rb'] + Dir['spec/**/*.rb'] + Dir['*.md'] + Dir['Rakefile']
-  s.has_rdoc    = false
+  s.has_rdoc    = true
+  s.extra_rdoc_files = ['README.md', 'LICENSE.md']
+  s.rdoc_options = '--main README.md'
   s.add_dependency('nokogiri')
   s.add_development_dependency('rspec')
 end

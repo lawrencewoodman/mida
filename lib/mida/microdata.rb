@@ -1,17 +1,26 @@
 require 'nokogiri'
 require 'uri'
 
+# MiDa is a Microdata parser and extractor.
 module MiDa
+
+  # Class that holds the extracted Microdata
   class Microdata
 
-    attr_reader :itemscopes
-
+    # Create a new Microdata object
+    #
+    # [target] The string containing the html that you want to parse
+    # [page_url] The url of target used for form absolute urls
     def initialize(target, page_url=nil)
       @doc = Nokogiri(target)
       @page_url = page_url
       @itemscopes = get_itemscopes(@doc)
     end
 
+    # Returns the found vocabularies/itemscopes as an array of hashes
+    #
+    # [vocabulary] If passed restricts the vocabularies to only ones that match
+    #              or are being used as a property of one that matches
     def find(vocabulary=nil)
       itemscopes = vocabulary.nil? ? @itemscopes : filter_vocabularies(@itemscopes, vocabulary)
       itemscopes.empty? ? nil : itemscopes
@@ -20,11 +29,11 @@ module MiDa
   private
 
     NON_TEXTCONTENT_ELEMENTS = {
-      'a' => 'href',     'area' => 'href',
-      'audio' => 'src',  'embed' => 'src',
-      'iframe' => 'src', 'img' => 'src',
-      'link' => 'href',  'meta' => 'content',
-      'object' => 'data', 'source' => 'src',
+      'a' => 'href',        'area' => 'href',
+      'audio' => 'src',     'embed' => 'src',
+      'iframe' => 'src',    'img' => 'src',
+      'link' => 'href',     'meta' => 'content',
+      'object' => 'data',   'source' => 'src',
       'time' => 'datetime', 'track' => 'src',
       'video' => 'src'
     }
@@ -32,24 +41,18 @@ module MiDa
     URL_ATTRIBUTES = ['data', 'href', 'src']
 
     def get_itemtype(itemscope)
-      return nil unless itemscope.attribute('itemtype')
-      itemscope.attribute('itemtype').value
+      if (type = itemscope.attribute('itemtype')) then type.value else nil end
     end
 
     def get_itemscopes(doc)
       itemscopes_doc = doc.search('//*[@itemscope and not(@itemprop)]')
-
       return nil if itemscopes_doc.nil?
 
-      itemscopes = []
-      itemscopes_doc.each do |itemscope_doc|
-        itemscope = {}
-        itemscope[:type] = get_itemtype(itemscope_doc)
-        itemscope[:properties] = get_properties(itemscope_doc)
-        itemscopes << itemscope
+      itemscopes_doc.collect do |itemscope_doc|
+        Hash[:type, get_itemtype(itemscope_doc),
+             :properties, get_properties(itemscope_doc)
+        ]
       end
-
-      itemscopes
     end
 
     def get_itemprops(itemscope)
@@ -89,6 +92,16 @@ module MiDa
       end
     end
 
+    def get_property(itemprop)
+      if itemprop.attribute('itemscope').nil?
+        get_property_value(itemprop)
+      else
+        Hash[:type, get_itemtype(itemprop),
+             :properties, get_properties(itemprop)
+        ]
+      end
+    end
+
     def get_properties(itemscope)
       itemprops = get_itemprops(itemscope)
       return nil if itemprops.nil?
@@ -96,33 +109,30 @@ module MiDa
 
       itemprops.each do |itemprop|
         itemprop.attribute('itemprop').value.split().each do |property|
-          if itemprop.attribute('itemscope').nil?
-            properties[property] = get_property_value(itemprop)
-          else
-            properties[property] = {}
-            properties[property][:type] = get_itemtype(itemprop)
-            properties[property][:properties] = get_properties(itemprop)
-          end
+          properties[property] = get_property(itemprop)
         end
       end
 
-      (properties.keys == 0) ? nil : properties
+      (properties.empty?) ? nil : properties
     end
 
     def filter_vocabularies(itemscopes, vocabulary)
-      itemscope_vocabularies = []
+      itemscope_vocabs = []
 
       itemscopes.each do |itemscope|
-        itemscope_vocabularies << itemscope unless itemscope[:type] != vocabulary
+        if itemscope[:type] == vocabulary
+          itemscope_vocabs << itemscope
+        end
 
         itemscope[:properties].each do |property|
-          if property[1].is_a?(Hash)
-            itemscope_vocabularies += filter_vocabularies([property[1]], vocabulary)
+          if (value = property[1]).is_a?(Hash)
+            itemscope_vocabs += filter_vocabularies([value], vocabulary)
           end
         end
       end
 
-      itemscope_vocabularies
+      itemscope_vocabs
     end
+
   end
 end
