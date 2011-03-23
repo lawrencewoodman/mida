@@ -564,16 +564,20 @@ describe MiDa::Microdata, 'when run against a document using itemrefs' do
   end
 end
 
-describe MiDa::Microdata, 'when run against a document using itemprops with the same name' do
+describe MiDa::Microdata, 'when run against a document using multiple itemprops with the same name' do
 
   before do
     html = '
       <html><body>
-        <div itemscope>
-          <p>Flavors in my favorite ice cream:</p>
+        <div itemscope itemtype="icecreams">
+          <p>Flavours in my favourite ice cream:</p>
           <ul>
-            <li itemprop="flavor">Lemon sorbet</li>
-            <li itemprop="flavor">Apricot sorbet</li>
+            <li itemprop="flavour">Lemon sorbet</li>
+            <li itemprop="flavour">Apricot sorbet</li>
+            <li itemprop="flavour" itemscope itemtype="icecream-type">
+              <span itemprop="fruit">Strawberry</span>
+              <span itemprop="style">Homemade</span>
+            </li>
           </ul>
         </div>
       </body></html>
@@ -582,14 +586,33 @@ describe MiDa::Microdata, 'when run against a document using itemprops with the 
     @md = MiDa::Microdata.new(html)
   end
 
+  it_should_behave_like 'one root itemscope'
+
+  it 'should return the correct number of itemscopes' do
+    vocabularies = [
+      nil,
+      'icecreams',
+      'icecream-type'
+    ]
+    vocabularies.each {|vocabulary| @md.find(vocabulary).size.should == 1}
+  end
+
   it 'should return all the properties from the text with the correct values' do
-    pending("Allow multiple itemprops with the same name ")
-    expected_result = {
-      type: nil,
+    expected_result = [{
+      type: 'icecreams',
       properties: {
-        'flavour' => ['Lemon sorbet', 'Apricot sorbet']
+        'flavour' => [
+          'Lemon sorbet',
+          'Apricot sorbet',
+          { type: 'icecream-type',
+            properties: {
+              'fruit' => 'Strawberry',
+              'style' => 'Homemade'
+            }
+          }
+        ]
       }
-    }
+    }]
 
     @md.find().should == expected_result
   end

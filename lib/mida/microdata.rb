@@ -102,6 +102,15 @@ module MiDa
       end
     end
 
+    def update_property(current_property, itemprop)
+      new_property = get_property(itemprop)
+      if current_property.is_a?(Array)
+        current_property << new_property
+      else
+        current_property = [current_property, new_property]
+      end
+    end
+
     def get_properties(itemscope)
       itemprops = get_itemprops(itemscope)
       return nil if itemprops.nil?
@@ -109,7 +118,12 @@ module MiDa
 
       itemprops.each do |itemprop|
         itemprop.attribute('itemprop').value.split().each do |property|
-          properties[property] = get_property(itemprop)
+          properties[property] =
+          if properties.has_key?(property)
+            update_property(properties[property], itemprop)
+          else
+            get_property(itemprop)
+          end
         end
       end
 
@@ -127,6 +141,12 @@ module MiDa
         itemscope[:properties].each do |property|
           if (value = property[1]).is_a?(Hash)
             itemscope_vocabs += filter_vocabularies([value], vocabulary)
+          elsif value.is_a?(Array)
+            value.each do |v|
+              if v.is_a?(Hash)
+                itemscope_vocabs += filter_vocabularies([v], vocabulary)
+              end
+            end
           end
         end
       end

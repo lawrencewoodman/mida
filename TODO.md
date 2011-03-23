@@ -7,3 +7,5 @@ Todo List
 * Look at proper spec at: http://www.w3.org/TR/microdata/
 * Put nested itemscopes, that are not a property of its parent into the parents hash using [:nested]
 * Allow vocabulary to use a regex
+* Decide if all property values should be arrays regardless of whether they contain multiple values.
+  This is to aid consistency and reduce unexpected suprises for calling methods.
