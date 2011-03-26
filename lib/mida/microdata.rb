@@ -1,7 +1,5 @@
 require 'nokogiri'
-require 'uri'
 
-# MiDa is a Microdata parser and extractor.
 module MiDa
 
   # Class that holds the extracted Microdata
@@ -27,132 +25,39 @@ module MiDa
     end
 
   private
-
-    NON_TEXTCONTENT_ELEMENTS = {
-      'a' => 'href',        'area' => 'href',
-      'audio' => 'src',     'embed' => 'src',
-      'iframe' => 'src',    'img' => 'src',
-      'link' => 'href',     'meta' => 'content',
-      'object' => 'data',   'source' => 'src',
-      'time' => 'datetime', 'track' => 'src',
-      'video' => 'src'
-    }
-
-    URL_ATTRIBUTES = ['data', 'href', 'src']
-
-    def get_itemtype(itemscope)
-      if (type = itemscope.attribute('itemtype')) then type.value else nil end
-    end
-
     def get_itemscopes(doc)
       itemscopes_doc = doc.search('//*[@itemscope and not(@itemprop)]')
-      return nil if itemscopes_doc.nil?
+      return nil unless itemscopes_doc
 
       itemscopes_doc.collect do |itemscope_doc|
-        Hash[:type, get_itemtype(itemscope_doc),
-             :properties, get_properties(itemscope_doc)
-        ]
+        Item.new(itemscope_doc, @page_url)
       end
     end
 
-    def get_itemprops(itemscope)
-      tags = itemscope.search('./*')
-      itemprops = []
+    def filter_vocabularies(vocabularies, vocabulary_filter)
+      return_vocabs = []
 
-      tags.each do |tag|
-        if tag.attribute('itemprop').nil?
-          itemprops += get_itemprops(tag)
-        else
-          itemprops << tag
-        end
-      end
-
-      itemprops
-    end
-
-    # This returns an empty string if can't form a valid
-    # absolute url as per the Microdata spec.
-    def make_absolute_url(url)
-      return url unless URI.parse(url).relative?
-      begin
-        URI.parse(@page_url).merge(url).to_s
-      rescue URI::Error
-        ''
-      end
-    end
-
-    def get_property_value(itemprop)
-      element = itemprop.name
-      if NON_TEXTCONTENT_ELEMENTS.has_key?(element)
-        attribute = NON_TEXTCONTENT_ELEMENTS[element]
-        value = itemprop.attribute(attribute).value
-        (URL_ATTRIBUTES.include?(attribute)) ? make_absolute_url(value) : value
-      else
-        itemprop.inner_text
-      end
-    end
-
-    def get_property(itemprop)
-      if itemprop.attribute('itemscope').nil?
-        get_property_value(itemprop)
-      else
-        Hash[:type, get_itemtype(itemprop),
-             :properties, get_properties(itemprop)
-        ]
-      end
-    end
-
-    def update_property(current_property, itemprop)
-      new_property = get_property(itemprop)
-      if current_property.is_a?(Array)
-        current_property << new_property
-      else
-        current_property = [current_property, new_property]
-      end
-    end
-
-    def get_properties(itemscope)
-      itemprops = get_itemprops(itemscope)
-      return nil if itemprops.nil?
-      properties = {}
-
-      itemprops.each do |itemprop|
-        itemprop.attribute('itemprop').value.split().each do |property|
-          properties[property] =
-          if properties.has_key?(property)
-            update_property(properties[property], itemprop)
-          else
-            get_property(itemprop)
-          end
-        end
-      end
-
-      (properties.empty?) ? nil : properties
-    end
-
-    def filter_vocabularies(itemscopes, vocabulary)
-      itemscope_vocabs = []
-
-      itemscopes.each do |itemscope|
-        if itemscope[:type] == vocabulary
-          itemscope_vocabs << itemscope
+      vocabularies.each do |vocabulary|
+        if vocabulary.type == vocabulary_filter
+          return_vocabs << vocabulary
         end
 
-        itemscope[:properties].each do |property|
-          if (value = property[1]).is_a?(Hash)
-            itemscope_vocabs += filter_vocabularies([value], vocabulary)
+        vocabulary.properties.each do |property, value|
+          if value.is_a?(MiDa::Item)
+            return_vocabs += filter_vocabularies([value], vocabulary_filter)
           elsif value.is_a?(Array)
-            value.each do |v|
-              if v.is_a?(Hash)
-                itemscope_vocabs += filter_vocabularies([v], vocabulary)
+            value.each do |element|
+              if element.is_a?(MiDa::Item)
+                return_vocabs += filter_vocabularies([element], vocabulary_filter)
               end
             end
           end
         end
       end
 
-      itemscope_vocabs
+      return_vocabs
     end
 
   end
+
 end

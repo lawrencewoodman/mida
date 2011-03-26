@@ -1,5 +1,44 @@
 require_relative '../../lib/mida'
 
+def match_expected_results(md, vocabulary, expected_results)
+  item_matches(md.find(vocabulary), expected_results)
+end
+
+def property_matches(property, expect_property)
+  case
+  when property.is_a?(MiDa::Item) then
+    item_matches([property], [expect_property])
+  when property.is_a?(Array) then
+    property_array_matches(property, expect_property)
+  else
+    property.should == expect_property
+  end
+end
+
+def property_array_matches(prop_array, expect_array)
+  prop_array.each_with_index do |property,i|
+    property_matches(property, expect_array[i])
+  end
+end
+
+def properties_match(properties, expect_properties)
+  properties.each do |property,value|
+    property_matches(value, expect_properties[property])
+  end
+end
+
+def item_matches(items, expected_results)
+  expected_results.each_with_index do |expected_result,i|
+    items[i].type.should == expected_result[:type]
+
+    if (items[i].properties.is_a?(MiDa::Item))
+      item_matches([items[i].properties], expected_result)
+    else
+      properties_match(items[i].properties, expected_result[:properties])
+    end
+  end
+end
+
 shared_examples_for 'one root itemscope' do
   it 'should not match itemscopes with different names' do
     @md.find('nothing').should == nil
@@ -67,7 +106,7 @@ describe MiDa::Microdata, 'when run with a document containing textContent and n
     end
 
     it 'should return all the properties and types with the correct values' do
-      expected_result = [
+      expected_results = [
         { type: nil, properties: {'link_field' => ''} },
         { type: nil,
           properties: {
@@ -91,7 +130,8 @@ describe MiDa::Microdata, 'when run with a document containing textContent and n
         }
       ]
 
-      @md.find().should == expected_result
+      match_expected_results(@md, nil, expected_results)
+
     end
   end
 
@@ -101,7 +141,7 @@ describe MiDa::Microdata, 'when run with a document containing textContent and n
     end
 
     it 'should return all the properties and types with the correct values' do
-      expected_result = [
+      expected_results = [
         { type: nil, properties: {'link_field' => 'http://example.com/start/stylesheet.css'} },
         { type: nil,
           properties: {
@@ -125,7 +165,7 @@ describe MiDa::Microdata, 'when run with a document containing textContent and n
         }
       ]
 
-      @md.find().should == expected_result
+      match_expected_results(@md, nil, expected_results)
     end
   end
 
@@ -159,7 +199,7 @@ describe MiDa::Microdata, 'when run against a full html document containing one 
   it_should_behave_like 'one root itemscope'
 
   it 'should return all the properties and types with the correct values' do
-    expected_result = {
+    expected_results = [{
       type: nil,
       properties: {
         'itemreviewed' => 'Romeo Pizza',
@@ -170,9 +210,9 @@ describe MiDa::Microdata, 'when run against a full html document containing one 
         'description' => 'This is a very nice pizza place.',
         'rating' => '4.5'
       }
-    }
+    }]
 
-    @md.find().first.should == expected_result
+    match_expected_results(@md, nil, expected_results)
   end
 
 end
@@ -204,16 +244,16 @@ describe MiDa::Microdata, 'when run against a full html document containing one 
   it_should_behave_like 'one root itemscope'
 
   it 'should return all the properties and types with the correct values' do
-    expected_result = {
+    expected_results = [{
       type: nil,
       properties: {
         'itemreviewed' => 'Romeo Pizza',
         'address' => { type: nil, properties: {'firstline' => '237 Italian Way', 'country' => 'United Kingdom' } },
         'rating' => '4.5'
       }
-    }
+    }]
 
-    @md.find().first.should == expected_result
+    match_expected_results(@md, nil, expected_results)
   end
 
 end
@@ -247,7 +287,7 @@ describe MiDa::Microdata, 'when run against a full html document containing one 
   it_should_behave_like 'one root itemscope'
 
   it 'should return all the properties and types with the correct values' do
-    expected_result = {
+    expected_results = [{
       type: nil,
       properties: {
         'itemreviewed' => 'Romeo Pizza',
@@ -266,9 +306,9 @@ describe MiDa::Microdata, 'when run against a full html document containing one 
         },
         'rating' => '4.5'
       }
-    }
+    }]
 
-    @md.find().first.should == expected_result
+    match_expected_results(@md, nil, expected_results)
   end
 
 end
@@ -309,12 +349,12 @@ describe MiDa::Microdata, 'when run against a full html document containing one 
       'http://data-vocabulary.org/Review'
     ]
     vocabularies.each do |vocabulary|
-      @md.find(vocabulary).first[:type].should == 'http://data-vocabulary.org/Review'
+      @md.find(vocabulary).first.type.should == 'http://data-vocabulary.org/Review'
     end
   end
 
   it 'should return all the properties and types with the correct values' do
-    expected_result = {
+    expected_results = [{
       type: 'http://data-vocabulary.org/Review',
       properties: {
         'itemreviewed' => 'Romeo Pizza',
@@ -324,8 +364,8 @@ describe MiDa::Microdata, 'when run against a full html document containing one 
         'description'  => 'This is a very nice pizza place.',
         'rating' => '4.5'
       }
-    }
-    @md.find().first.should == expected_result
+    }]
+    match_expected_results(@md, nil, expected_results)
   end
 
 end
@@ -364,8 +404,8 @@ describe MiDa::Microdata, 'when run against a full html document containing two 
       'http://data-vocabulary.org/Organization' => 0
     }
 
-    @md.find().each do |itemscope|
-      itemscope_names[itemscope[:type]] += 1
+    @md.find().each do |vocabulary|
+      itemscope_names[vocabulary.type] += 1
     end
 
     itemscope_names.size.should eq 2
@@ -374,27 +414,25 @@ describe MiDa::Microdata, 'when run against a full html document containing two 
 
 
   it 'should return all the properties and types with the correct values for 1st itemscope' do
-    expected_result = {
+    expected_results = [{
       type: 'http://data-vocabulary.org/Review',
       properties: {
         'itemreviewed' => 'Romeo Pizza',
         'rating' => '4.5'
       }
-    }
-    properties = @md.find('http://data-vocabulary.org/Review').first
-    properties.should == expected_result
+    }]
+    match_expected_results(@md, 'http://data-vocabulary.org/Review', expected_results)
   end
 
   it 'should return all the properties from the text for 2nd itemscope' do
-    expected_result = {
+    expected_results = [{
       type: 'http://data-vocabulary.org/Organization',
       properties: {
         'name' => 'An org name',
         'url' => 'http://example.com'
       }
-    }
-    properties = @md.find('http://data-vocabulary.org/Organization').first
-    properties.should == expected_result
+    }]
+    match_expected_results(@md, 'http://data-vocabulary.org/Organization', expected_results)
   end
 
 end
@@ -437,7 +475,7 @@ describe MiDa::Microdata, 'when run against a full html document containing one
 
   context "when no vocabulary specified or looking at the outer vocabulary" do
     it 'should return all the properties from the text with the correct values' do
-      expected_result = {
+      expected_results = [{
         type: 'http://data-vocabulary.org/Product',
         properties: {
           'name' => 'DC07',
@@ -450,14 +488,14 @@ describe MiDa::Microdata, 'when run against a full html document containing one
             }
           }
         }
-      }
+      }]
 
       vocabularies = [
         nil,
         'http://data-vocabulary.org/Product',
       ]
       vocabularies.each do |vocabulary|
-        @md.find(vocabulary).first.should == expected_result
+        match_expected_results(@md, vocabulary, expected_results)
       end
     end
   end
@@ -598,7 +636,7 @@ describe MiDa::Microdata, 'when run against a document using multiple itemprops 
   end
 
   it 'should return all the properties from the text with the correct values' do
-    expected_result = [{
+    expected_results = [{
       type: 'icecreams',
       properties: {
         'flavour' => [
@@ -614,7 +652,7 @@ describe MiDa::Microdata, 'when run against a document using multiple itemprops 
       }
     }]
 
-    @md.find().should == expected_result
+    match_expected_results(@md, nil, expected_results)
   end
 end
 
@@ -633,7 +671,7 @@ describe MiDa::Microdata, 'when run against a document using an itemprop with mu
   end
 
   it 'should return all the properties from the text with the correct values' do
-    expected_result = [{
+    expected_results = [{
       type: nil,
       properties: {
         'favourite-colour' => 'orange',
@@ -641,6 +679,6 @@ describe MiDa::Microdata, 'when run against a document using an itemprop with mu
       }
     }]
 
-    @md.find().should == expected_result
+    match_expected_results(@md, nil, expected_results)
   end
 end
