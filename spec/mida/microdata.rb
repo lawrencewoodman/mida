@@ -1,7 +1,7 @@
 require_relative '../../lib/mida'
 
 def test_parsing(md, vocabulary, expected_results)
-  items = md.find(vocabulary)
+  items = md.search(vocabulary)
   expected_results.each_with_index do |expected_result,i|
     item = items[i]
     test_to_h(item, expected_result)
@@ -38,15 +38,11 @@ end
 
 shared_examples_for 'one root itemscope' do
   it 'should not match itemscopes with different names' do
-    @md.find('nothing').size.should == 0
-  end
-
-  it 'should match any itemscope if no vocabulary specified' do
-    @md.find().should_not == nil
+    @md.search(%r{nothing}).size.should == 0
   end
 
   it 'should find the correct number of itemscopes' do
-    @md.find().size.should == 1
+    @md.items.size.should == 1
   end
 end
 
@@ -127,7 +123,7 @@ describe MiDa::Microdata, 'when run with a document containing textContent and n
         }
       ]
 
-      test_parsing(@md, nil, expected_results)
+      test_parsing(@md, %r{}, expected_results)
 
     end
   end
@@ -162,7 +158,7 @@ describe MiDa::Microdata, 'when run with a document containing textContent and n
         }
       ]
 
-      test_parsing(@md, nil, expected_results)
+      test_parsing(@md, %r{}, expected_results)
     end
   end
 
@@ -209,7 +205,7 @@ describe MiDa::Microdata, 'when run against a full html document containing one 
       }
     }]
 
-    test_parsing(@md, nil, expected_results)
+    test_parsing(@md, %r{}, expected_results)
   end
 
 end
@@ -250,7 +246,7 @@ describe MiDa::Microdata, 'when run against a full html document containing one 
       }
     }]
 
-    test_parsing(@md, nil, expected_results)
+    test_parsing(@md, %r{}, expected_results)
   end
 
 end
@@ -305,7 +301,7 @@ describe MiDa::Microdata, 'when run against a full html document containing one 
       }
     }]
 
-    test_parsing(@md, nil, expected_results)
+    test_parsing(@md, %r{^$}, expected_results)
   end
 
 end
@@ -337,17 +333,11 @@ describe MiDa::Microdata, 'when run against a full html document containing one 
   it_should_behave_like 'one root itemscope'
 
   it 'should find the correct number of itemscopes if outer specified' do
-    @md.find('http://data-vocabulary.org/Review').size.should == 1
+    @md.search(%r{http://data-vocabulary.org/Review}).size.should == 1
   end
 
   it 'should specify the correct type' do
-    vocabularies = [
-      nil,
-      'http://data-vocabulary.org/Review'
-    ]
-    vocabularies.each do |vocabulary|
-      @md.find(vocabulary).first.type.should == 'http://data-vocabulary.org/Review'
-    end
+    @md.search(%r{http://data-vocabulary.org/Review}).first.type.should == 'http://data-vocabulary.org/Review'
   end
 
   it 'should return all the properties and types with the correct values' do
@@ -362,7 +352,7 @@ describe MiDa::Microdata, 'when run against a full html document containing one 
         'rating' => '4.5'
       }
     }]
-    test_parsing(@md, nil, expected_results)
+    test_parsing(@md, %r{http://data-vocabulary.org/Review}, expected_results)
   end
 
 end
@@ -391,8 +381,8 @@ describe MiDa::Microdata, 'when run against a full html document containing two 
 
   end
 
-  it 'should return all the itemscopes if none specified' do
-    @md.find().size.should == 2
+  it 'should return all the itemscopes' do
+    @md.items.size.should == 2
   end
 
   it 'should give the type of each itemscope if none specified' do
@@ -401,8 +391,8 @@ describe MiDa::Microdata, 'when run against a full html document containing two 
       'http://data-vocabulary.org/Organization' => 0
     }
 
-    @md.find().each do |vocabulary|
-      itemscope_names[vocabulary.type] += 1
+    @md.items.each do |item|
+      itemscope_names[item.type] += 1
     end
 
     itemscope_names.size.should eq 2
@@ -418,7 +408,7 @@ describe MiDa::Microdata, 'when run against a full html document containing two 
         'rating' => '4.5'
       }
     }]
-    test_parsing(@md, 'http://data-vocabulary.org/Review', expected_results)
+    test_parsing(@md, %r{http://data-vocabulary.org/Review}, expected_results)
   end
 
   it 'should return all the properties from the text for 2nd itemscope' do
@@ -429,7 +419,7 @@ describe MiDa::Microdata, 'when run against a full html document containing two 
         'url' => 'http://example.com'
       }
     }]
-    test_parsing(@md, 'http://data-vocabulary.org/Organization', expected_results)
+    test_parsing(@md, %r{http://data-vocabulary.org/Organization}, expected_results)
   end
 
 end
@@ -463,14 +453,13 @@ describe MiDa::Microdata, 'when run against a full html document containing one
 
   it 'should return the correct number of itemscopes' do
     vocabularies = [
-      nil,
-      'http://data-vocabulary.org/Product',
-      'http://data-vocabulary.org/Review-aggregate'
+      %r{http://data-vocabulary.org/Product},
+      %r{http://data-vocabulary.org/Review-aggregate}
     ]
-    vocabularies.each {|vocabulary| @md.find(vocabulary).size.should == 1}
+    vocabularies.each {|vocabulary| @md.search(vocabulary).size.should == 1}
   end
 
-  context "when no vocabulary specified or looking at the outer vocabulary" do
+  context "when looking at the outer vocabulary" do
     it 'should return all the properties from the text with the correct values' do
       expected_results = [{
         type: 'http://data-vocabulary.org/Product',
@@ -487,13 +476,7 @@ describe MiDa::Microdata, 'when run against a full html document containing one
         }
       }]
 
-      vocabularies = [
-        nil,
-        'http://data-vocabulary.org/Product',
-      ]
-      vocabularies.each do |vocabulary|
-        test_parsing(@md, vocabulary, expected_results)
-      end
+      test_parsing(@md, %r{http://data-vocabulary.org/Product}, expected_results)
     end
   end
 
@@ -523,13 +506,17 @@ describe MiDa::Microdata, 'when run against a document containing an itemscope
     @md = MiDa::Microdata.new(html)
   end
 
-  it 'should return the correct number of itemscopes' do
+  it 'should return the correct number of itemscopes when search used' do
     vocabularies = {
-      nil => 2,
-      'http://data-vocabulary.org/Product' => 1,
-      'http://data-vocabulary.org/Review-aggregate' => 1
+      %r{} => 2,
+      %r{http://data-vocabulary.org/Product} => 1,
+      %r{http://data-vocabulary.org/Review-aggregate} => 1
     }
-    vocabularies.each {|vocabulary, num| @md.find(vocabulary).size.should == num}
+    vocabularies.each {|vocabulary, num| @md.search(vocabulary).size.should == num}
+  end
+
+  it 'should return the correct number of items' do
+    @md.items.size.should == 2
   end
 
   context "when no vocabulary specified or looking at the outer vocabulary" do
@@ -550,13 +537,7 @@ describe MiDa::Microdata, 'when run against a document containing an itemscope
         }
       }
 
-      vocabularies = [
-        nil,
-        'http://data-vocabulary.org/Product',
-      ]
-      vocabularies.each do |vocabulary|
-        @md.find(vocabulary).first.should == expected_result
-      end
+      @md.search('http://data-vocabulary.org/Product').first.should == expected_result
     end
   end
 end
@@ -595,7 +576,7 @@ describe MiDa::Microdata, 'when run against a document using itemrefs' do
       }
     }
 
-    @md.find().should == expected_result
+    @md.items.should == expected_result
   end
 end
 
@@ -625,11 +606,10 @@ describe MiDa::Microdata, 'when run against a document using multiple itemprops 
 
   it 'should return the correct number of itemscopes' do
     vocabularies = [
-      nil,
-      'icecreams',
-      'icecream-type'
+      %r{icecreams},
+      %r{icecream-type}
     ]
-    vocabularies.each {|vocabulary| @md.find(vocabulary).size.should == 1}
+    vocabularies.each {|vocabulary| @md.search(vocabulary).size.should == 1}
   end
 
   it 'should return all the properties from the text with the correct values' do
@@ -649,7 +629,7 @@ describe MiDa::Microdata, 'when run against a document using multiple itemprops 
       }
     }]
 
-    test_parsing(@md, nil, expected_results)
+    test_parsing(@md, %r{icecreams}, expected_results)
   end
 end
 
@@ -676,6 +656,6 @@ describe MiDa::Microdata, 'when run against a document using an itemprop with mu
       }
     }]
 
-    test_parsing(@md, nil, expected_results)
+    test_parsing(@md, %r{}, expected_results)
   end
 end

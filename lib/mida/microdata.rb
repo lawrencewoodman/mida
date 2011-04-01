@@ -5,6 +5,10 @@ module MiDa
   # Class that holds the extracted Microdata
   class Microdata
 
+    # An Array of MiDa::Item objects.  These are all top-level
+    # and hence not properties of other Items
+    attr_reader :items
+
     # Create a new Microdata object
     #
     # [target] The string containing the html that you want to parse
@@ -15,12 +19,33 @@ module MiDa
       @items = get_items(@doc)
     end
 
-    # Returns the matching items an array of MiDa::Item objects
+    # Returns an array of matching MiDa::Item objects
     #
-    # [vocabulary] If passed, restricts the items to only ones that match
-    #              or are being used as a property of one that matches
-    def find(vocabulary=nil)
-      vocabulary.nil? ? @items : filter_vocabularies(@items, vocabulary)
+    # [vocabulary] A regexp to match the item types against
+    def search(vocabulary, items=@items)
+      return_vocabs = []
+
+      items.each do |item|
+        # Allows matching against empty string, otherwise couldn't match
+        # as item.type can be nil
+        if (item.type.nil? && "" =~ vocabulary) || (item.type =~ vocabulary)
+          return_vocabs << item
+        end
+
+        item.properties.each do |name, value|
+          if value.is_a?(MiDa::Item)
+            return_vocabs += search(vocabulary, [value])
+          elsif value.is_a?(Array)
+            value.each do |element|
+              if element.is_a?(MiDa::Item)
+                return_vocabs += search(vocabulary, [element])
+              end
+            end
+          end
+        end
+      end
+
+      return_vocabs
     end
 
   private
@@ -33,29 +58,6 @@ module MiDa
       end
     end
 
-    def filter_vocabularies(items, vocabulary_filter)
-      return_vocabs = []
-
-      items.each do |item|
-        if item.type == vocabulary_filter
-          return_vocabs << item
-        end
-
-        item.properties.each do |name, value|
-          if value.is_a?(MiDa::Item)
-            return_vocabs += filter_vocabularies([value], vocabulary_filter)
-          elsif value.is_a?(Array)
-            value.each do |element|
-              if element.is_a?(MiDa::Item)
-                return_vocabs += filter_vocabularies([element], vocabulary_filter)
-              end
-            end
-          end
-        end
-      end
-
-      return_vocabs
-    end
 
   end
 
