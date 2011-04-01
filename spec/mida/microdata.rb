@@ -1,47 +1,44 @@
 require_relative '../../lib/mida'
 
-def match_expected_results(md, vocabulary, expected_results)
-  item_matches(md.find(vocabulary), expected_results)
-end
-
-def property_matches(property, expect_property)
-  case
-  when property.is_a?(MiDa::Item) then
-    item_matches([property], [expect_property])
-  when property.is_a?(Array) then
-    property_array_matches(property, expect_property)
-  else
-    property.should == expect_property
-  end
-end
-
-def property_array_matches(prop_array, expect_array)
-  prop_array.each_with_index do |property,i|
-    property_matches(property, expect_array[i])
-  end
-end
-
-def properties_match(properties, expect_properties)
-  properties.each do |property,value|
-    property_matches(value, expect_properties[property])
-  end
-end
-
-def item_matches(items, expected_results)
+def test_parsing(md, vocabulary, expected_results)
+  items = md.find(vocabulary)
   expected_results.each_with_index do |expected_result,i|
-    items[i].type.should == expected_result[:type]
+    item = items[i]
+    test_to_h(item, expected_result)
+    test_properties(item, expected_result)
+  end
+end
 
-    if (items[i].properties.is_a?(MiDa::Item))
-      item_matches([items[i].properties], expected_result)
+def test_to_h(item, expected_result)
+  item.to_h.should == expected_result
+end
+
+def test_properties(item, expected_result)
+  item.properties.each do |name, value|
+    case
+    when value.is_a?(Array)
+      match_array(value, expected_result[:properties][name])
+    when value.is_a?(MiDa::Item)
+      test_properties(value, expected_result[:properties][name])
     else
-      properties_match(items[i].properties, expected_result[:properties])
+      value.should == expected_result[:properties][name]
+    end
+  end
+end
+
+def match_array(value_array, expected_results)
+  value_array.each_with_index do |element, i|
+    if element.is_a?(MiDa::Item)
+      test_properties(element, expected_results[i])
+    else
+      element.should == expected_results[i]
     end
   end
 end
 
 shared_examples_for 'one root itemscope' do
   it 'should not match itemscopes with different names' do
-    @md.find('nothing').should == nil
+    @md.find('nothing').size.should == 0
   end
 
   it 'should match any itemscope if no vocabulary specified' do
@@ -130,7 +127,7 @@ describe MiDa::Microdata, 'when run with a document containing textContent and n
         }
       ]
 
-      match_expected_results(@md, nil, expected_results)
+      test_parsing(@md, nil, expected_results)
 
     end
   end
@@ -165,7 +162,7 @@ describe MiDa::Microdata, 'when run with a document containing textContent and n
         }
       ]
 
-      match_expected_results(@md, nil, expected_results)
+      test_parsing(@md, nil, expected_results)
     end
   end
 
@@ -212,7 +209,7 @@ describe MiDa::Microdata, 'when run against a full html document containing one 
       }
     }]
 
-    match_expected_results(@md, nil, expected_results)
+    test_parsing(@md, nil, expected_results)
   end
 
 end
@@ -253,7 +250,7 @@ describe MiDa::Microdata, 'when run against a full html document containing one 
       }
     }]
 
-    match_expected_results(@md, nil, expected_results)
+    test_parsing(@md, nil, expected_results)
   end
 
 end
@@ -308,7 +305,7 @@ describe MiDa::Microdata, 'when run against a full html document containing one 
       }
     }]
 
-    match_expected_results(@md, nil, expected_results)
+    test_parsing(@md, nil, expected_results)
   end
 
 end
@@ -365,7 +362,7 @@ describe MiDa::Microdata, 'when run against a full html document containing one 
         'rating' => '4.5'
       }
     }]
-    match_expected_results(@md, nil, expected_results)
+    test_parsing(@md, nil, expected_results)
   end
 
 end
@@ -421,7 +418,7 @@ describe MiDa::Microdata, 'when run against a full html document containing two 
         'rating' => '4.5'
       }
     }]
-    match_expected_results(@md, 'http://data-vocabulary.org/Review', expected_results)
+    test_parsing(@md, 'http://data-vocabulary.org/Review', expected_results)
   end
 
   it 'should return all the properties from the text for 2nd itemscope' do
@@ -432,7 +429,7 @@ describe MiDa::Microdata, 'when run against a full html document containing two 
         'url' => 'http://example.com'
       }
     }]
-    match_expected_results(@md, 'http://data-vocabulary.org/Organization', expected_results)
+    test_parsing(@md, 'http://data-vocabulary.org/Organization', expected_results)
   end
 
 end
@@ -495,7 +492,7 @@ describe MiDa::Microdata, 'when run against a full html document containing one
         'http://data-vocabulary.org/Product',
       ]
       vocabularies.each do |vocabulary|
-        match_expected_results(@md, vocabulary, expected_results)
+        test_parsing(@md, vocabulary, expected_results)
       end
     end
   end
@@ -652,7 +649,7 @@ describe MiDa::Microdata, 'when run against a document using multiple itemprops 
       }
     }]
 
-    match_expected_results(@md, nil, expected_results)
+    test_parsing(@md, nil, expected_results)
   end
 end
 
@@ -679,6 +676,6 @@ describe MiDa::Microdata, 'when run against a document using an itemprop with mu
       }
     }]
 
-    match_expected_results(@md, nil, expected_results)
+    test_parsing(@md, nil, expected_results)
   end
 end

@@ -12,37 +12,36 @@ module MiDa
     def initialize(target, page_url=nil)
       @doc = Nokogiri(target)
       @page_url = page_url
-      @itemscopes = get_itemscopes(@doc)
+      @items = get_items(@doc)
     end
 
-    # Returns the found vocabularies/itemscopes as an array of hashes
+    # Returns the matching items an array of MiDa::Item objects
     #
-    # [vocabulary] If passed restricts the vocabularies to only ones that match
+    # [vocabulary] If passed, restricts the items to only ones that match
     #              or are being used as a property of one that matches
     def find(vocabulary=nil)
-      itemscopes = vocabulary.nil? ? @itemscopes : filter_vocabularies(@itemscopes, vocabulary)
-      itemscopes.empty? ? nil : itemscopes
+      vocabulary.nil? ? @items : filter_vocabularies(@items, vocabulary)
     end
 
   private
-    def get_itemscopes(doc)
-      itemscopes_doc = doc.search('//*[@itemscope and not(@itemprop)]')
-      return nil unless itemscopes_doc
+    def get_items(doc)
+      items_doc = doc.search('//*[@itemscope and not(@itemprop)]')
+      return nil unless items_doc
 
-      itemscopes_doc.collect do |itemscope_doc|
-        Item.new(itemscope_doc, @page_url)
+      items_doc.collect do |item_doc|
+        Item.new(item_doc, @page_url)
       end
     end
 
-    def filter_vocabularies(vocabularies, vocabulary_filter)
+    def filter_vocabularies(items, vocabulary_filter)
       return_vocabs = []
 
-      vocabularies.each do |vocabulary|
-        if vocabulary.type == vocabulary_filter
-          return_vocabs << vocabulary
+      items.each do |item|
+        if item.type == vocabulary_filter
+          return_vocabs << item
         end
 
-        vocabulary.properties.each do |property, value|
+        item.properties.each do |name, value|
           if value.is_a?(MiDa::Item)
             return_vocabs += filter_vocabularies([value], vocabulary_filter)
           elsif value.is_a?(Array)

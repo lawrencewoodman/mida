@@ -3,26 +3,24 @@ require 'uri'
 
 module MiDa
 
-  # Class that holds each property name/value pair
-  class Property
-    # The Name of the property
-    attr_reader :name
+  # Module that parses itemprop elements
+  module Property
 
-    # The Value of the property
-    attr_reader :value
-
-    # Create a new Property object
-    #
+    # Returns a Hash representing the property.
+    # Hash is of the form {'property name' => 'value'}
     # [property] The name of the property
     # [element] The itemprop element that is parsed to get the values
     # [page_url] The url of target used for form absolute urls
-    def initialize(property, element, page_url=nil)
-      @name = property
+    def self.parse(itemprop, page_url=nil)
       @page_url = page_url
-      @value = get_property(element)
+      hash = {}
+      get_property_names(itemprop).each do |name|
+        hash[name] = get_property(itemprop)
+      end
+
+      hash
     end
 
-  private
     NON_TEXTCONTENT_ELEMENTS = {
       'a' => 'href',        'area' => 'href',
       'audio' => 'src',     'embed' => 'src',
@@ -37,7 +35,7 @@ module MiDa
 
     # This returns an empty string if can't form a valid
     # absolute url as per the Microdata spec.
-    def make_absolute_url(url)
+    def self.make_absolute_url(url)
       return url unless URI.parse(url).relative?
       begin
         URI.parse(@page_url).merge(url).to_s
@@ -46,7 +44,12 @@ module MiDa
       end
     end
 
-    def get_property_value(itemprop)
+    def self.get_property_names(itemprop)
+      itemprop_attr = itemprop.attribute('itemprop')
+      itemprop_attr ? itemprop_attr.value.split() : []
+    end
+
+    def self.get_property_value(itemprop)
       element = itemprop.name
       if NON_TEXTCONTENT_ELEMENTS.has_key?(element)
         attribute = NON_TEXTCONTENT_ELEMENTS[element]
@@ -57,9 +60,9 @@ module MiDa
       end
     end
 
-    def get_property(itemprop)
+    def self.get_property(itemprop)
       if itemprop.attribute('itemscope')
-        Item.new(itemprop, @page_url)
+        MiDa::Item.new(itemprop, @page_url)
       else
         get_property_value(itemprop)
       end

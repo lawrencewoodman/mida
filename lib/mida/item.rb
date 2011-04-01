@@ -7,8 +7,8 @@ module MiDa
     # The Type of the item
     attr_reader :type
 
-    # A Hash containing the properties of the form {'property_name' => 'value', etc}
-    # The values in the hash will be String or Item objects
+    # A Hash representing the properties
+    # {'name' => 'value'}
     attr_reader :properties
 
     # Create a new Item object
@@ -16,62 +16,69 @@ module MiDa
     # [itemscope] The itemscope that you want to parse
     # [page_url] The url of target used for form absolute urls
     def initialize(itemscope, page_url=nil)
+      @page_url = page_url
       @type = MiDa.get_itemtype(itemscope)
       @properties = {}
-      @page_url = page_url
-      add_properties(itemscope)
+      add_properties(get_elements(itemscope))
+    end
+
+    # Return a Hash representation
+    # of the form {type: 'The item type, properties: {'a name' => 'avalue' }}
+    def to_h
+      hash = {type: @type, properties: {}}
+      @properties.each do |name, value|
+        hash[:properties][name] = if value.is_a?(Array)
+          value.collect do |element|
+            to_h_value(element)
+          end
+        else
+          to_h_value(value)
+        end
+      end
+      hash
+    end
+
+    def to_s
+      "type: #{@type}, properties: #{@properties}"
     end
 
   private
-    def add_properties(itemscope)
-      elements = get_elements(itemscope)
-      properties = get_itemprops(elements)
-      return nil unless properties
 
-      properties.each do |property|
-        add_property(property.name, property.value)
-      end
+    # The value as it should appear in to_h()
+    def to_h_value(value)
+      value.is_a?(Item) ? value.to_h : value
     end
 
     def get_elements(itemscope)
       itemscope.search('./*')
     end
 
-    def get_property_names(itemprop)
-      itemprop_attr = itemprop.attribute('itemprop')
-      itemprop_attr ? itemprop_attr.value.split() : []
-    end
-
-    def get_itemprops(elements)
-      properties = []
+    def add_properties(elements)
       elements.each do |element|
         internal_elements = get_elements(element)
         if internal_elements.empty? || element.attribute('itemscope')
-          properties += get_itemprop(element)
+          add_itemprop(element)
         else
-          properties += get_itemprops(internal_elements)
+          add_properties(internal_elements)
         end
-      end
-      properties
-    end
-
-    def get_itemprop(itemprop)
-      get_property_names(itemprop).collect do |property|
-        MiDa::Property.new(property, itemprop, @page_url)
       end
     end
 
-    def add_property(property, value)
-      if @properties.has_key?(property)
-        if @properties[property].is_a?(Array)
-          @properties[property] << value
+    def add_itemprop(itemprop)
+      properties = Property.parse(itemprop, @page_url)
+      properties.each do |name, value|
+        if @properties.has_key?(name)
+          if @properties[name].is_a?(Array)
+            @properties[name] << value
+          else
+            @properties[name] = [@properties[name], value]
+          end
         else
-          @properties[property] = [@properties[property], value]
+          @properties[name] = value
         end
-      else
-        @properties[property] = value
       end
     end
+
   end
 
 end
