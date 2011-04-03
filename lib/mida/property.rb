@@ -9,14 +9,12 @@ module MiDa
     # Returns a Hash representing the property.
     # Hash is of the form {'property name' => 'value'}
     # [element] The itemprop element to be parsed
-    # [page_url] The url of the page used for form absolute urls
+    # [page_url] The url of the page, including the filename, used to form absolute urls
     def self.parse(element, page_url=nil)
-      @page_url = page_url
       hash = {}
       get_property_names(element).each do |name|
-        hash[name] = get_property(element)
+        hash[name] = get_property(element, page_url)
       end
-
       hash
     end
 
@@ -34,10 +32,10 @@ module MiDa
 
     # This returns an empty string if can't form a valid
     # absolute url as per the Microdata spec.
-    def self.make_absolute_url(url)
+    def self.make_absolute_url(url, page_url)
       return url unless URI.parse(url).relative?
       begin
-        URI.parse(@page_url).merge(url).to_s
+        URI.parse(page_url).merge(url).to_s
       rescue URI::Error
         ''
       end
@@ -48,22 +46,22 @@ module MiDa
       itemprop_attr ? itemprop_attr.value.split() : []
     end
 
-    def self.get_property_value(itemprop)
+    def self.get_property_value(itemprop, page_url)
       element = itemprop.name
       if NON_TEXTCONTENT_ELEMENTS.has_key?(element)
         attribute = NON_TEXTCONTENT_ELEMENTS[element]
         value = itemprop.attribute(attribute).value
-        (URL_ATTRIBUTES.include?(attribute)) ? make_absolute_url(value) : value
+        (URL_ATTRIBUTES.include?(attribute)) ? make_absolute_url(value, page_url) : value
       else
         itemprop.inner_text
       end
     end
 
-    def self.get_property(itemprop)
+    def self.get_property(itemprop, page_url)
       if itemprop.attribute('itemscope')
-        MiDa::Item.new(itemprop, @page_url)
+        MiDa::Item.new(itemprop)
       else
-        get_property_value(itemprop)
+        get_property_value(itemprop, page_url)
       end
     end
 

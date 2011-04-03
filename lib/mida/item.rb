@@ -39,7 +39,7 @@ module MiDa
     end
 
     def to_s
-      "type: #{@type}, properties: #{@properties}"
+      {type: @type, properties: @properties}.to_s
     end
 
   private

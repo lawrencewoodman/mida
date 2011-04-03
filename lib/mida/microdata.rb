@@ -12,7 +12,8 @@ module MiDa
     # Create a new Microdata object
     #
     # [target] The string containing the html that you want to parse
-    # [page_url] The url of target used for form absolute urls
+    # [page_url] The url of target used for form absolute urls. This must
+    #            include the filename, e.g. index.html.
     def initialize(target, page_url=nil)
       @doc = Nokogiri(target)
       @page_url = page_url

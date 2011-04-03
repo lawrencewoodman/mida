@@ -1,4 +1,5 @@
-require_relative '../../lib/mida'
+require_relative 'spec_helper'
+require_relative '../lib/mida'
 
 def test_parsing(md, vocabulary, expected_results)
   items = md.search(vocabulary)
