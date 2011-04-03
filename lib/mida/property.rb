@@ -8,14 +8,13 @@ module MiDa
 
     # Returns a Hash representing the property.
     # Hash is of the form {'property name' => 'value'}
-    # [property] The name of the property
-    # [element] The itemprop element that is parsed to get the values
-    # [page_url] The url of target used for form absolute urls
-    def self.parse(itemprop, page_url=nil)
+    # [element] The itemprop element to be parsed
+    # [page_url] The url of the page used for form absolute urls
+    def self.parse(element, page_url=nil)
       @page_url = page_url
       hash = {}
-      get_property_names(itemprop).each do |name|
-        hash[name] = get_property(itemprop)
+      get_property_names(element).each do |name|
+        hash[name] = get_property(element)
       end
 
       hash
