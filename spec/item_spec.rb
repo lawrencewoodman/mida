@@ -14,7 +14,7 @@ describe MiDa::Item, 'when initialized with an itemscope containing just itempro
     before do
       # The surrounding reviewer itemscope element
       itemscope_el = mock_element('div', {'itemprop' => 'reviewer', 'itemscope' => true}, nil, [@fn,@ln])
-      @item = MiDa::Item.new(itemscope_el, "")
+      @item = MiDa::Item.new(itemscope_el)
     end
 
     it '#type should return the correct type' do
@@ -34,7 +34,7 @@ describe MiDa::Item, 'when initialized with an itemscope containing just itempro
     before do
       # The surrounding reviewer itemscope element
       itemscope_el = mock_element('div', {'itemprop' => 'reviewer', 'itemtype' => 'person', 'itemscope' => true}, nil, [@fn,@ln])
-      @item = MiDa::Item.new(itemscope_el, "")
+      @item = MiDa::Item.new(itemscope_el)
     end
 
     it '#type should return the correct type' do
@@ -48,6 +48,18 @@ describe MiDa::Item, 'when initialized with an itemscope containing just itempro
     it '#to_h should return the correct type and properties' do
       @item.to_h.should == {type: 'person', properties: {'first_name' => 'Lorry', 'last_name' => 'Woodman'}}
     end
+  end
+end
+
+describe MiDa::Item, 'when initialized with an itemscope containing an itemprop with a relative url' do
+  before do
+    @url = mock_element('a', {'itemprop' => 'url', 'href' => 'home/lorry'})
+    itemscope_el = mock_element('div', {'itemscope' => true}, nil, [@url])
+    @item = MiDa::Item.new(itemscope_el, "http://example.com")
+  end
+
+  it 'should return the url as an absolute url' do
+    @item.properties['url'].should == 'http://example.com/home/lorry'
   end
 end
 
@@ -67,7 +79,7 @@ describe MiDa::Item, 'when initialized with an itemscope containing itemprops su
                                         'itemtype' => 'person',
                                         'itemscope' => true},
                                 nil, [fn,surround])
-    @item = MiDa::Item.new(itemscope_el, "")
+    @item = MiDa::Item.new(itemscope_el)
   end
 
   it '#type should return the correct type' do
@@ -180,7 +192,7 @@ describe MiDa::Item, 'when initialized with an itemscope containing itemscopes a
     # The surrounding reviewer itemscope
     @review_el = mock_element('div', {'itemtype' => 'review', 'itemscope' => true}, nil, [@item_name, @rating, @reviewer_el])
 
-    @item = MiDa::Item.new(@review_el, "")
+    @item = MiDa::Item.new(@review_el)
 
   end
 
