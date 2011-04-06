@@ -31,6 +31,10 @@ module MiDa
       to_h.to_s
     end
 
+    def ==(other)
+      @type == other.type and @properties == other.properties
+    end
+
   private
 
     # The value as it should appear in to_h()
