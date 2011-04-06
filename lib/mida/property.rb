@@ -59,7 +59,7 @@ module MiDa
 
     def self.get_property(itemprop, page_url)
       if itemprop.attribute('itemscope')
-        MiDa::Item.new(itemprop)
+        MiDa::Item.new(itemprop, page_url)
       else
         get_property_value(itemprop, page_url)
       end

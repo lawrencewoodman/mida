@@ -22,7 +22,7 @@ describe MiDa::Property, 'when parsing an element with one itemprop name' do
   end
 end
 
-describe MiDa::Property, 'when parsing an itemscope element' do
+describe MiDa::Property, 'when parsing an itemscope element that has a relative url' do
   before do
 
     # The first_name element
@@ -31,18 +31,25 @@ describe MiDa::Property, 'when parsing an itemscope element' do
     # The last_name element
     ln = mock_element('span', {'itemprop' => 'last_name'}, 'Woodman')
 
+    # The url.  This is important to check whether the page_url is passed onto Item
+    url = mock_element('a', {'itemprop' => 'url', 'href' => 'home/LorryWoodman'})
+
     # The surrounding reviewer itemscope element
     @itemscope_el = mock_element('div', {'itemprop' => 'reviewer',
                                          'itemtype' => 'person',
-                                         'itemscope' =>true}, nil, [fn,ln])
+                                         'itemscope' =>true}, nil, [fn,ln,url])
   end
 
   it '#parse should return a Hash with the correct name/value pair' do
-    property = MiDa::Property.parse(@itemscope_el)
+    property = MiDa::Property.parse(@itemscope_el, "http://example.com")
     property.size.should == 1
     reviewer = property['reviewer']
     reviewer.type.should == 'person'
-    reviewer.properties.should == {'first_name' => 'Lorry', 'last_name' => 'Woodman'}
+    reviewer.properties.should == {
+      'first_name' => 'Lorry',
+      'last_name' => 'Woodman',
+      'url' => 'http://example.com/home/LorryWoodman'
+    }
   end
 end
 
