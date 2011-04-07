@@ -16,13 +16,15 @@ module MiDa
     # [itemscope] The itemscope that you want to parse
     # [page_url] The url of target used for form absolute urls
     def initialize(itemscope, page_url=nil)
+      @itemscope = itemscope
       @page_url, @type = page_url, MiDa.get_itemtype(itemscope)
       @properties = {}
+      add_itemref_properties
       add_properties(get_elements(itemscope))
     end
 
     # Return a Hash representation
-    # of the form {type: 'The item type, properties: {'a name' => 'avalue' }}
+    # of the form {type: 'The item type', properties: {'a name' => 'avalue' }}
     def to_h
       {type: @type, properties: properties_to_h(@properties)}
     end
@@ -46,10 +48,27 @@ module MiDa
       end
     end
 
+    # Add any properties referred to by 'itemref'
+    def add_itemref_properties
+      itemref = get_itemref()
+      if itemref
+        itemref.split.each {|id| add_properties(find_with_id(id))}
+      end
+    end
+
+    # Find an element with a matching id
+    def find_with_id(id)
+      @itemscope.search("//*[@id='#{id}']")
+    end
+
     def properties_to_h(properties)
       hash = {}
       properties.each { |name, value| hash[name] = value_to_h(value) }
       hash
+    end
+
+    def get_itemref
+      (itemref = @itemscope.attribute('itemref')) ? itemref.value : nil
     end
 
     def get_elements(itemscope)

@@ -15,7 +15,7 @@ end
 def mock_element(tag, attributes={}, inner_text=nil, search_return=[])
   element = mock(Nokogiri::XML::Element)
 
-  ['itemtype', 'itemscope', 'itemprop'].each do |name|
+  ['itemtype', 'itemscope', 'itemprop', 'itemref'].each do |name|
     attributes[name] = nil unless attributes.has_key?(name)
   end
   attributes.each do |name, value|

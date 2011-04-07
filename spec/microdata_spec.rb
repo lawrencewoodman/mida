@@ -548,7 +548,9 @@ describe MiDa::Microdata, 'when run against a document using itemrefs' do
   before do
     html = '
       <html><body>
-        <div itemscope id="amanda" itemref="a b"></div>
+        <div itemscope id="amanda" itemref="a b">
+          <span itemprop="age">30</span>
+        </div>
         <p id="a">Name: <span itemprop="name">Amanda</span></p>
         <div id="b" itemprop="band" itemscope itemref="c"></div>
         <div id="c">
@@ -562,8 +564,7 @@ describe MiDa::Microdata, 'when run against a document using itemrefs' do
   end
 
   it 'should return all the properties from the text with the correct values' do
-    pending("recognize the itemref attribute")
-    expected_result = {
+    expected_results = [{
       type: nil,
       properties: {
         'name' => 'Amanda',
@@ -573,11 +574,12 @@ describe MiDa::Microdata, 'when run against a document using itemrefs' do
             'name' => 'Jazz Band',
             'size' => '12'
           }
-        }
+        },
+        'age' => '30'
       }
-    }
+    }]
 
-    @md.items.should == expected_result
+    test_parsing(@md, %r{}, expected_results)
   end
 end
 
