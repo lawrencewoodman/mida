@@ -24,29 +24,16 @@ module MiDa
     #
     # [vocabulary] A regexp to match the item types against
     def search(vocabulary, items=@items)
-      return_vocabs = []
-
+      found_items = []
       items.each do |item|
         # Allows matching against empty string, otherwise couldn't match
         # as item.type can be nil
         if (item.type.nil? && "" =~ vocabulary) || (item.type =~ vocabulary)
-          return_vocabs << item
+          found_items << item
         end
-
-        item.properties.each do |name, value|
-          if value.is_a?(MiDa::Item)
-            return_vocabs += search(vocabulary, [value])
-          elsif value.is_a?(Array)
-            value.each do |element|
-              if element.is_a?(MiDa::Item)
-                return_vocabs += search(vocabulary, [element])
-              end
-            end
-          end
-        end
+        found_items += search_values(item.properties.values, vocabulary)
       end
-
-      return_vocabs
+      found_items
     end
 
   private
@@ -59,6 +46,15 @@ module MiDa
       end
     end
 
+    def search_values(values, vocabulary)
+      items = []
+      values.each do |value|
+        if value.is_a?(MiDa::Item) then items += search(vocabulary, [value])
+        elsif value.is_a?(Array) then items += search_values(value, vocabulary)
+        end
+      end
+      items
+    end
 
   end
 
