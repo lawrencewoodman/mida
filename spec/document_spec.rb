@@ -19,7 +19,7 @@ def test_properties(item, expected_result)
     case
     when value.is_a?(Array)
       match_array(value, expected_result[:properties][name])
-    when value.is_a?(MiDa::Item)
+    when value.is_a?(Mida::Item)
       test_properties(value, expected_result[:properties][name])
     else
       value.should == expected_result[:properties][name]
@@ -29,7 +29,7 @@ end
 
 def match_array(value_array, expected_results)
   value_array.each_with_index do |element, i|
-    if element.is_a?(MiDa::Item)
+    if element.is_a?(Mida::Item)
       test_properties(element, expected_results[i])
     else
       element.should == expected_results[i]
@@ -47,7 +47,7 @@ shared_examples_for 'one root itemscope' do
   end
 end
 
-describe MiDa::Microdata, 'when run with a document containing textContent and non textContent itemprops' do
+describe Mida::Document, 'when run with a document containing textContent and non textContent itemprops' do
   before do
     @html = '
       <html>
@@ -96,7 +96,7 @@ describe MiDa::Microdata, 'when run with a document containing textContent and n
 
   context 'when not given a page_url' do
     before do
-      @md = MiDa::Microdata.new(@html)
+      @md = Mida::Document.new(@html)
     end
 
     it 'should return all the properties and types with the correct values' do
@@ -131,7 +131,7 @@ describe MiDa::Microdata, 'when run with a document containing textContent and n
 
   context 'when given a page_url' do
     before do
-      @md = MiDa::Microdata.new(@html, 'http://example.com/start/')
+      @md = Mida::Document.new(@html, 'http://example.com/start/')
     end
 
     it 'should return all the properties and types with the correct values' do
@@ -165,7 +165,7 @@ describe MiDa::Microdata, 'when run with a document containing textContent and n
 
 end
 
-describe MiDa::Microdata, 'when run against a full html document containing one itemscope with no itemtype' do
+describe Mida::Document, 'when run against a full html document containing one itemscope with no itemtype' do
 
   before do
     html = '
@@ -186,7 +186,7 @@ describe MiDa::Microdata, 'when run against a full html document containing one 
         </div>
       </body></html>
     '
-    @md = MiDa::Microdata.new(html)
+    @md = Mida::Document.new(html)
 
   end
 
@@ -211,7 +211,7 @@ describe MiDa::Microdata, 'when run against a full html document containing one 
 
 end
 
-describe MiDa::Microdata, 'when run against a full html document containing one itemscope nested within another' do
+describe Mida::Document, 'when run against a full html document containing one itemscope nested within another' do
 
   before do
     html = '
@@ -231,7 +231,7 @@ describe MiDa::Microdata, 'when run against a full html document containing one 
       </body></html>
     '
 
-    @md = MiDa::Microdata.new(html)
+    @md = Mida::Document.new(html)
 
   end
 
@@ -252,7 +252,7 @@ describe MiDa::Microdata, 'when run against a full html document containing one 
 
 end
 
-describe MiDa::Microdata, 'when run against a full html document containing one itemscope nested within another within another' do
+describe Mida::Document, 'when run against a full html document containing one itemscope nested within another within another' do
 
   before do
     html = '
@@ -275,7 +275,7 @@ describe MiDa::Microdata, 'when run against a full html document containing one 
       </body></html>
     '
 
-    @md = MiDa::Microdata.new(html)
+    @md = Mida::Document.new(html)
   end
 
   it_should_behave_like 'one root itemscope'
@@ -307,7 +307,7 @@ describe MiDa::Microdata, 'when run against a full html document containing one 
 
 end
 
-describe MiDa::Microdata, 'when run against a full html document containing one itemscope with an itemtype' do
+describe Mida::Document, 'when run against a full html document containing one itemscope with an itemtype' do
 
   before do
     html = '
@@ -327,7 +327,7 @@ describe MiDa::Microdata, 'when run against a full html document containing one 
       </body></html>
     '
 
-    @md = MiDa::Microdata.new(html)
+    @md = Mida::Document.new(html)
 
   end
 
@@ -358,7 +358,7 @@ describe MiDa::Microdata, 'when run against a full html document containing one 
 
 end
 
-describe MiDa::Microdata, 'when run against a full html document containing two non-nested itemscopes with itemtypes' do
+describe Mida::Document, 'when run against a full html document containing two non-nested itemscopes with itemtypes' do
 
   before do
     html = '
@@ -378,7 +378,7 @@ describe MiDa::Microdata, 'when run against a full html document containing two 
       </body></html>
     '
 
-    @md = MiDa::Microdata.new(html)
+    @md = Mida::Document.new(html)
 
   end
 
@@ -425,7 +425,7 @@ describe MiDa::Microdata, 'when run against a full html document containing two 
 
 end
 
-describe MiDa::Microdata, 'when run against a full html document containing one
+describe Mida::Document, 'when run against a full html document containing one
   itemscope nested within another and the inner block is
   surrounded with another non itemscope block' do
 
@@ -447,7 +447,7 @@ describe MiDa::Microdata, 'when run against a full html document containing one
       </body></html>
     '
 
-    @md = MiDa::Microdata.new(html)
+    @md = Mida::Document.new(html)
   end
 
   it_should_behave_like 'one root itemscope'
@@ -483,7 +483,7 @@ describe MiDa::Microdata, 'when run against a full html document containing one
 
 end
 
-describe MiDa::Microdata, 'when run against a document containing an itemscope
+describe Mida::Document, 'when run against a document containing an itemscope
   that contains another non-linked itemscope' do
 
   before do
@@ -504,7 +504,7 @@ describe MiDa::Microdata, 'when run against a document containing an itemscope
       </body></html>
     '
 
-    @md = MiDa::Microdata.new(html)
+    @md = Mida::Document.new(html)
   end
 
   it 'should return the correct number of itemscopes when search used' do
@@ -543,7 +543,7 @@ describe MiDa::Microdata, 'when run against a document containing an itemscope
   end
 end
 
-describe MiDa::Microdata, 'when run against a document using itemrefs' do
+describe Mida::Document, 'when run against a document using itemrefs' do
 
   before do
     html = '
@@ -560,7 +560,7 @@ describe MiDa::Microdata, 'when run against a document using itemrefs' do
       </body></html>
     '
 
-    @md = MiDa::Microdata.new(html)
+    @md = Mida::Document.new(html)
   end
 
   it 'should return all the properties from the text with the correct values' do
@@ -583,7 +583,7 @@ describe MiDa::Microdata, 'when run against a document using itemrefs' do
   end
 end
 
-describe MiDa::Microdata, 'when run against a document using multiple itemprops with the same name' do
+describe Mida::Document, 'when run against a document using multiple itemprops with the same name' do
 
   before do
     html = '
@@ -602,7 +602,7 @@ describe MiDa::Microdata, 'when run against a document using multiple itemprops 
       </body></html>
     '
 
-    @md = MiDa::Microdata.new(html)
+    @md = Mida::Document.new(html)
   end
 
   it_should_behave_like 'one root itemscope'
@@ -636,7 +636,7 @@ describe MiDa::Microdata, 'when run against a document using multiple itemprops 
   end
 end
 
-describe MiDa::Microdata, 'when run against a document using an itemprop with multiple properties' do
+describe Mida::Document, 'when run against a document using an itemprop with multiple properties' do
 
   before do
     html = '
@@ -647,7 +647,7 @@ describe MiDa::Microdata, 'when run against a document using an itemprop with mu
       </body></html>
     '
 
-    @md = MiDa::Microdata.new(html)
+    @md = Mida::Document.new(html)
   end
 
   it 'should return all the properties from the text with the correct values' do

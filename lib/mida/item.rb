@@ -1,6 +1,6 @@
 require 'nokogiri'
 
-module MiDa
+module Mida
 
   # Class that holds each item/itemscope
   class Item
@@ -17,7 +17,7 @@ module MiDa
     # [page_url] The url of target used for form absolute urls
     def initialize(itemscope, page_url=nil)
       @itemscope = itemscope
-      @page_url, @type = page_url, MiDa.get_itemtype(itemscope)
+      @page_url, @type = page_url, Mida.get_itemtype(itemscope)
       @properties = {}
       add_itemref_properties
       add_properties(get_elements(itemscope))

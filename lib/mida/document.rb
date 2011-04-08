@@ -1,11 +1,11 @@
 require 'nokogiri'
 
-module MiDa
+module Mida
 
   # Class that holds the extracted Microdata
-  class Microdata
+  class Document
 
-    # An Array of MiDa::Item objects.  These are all top-level
+    # An Array of Mida::Item objects.  These are all top-level
     # and hence not properties of other Items
     attr_reader :items
 
@@ -20,7 +20,7 @@ module MiDa
       @items = get_items(@doc)
     end
 
-    # Returns an array of matching MiDa::Item objects
+    # Returns an array of matching Mida::Item objects
     #
     # [vocabulary] A regexp to match the item types against
     def search(vocabulary, items=@items)
@@ -49,7 +49,7 @@ module MiDa
     def search_values(values, vocabulary)
       items = []
       values.each do |value|
-        if value.is_a?(MiDa::Item) then items += search(vocabulary, [value])
+        if value.is_a?(Mida::Item) then items += search(vocabulary, [value])
         elsif value.is_a?(Array) then items += search_values(value, vocabulary)
         end
       end

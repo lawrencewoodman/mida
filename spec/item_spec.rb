@@ -1,7 +1,7 @@
 require_relative 'spec_helper'
 require_relative '../lib/mida'
 
-describe MiDa::Item, 'when initialized with an itemscope containing just itemprops' do
+describe Mida::Item, 'when initialized with an itemscope containing just itemprops' do
   before do
     # The first_name element
     @fn = mock_element('span', {'itemprop' => 'first_name'}, 'Lorry')
@@ -14,7 +14,7 @@ describe MiDa::Item, 'when initialized with an itemscope containing just itempro
     before do
       # The surrounding reviewer itemscope element
       itemscope_el = mock_element('div', {'itemprop' => 'reviewer', 'itemscope' => true}, nil, [@fn,@ln])
-      @item = MiDa::Item.new(itemscope_el)
+      @item = Mida::Item.new(itemscope_el)
     end
 
     it '#type should return the correct type' do
@@ -34,7 +34,7 @@ describe MiDa::Item, 'when initialized with an itemscope containing just itempro
     before do
       # The surrounding reviewer itemscope element
       itemscope_el = mock_element('div', {'itemprop' => 'reviewer', 'itemtype' => 'person', 'itemscope' => true}, nil, [@fn,@ln])
-      @item = MiDa::Item.new(itemscope_el)
+      @item = Mida::Item.new(itemscope_el)
     end
 
     it '#type should return the correct type' do
@@ -51,11 +51,11 @@ describe MiDa::Item, 'when initialized with an itemscope containing just itempro
   end
 end
 
-describe MiDa::Item, 'when initialized with an itemscope containing an itemprop with a relative url' do
+describe Mida::Item, 'when initialized with an itemscope containing an itemprop with a relative url' do
   before do
     @url = mock_element('a', {'itemprop' => 'url', 'href' => 'home/lorry'})
     itemscope_el = mock_element('div', {'itemscope' => true}, nil, [@url])
-    @item = MiDa::Item.new(itemscope_el, "http://example.com")
+    @item = Mida::Item.new(itemscope_el, "http://example.com")
   end
 
   it 'should return the url as an absolute url' do
@@ -63,7 +63,7 @@ describe MiDa::Item, 'when initialized with an itemscope containing an itemprop 
   end
 end
 
-describe MiDa::Item, 'when initialized with an itemscope containing itemprops surrounded by a non microdata element' do
+describe Mida::Item, 'when initialized with an itemscope containing itemprops surrounded by a non microdata element' do
   before do
     # The first_name element
     fn = mock_element('span', {'itemprop' => 'first_name'}, 'Lorry')
@@ -79,7 +79,7 @@ describe MiDa::Item, 'when initialized with an itemscope containing itemprops su
                                         'itemtype' => 'person',
                                         'itemscope' => true},
                                 nil, [fn,surround])
-    @item = MiDa::Item.new(itemscope_el)
+    @item = Mida::Item.new(itemscope_el)
   end
 
   it '#type should return the correct type' do
@@ -99,7 +99,7 @@ describe MiDa::Item, 'when initialized with an itemscope containing itemprops su
 
 end
 
-describe MiDa::Item, 'when initialized with an itemscope containing itemprops with the same name' do
+describe Mida::Item, 'when initialized with an itemscope containing itemprops with the same name' do
   before do
     # Lemon Sorbet flavour
     ls_flavour = mock_element('span', {'itemprop' => 'flavour'}, 'Lemon Sorbet')
@@ -123,7 +123,7 @@ describe MiDa::Item, 'when initialized with an itemscope containing itemprops wi
     icecreams = mock_element('div', {'itemtype' => 'icecreams',
                                      'itemscope' => true},
                              nil, [ls_flavour, as_flavour, @sb_flavour])
-    @item = MiDa::Item.new(icecreams)
+    @item = Mida::Item.new(icecreams)
   end
 
   it '#type should return the correct type' do
@@ -135,7 +135,7 @@ describe MiDa::Item, 'when initialized with an itemscope containing itemprops wi
       'flavour' => [
         'Lemon Sorbet',
         'Apricot Sorbet',
-        MiDa::Item.new(@sb_flavour)
+        Mida::Item.new(@sb_flavour)
       ]
     }
   end
@@ -160,7 +160,7 @@ describe MiDa::Item, 'when initialized with an itemscope containing itemprops wi
 
 end
 
-describe MiDa::Item, 'when initialized with an itemscope containing itemscopes as properties nested two deep' do
+describe Mida::Item, 'when initialized with an itemscope containing itemscopes as properties nested two deep' do
   before do
 
     # The name of the item reviewed
@@ -192,7 +192,7 @@ describe MiDa::Item, 'when initialized with an itemscope containing itemscopes a
     # The surrounding reviewer itemscope
     @review_el = mock_element('div', {'itemtype' => 'review', 'itemscope' => true}, nil, [@item_name, @rating, @reviewer_el])
 
-    @item = MiDa::Item.new(@review_el)
+    @item = Mida::Item.new(@review_el)
 
   end
 
@@ -208,7 +208,7 @@ describe MiDa::Item, 'when initialized with an itemscope containing itemscopes a
     @item.properties.should == {
       'item_name' => 'Acme Anvil',
       'rating' => '5',
-      'reviewer' => MiDa::Item.new(@reviewer_el)
+      'reviewer' => Mida::Item.new(@reviewer_el)
     }
   end
 

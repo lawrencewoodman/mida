@@ -7,4 +7,3 @@
 * Put nested itemscopes, that are not a property of its parent into the parents hash using [:nested]
 * Decide if all property values should be arrays regardless of whether they contain multiple values.
   This is to aid consistency and reduce unexpected suprises for calling methods.
-* Rename module from MiDa to Mida

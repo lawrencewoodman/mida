@@ -1,4 +1,4 @@
-= MiDa
+= Mida
 
 A Microdata parser for ruby
 
