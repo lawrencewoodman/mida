@@ -17,7 +17,7 @@ module Mida
     # [page_url] The url of target used for form absolute urls
     def initialize(itemscope, page_url=nil)
       @itemscope = itemscope
-      @page_url, @type = page_url, Mida.get_itemtype(itemscope)
+      @page_url, @type = page_url, get_itemtype()
       @properties = {}
       add_itemref_properties
       add_properties(get_elements(itemscope))
@@ -38,6 +38,10 @@ module Mida
     end
 
   private
+
+    def get_itemtype
+      if (type = @itemscope.attribute('itemtype')) then type.value else nil end
+    end
 
     # The value as it should appear in to_h()
     def value_to_h(value)
