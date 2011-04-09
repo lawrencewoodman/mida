@@ -1,7 +1,67 @@
 = Mida
 
-A Microdata parser for ruby
+* {Mida Project Page}[https://github.com/LawrenceWoodman/mida]
+* {Mida Bug Tracker}[https://github.com/LawrenceWoodman/mida/issues]
+
+== Description
+A Microdata[http://en.wikipedia.org/wiki/Microdata_(HTML5)] parser and
+extractor library for ruby.
+This is based on the latest Published version of the Microdata Specification
+dated {5th April 2011}[http://www.w3.org/TR/2011/WD-microdata-20110405/].
+
+== Installation
+With Ruby and Rubygems:
+  gem install mida
+
+=== Requirements:
+
+* +Nokogiri+
+
+== Usage
+The following examples assume that you have required +mida+ and
++open-uri+.
+
+=== Extracting Microdata from a page
+All the Microdata is extracted from a page when a new Mida::Document instance
+is created.
+
+To extract all the Microdata from a webpage:
+  url = 'http://example.com'
+  open(url) {|f| doc = Mida::Document.new(f, url)}
+
+The top-level +Items+ will be held in an array accessible via
+<tt>doc.items</tt>.
+
+To simply list all the top-level +Items+ that have been found:
+	puts doc.items
+
+=== Searching
+If you want to search for an +Item+ that has a specific +itemtype+/vocabulary
+this can be done with the +search+ method.
+
+To return all the +Items+ that use one of Google's Review vocabularies:
+  doc.search(%r{http://data-vocabulary\.org.*?review.*?}i)
+
+=== Inspecting an +Item+
+Each +Item+ is a <tt>Mida::Item</tt> instance and has two main methods of
+interest, +type+ and +properties+.
+
+To find out the +itemtype+ of the +Item+:
+  item = doc.items.first
+  puts item.type
+
++properties+ are returned as a hash containing name/value pairs.  The
+values can be either a single +String+ value, a <tt>Mida::Item</tt> instance
+or an +Array+ containing either of the previous two value types.
+
+To see the +properties+ of the +Item+:
+  puts item.properties
+
+== Bugs/Feature Requests
+If you find a bug or want to make a feature request, please report it at the
+Mida project's {issues tracker}[https://github.com/LawrenceWoodman/mida/issues]
+on github.
 
 == License
-Copyright (c) 2011 Lawrence Woodman  
+Copyright (c) 2011 Lawrence Woodman.
 This software is licensed under the MIT License.  Please see the file, LICENSE.rdoc, for details.
