@@ -12,8 +12,8 @@ module Mida
     # [page_url] The url of the page, including the filename, used to form absolute urls
     def self.parse(element, page_url=nil)
       hash = {}
-      get_property_names(element).each do |name|
-        hash[name] = get_property(element, page_url)
+      extract_property_names(element).each do |name|
+        hash[name] = extract_property(element, page_url)
       end
       hash
     end
@@ -41,12 +41,12 @@ module Mida
       end
     end
 
-    def self.get_property_names(itemprop)
+    def self.extract_property_names(itemprop)
       itemprop_attr = itemprop.attribute('itemprop')
       itemprop_attr ? itemprop_attr.value.split() : []
     end
 
-    def self.get_property_value(itemprop, page_url)
+    def self.extract_property_value(itemprop, page_url)
       element = itemprop.name
       if NON_TEXTCONTENT_ELEMENTS.has_key?(element)
         attribute = NON_TEXTCONTENT_ELEMENTS[element]
@@ -57,11 +57,11 @@ module Mida
       end
     end
 
-    def self.get_property(itemprop, page_url)
+    def self.extract_property(itemprop, page_url)
       if itemprop.attribute('itemscope')
         Mida::Item.new(itemprop, page_url)
       else
-        get_property_value(itemprop, page_url)
+        extract_property_value(itemprop, page_url)
       end
     end
 

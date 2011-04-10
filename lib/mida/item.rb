@@ -17,10 +17,10 @@ module Mida
     # [page_url] The url of target used for form absolute urls
     def initialize(itemscope, page_url=nil)
       @itemscope = itemscope
-      @page_url, @type = page_url, get_itemtype()
+      @page_url, @type = page_url, extract_itemtype()
       @properties = {}
       add_itemref_properties
-      add_properties(get_elements(itemscope))
+      add_properties(extract_elements(itemscope))
     end
 
     # Return a Hash representation
@@ -39,8 +39,21 @@ module Mida
 
   private
 
-    def get_itemtype
+    def extract_itemtype
       if (type = @itemscope.attribute('itemtype')) then type.value else nil end
+    end
+
+    def extract_itemref
+      (itemref = @itemscope.attribute('itemref')) ? itemref.value : nil
+    end
+
+    def extract_elements(itemscope)
+      itemscope.search('./*')
+    end
+
+    # Find an element with a matching id
+    def find_with_id(id)
+      @itemscope.search("//*[@id='#{id}']")
     end
 
     # The value as it should appear in to_h()
@@ -52,36 +65,23 @@ module Mida
       end
     end
 
-    # Add any properties referred to by 'itemref'
-    def add_itemref_properties
-      itemref = get_itemref()
-      if itemref
-        itemref.split.each {|id| add_properties(find_with_id(id))}
-      end
-    end
-
-    # Find an element with a matching id
-    def find_with_id(id)
-      @itemscope.search("//*[@id='#{id}']")
-    end
-
     def properties_to_h(properties)
       hash = {}
       properties.each { |name, value| hash[name] = value_to_h(value) }
       hash
     end
 
-    def get_itemref
-      (itemref = @itemscope.attribute('itemref')) ? itemref.value : nil
-    end
-
-    def get_elements(itemscope)
-      itemscope.search('./*')
+    # Add any properties referred to by 'itemref'
+    def add_itemref_properties
+      itemref = extract_itemref()
+      if itemref
+        itemref.split.each {|id| add_properties(find_with_id(id))}
+      end
     end
 
     def add_properties(elements)
       elements.each do |element|
-        internal_elements = get_elements(element)
+        internal_elements = extract_elements(element)
         if internal_elements.empty? || element.attribute('itemscope')
           add_itemprop(element)
         else
