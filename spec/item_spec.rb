@@ -160,6 +160,64 @@ describe Mida::Item, 'when initialized with an itemscope containing itemprops wi
 
 end
 
+describe Mida::Item, 'when initialized with an itemscope containing itemrefs' do
+
+  before do
+
+    name = mock_element('span', {'itemprop' => 'name'}, 'Amanda')
+    name_p = mock_element('p', {'id' => 'a'}, nil, [name])
+
+    band_name = mock_element('span', {'itemprop' => 'band_name'}, 'Jazz Band')
+    band_size = mock_element('span', {'itemprop' => 'band_size'}, '12')
+    band_div = mock_element('div', {'id' => 'c'}, nil, [band_name, band_size])
+    @empty_band_div = mock_element('div', {'id' => 'b',
+                                          'itemprop' => 'band',
+                                          'itemref' => 'c',
+                                          'itemscope' => true},
+                                  nil, [],
+                                  {'c' => band_div})
+
+
+    age = mock_element('span', {'itemprop' => 'age'}, '30')
+    age_div = mock_element('div', {'itemref' => 'a b',
+                                   'itemscope' => true},
+                           nil, [age],
+                           {'a' => name_p, 'b' => @empty_band_div})
+
+    @item = Mida::Item.new(age_div)
+  end
+
+  it '#type should return the correct type' do
+    @item.type.should == nil
+  end
+
+  it '#properties should return the correct name/value pairs' do
+    @item.properties.should == {
+      'age' => '30',
+      'name' => 'Amanda',
+      'band' => Mida::Item.new(@empty_band_div)
+    }
+  end
+
+  it '#to_h should return the correct type and properties' do
+    @item.to_h.should == {
+      type: nil,
+      properties: {
+        'age' => '30',
+        'name' => 'Amanda',
+        'band' => {
+          type: nil,
+          properties: {
+            'band_name' => 'Jazz Band',
+            'band_size' => '12'
+          }
+        }
+      }
+    }
+  end
+
+end
+
 describe Mida::Item, 'when initialized with an itemscope containing itemscopes as properties nested two deep' do
   before do
 

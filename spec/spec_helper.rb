@@ -12,18 +12,30 @@ def element_add_attribute(element, attribute, value)
 end
 
 # Return a mock Nokogiri::XML::Element
-def mock_element(tag, attributes={}, inner_text=nil, search_return=[])
+def mock_element(tag, attributes={}, inner_text=nil, search_return=[], id_searches={})
   element = mock(Nokogiri::XML::Element)
 
-  ['itemtype', 'itemscope', 'itemprop', 'itemref'].each do |name|
+  ['itemtype', 'itemscope', 'itemprop', 'itemref', 'id'].each do |name|
     attributes[name] = nil unless attributes.has_key?(name)
   end
   attributes.each do |name, value|
     element_add_attribute(element, name, value)
   end
-  element.stub!(:inner_text).and_return(inner_text)
 
+  element.stub!(:inner_text).and_return(inner_text)
   element.stub!(:name).and_return(tag)
-  element.stub!(:search).with('./*').and_return(search_return)
+
+  element.should_receive(:search).any_number_of_times.with('./*').and_return(search_return)
+
+  # Set a valid return element for each likely id
+  ('a'..'z').each do |id|
+    stub = element.should_receive(:search).any_number_of_times.with("//*[@id='#{id}']")
+    if id_searches.has_key?(id)
+      stub.and_return([id_searches[id]])
+    else
+      stub.and_return([])
+    end
+  end
+
   element
 end
