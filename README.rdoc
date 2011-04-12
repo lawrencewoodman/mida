@@ -33,7 +33,7 @@ The top-level +Items+ will be held in an array accessible via
 <tt>doc.items</tt>.
 
 To simply list all the top-level +Items+ that have been found:
-	puts doc.items
+  puts doc.items
 
 === Searching
 If you want to search for an +Item+ that has a specific +itemtype+/vocabulary
