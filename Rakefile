@@ -5,7 +5,7 @@ require 'rake/gempackagetask'
 spec = Gem::Specification.new do |s|
   s.name        = "mida"
   s.summary     = "A Microdata parser/extractor library"
-  s.description = File.read(File.join(File.dirname(__FILE__), 'README.rdoc'))
+  s.description = "A Microdata parser and extractor library, based on the latest Published version of the Microdata Specification, dated 5th April 2011."
   s.version     = "0.1.0"
   s.author      = "Lawrence Woodman"
   s.email       = "lwoodman@vlifesystems.com"
