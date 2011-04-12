@@ -4,16 +4,15 @@ desc "Create Gem"
 require 'rake/gempackagetask'
 spec = Gem::Specification.new do |s|
   s.name        = "mida"
-  s.summary     = "A Microdata parser"
+  s.summary     = "A Microdata parser/extractor library"
   s.description = File.read(File.join(File.dirname(__FILE__), 'README.rdoc'))
-  s.version     = "0.0.0"
+  s.version     = "0.1.0"
   s.author      = "Lawrence Woodman"
   s.email       = "lwoodman@vlifesystems.com"
   s.homepage    = %q{http://github.com/LawrenceWoodman/mida}
   s.platform    = Gem::Platform::RUBY
   s.required_ruby_version = '>=1.9'
   s.files       = Dir['lib/**/*.rb'] + Dir['spec/**/*.rb'] + Dir['*.rdoc'] + Dir['Rakefile']
-  s.has_rdoc    = true
   s.extra_rdoc_files = ['README.rdoc', 'LICENSE.rdoc']
   s.rdoc_options << '--main' << 'README.rdoc'
   s.add_dependency('nokogiri')
