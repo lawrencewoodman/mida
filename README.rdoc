@@ -43,18 +43,20 @@ To return all the +Items+ that use one of Google's Review vocabularies:
   doc.search(%r{http://data-vocabulary\.org.*?review.*?}i)
 
 === Inspecting an +Item+
-Each +Item+ is a <tt>Mida::Item</tt> instance and has two main methods of
-interest, +type+ and +properties+.
+Each +Item+ is a <tt>Mida::Item</tt> instance and has three main methods of
+interest, +type+, +properties+ and +id+.
 
 To find out the +itemtype+ of the +Item+:
-  item = doc.items.first
-  puts item.type
+  puts doc.items.first.type
+
+To find out the +itemid+ of the +Item+:
+  puts doc.items.first.id
 
 Properties are returned as a hash containing name/values pairs.  The
 values will be an array of either +String+ or <tt>Mida::Item</tt> instances.
 
 To see the +properties+ of the +Item+:
-  puts item.properties
+  puts doc.items.first.properties
 
 == Bugs/Feature Requests
 If you find a bug or want to make a feature request, please report it at the

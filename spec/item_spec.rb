@@ -21,6 +21,10 @@ describe Mida::Item, 'when initialized with an itemscope containing just itempro
       @item.type.should == nil
     end
 
+    it '#id should return the correct id' do
+      @item.id.should == nil
+    end
+
     it '#properties should return the correct name/value pairs' do
       @item.properties.should == {
         'first_name' => ['Lorry'],
@@ -30,7 +34,7 @@ describe Mida::Item, 'when initialized with an itemscope containing just itempro
 
     it '#to_h should return the correct type and properties' do
       @item.to_h.should == {
-        type: nil, properties: {
+        type: nil, id: nil, properties: {
           'first_name' => ['Lorry'],
           'last_name' => ['Woodman']
         }
@@ -49,6 +53,10 @@ describe Mida::Item, 'when initialized with an itemscope containing just itempro
       @item.type.should == 'person'
     end
 
+    it '#id should return the correct id' do
+      @item.id.should == nil
+    end
+
     it '#properties should return the correct name/value pairs' do
       @item.properties.should == {
         'first_name' => ['Lorry'],
@@ -59,6 +67,7 @@ describe Mida::Item, 'when initialized with an itemscope containing just itempro
     it '#to_h should return the correct type and properties' do
       @item.to_h.should == {
         type: 'person',
+        id: nil,
         properties: {
           'first_name' => ['Lorry'],
           'last_name' => ['Woodman']
@@ -103,6 +112,10 @@ describe Mida::Item, 'when initialized with an itemscope containing itemprops su
     @item.type.should == 'person'
   end
 
+  it '#id should return the correct id' do
+    @item.id.should == nil
+  end
+
   it '#properties should return the correct name/value pairs' do
     @item.properties.should == {
       'first_name' => ['Lorry'],
@@ -113,6 +126,7 @@ describe Mida::Item, 'when initialized with an itemscope containing itemprops su
   it '#to_h should return the correct type and properties' do
     @item.to_h.should == {
       type: 'person',
+      id: nil,
       properties: {
         'first_name' => ['Lorry'],
         'last_name' => ['Woodman']
@@ -153,6 +167,10 @@ describe Mida::Item, 'when initialized with an itemscope containing itemprops wi
     @item.type.should == 'icecreams'
   end
 
+  it '#id should return the correct id' do
+    @item.id.should == nil
+  end
+
   it '#properties should return the correct name/value pairs' do
     @item.properties.should == {
       'flavour' => [
@@ -166,11 +184,13 @@ describe Mida::Item, 'when initialized with an itemscope containing itemprops wi
   it '#to_h should return the correct type and properties' do
     @item.to_h.should == {
       type: 'icecreams',
+      id: nil,
       properties: {
         'flavour' => [
           'Lemon Sorbet',
           'Apricot Sorbet',
           { type: 'icecream-type',
+            id: nil,
             properties: {
               'fruit' => ['Strawberry'],
               'style' => ['Homemade']
@@ -214,6 +234,10 @@ describe Mida::Item, 'when initialized with an itemscope containing itemrefs' do
     @item.type.should == nil
   end
 
+  it '#id should return the correct id' do
+    @item.id.should == nil
+  end
+
   it '#properties should return the correct name/value pairs' do
     @item.properties.should == {
       'age' => ['30'],
@@ -225,16 +249,61 @@ describe Mida::Item, 'when initialized with an itemscope containing itemrefs' do
   it '#to_h should return the correct type and properties' do
     @item.to_h.should == {
       type: nil,
+      id: nil,
       properties: {
         'age' => ['30'],
         'name' => ['Amanda'],
         'band' => [{
           type: nil,
+          id: nil,
           properties: {
             'band_name' => ['Jazz Band'],
             'band_size' => ['12']
           }
         }]
+      }
+    }
+  end
+
+end
+
+describe Mida::Item, 'when initialized with an itemscope containing an itemid' do
+
+  before do
+
+    title = mock_element('span', {'itemprop' => 'title'}, 'Hacking Vim 7.2')
+    author = mock_element('span', {'itemprop' => 'author'}, 'Kim Schulz')
+    book = mock_element('div', {
+      'itemtype' => 'book',
+      'itemid' => 'urn:isbn:978-1-849510-50-9',
+      'itemscope' => true},
+      nil, [title,author])
+
+    @item = Mida::Item.new(book)
+  end
+
+  it '#type should return the correct type' do
+    @item.type.should == 'book'
+  end
+
+  it '#id should return the correct id' do
+    @item.id.should == 'urn:isbn:978-1-849510-50-9'
+  end
+
+  it '#properties should return the correct name/value pairs' do
+    @item.properties.should == {
+      'title' => ['Hacking Vim 7.2'],
+      'author' => ['Kim Schulz']
+    }
+  end
+
+  it '#to_h should return the correct type and properties' do
+    @item.to_h.should == {
+      type: 'book',
+      id: 'urn:isbn:978-1-849510-50-9',
+      properties: {
+        'title' => ['Hacking Vim 7.2'],
+        'author' => ['Kim Schulz']
       }
     }
   end
@@ -284,6 +353,10 @@ describe Mida::Item, 'when initialized with an itemscope containing itemscopes a
     @item.type.should == 'review'
   end
 
+  it '#id should return the correct id' do
+    @item.id.should == nil
+  end
+
   it '#properties should return the correct name/value pairs' do
     @item.properties.should == {
       'item_name' => ['Acme Anvil'],
@@ -295,16 +368,19 @@ describe Mida::Item, 'when initialized with an itemscope containing itemscopes a
   it '#to_h should return the correct type and properties' do
     @item.to_h.should == {
       type: 'review',
+      id: nil,
       properties: {
         'item_name' => ['Acme Anvil'],
         'rating' => ['5'],
         'reviewer' => [{
           type: 'person',
+          id: nil,
           properties: {
             'first_name' => ['Lorry'],
             'last_name' => ['Woodman'],
             'represents' => [{
               type: 'organization',
+              id: nil,
               properties: {
                 'name' => ['Acme']
               }

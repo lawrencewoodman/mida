@@ -94,8 +94,9 @@ describe Mida::Document, 'when run with a document containing textContent and no
 
     it 'should return all the properties and types with the correct values' do
       expected_results = [
-        { type: nil, properties: {'link_field' => ['']} },
+        { type: nil, id: nil, properties: {'link_field' => ['']} },
         { type: nil,
+          id: nil,
           properties: {
             'span_field' => ['Some span content'],
             'dtreviewed' => ['2009-01-06'],
@@ -129,11 +130,12 @@ describe Mida::Document, 'when run with a document containing textContent and no
 
     it 'should return all the properties and types with the correct values' do
       expected_results = [
-        { type: nil, properties: {
+        { type: nil, id: nil, properties: {
           'link_field' => ['http://example.com/start/stylesheet.css']
           }
         },
         { type: nil,
+          id: nil,
           properties: {
             'span_field' => ['Some span content'],
             'dtreviewed' => ['2009-01-06'],
@@ -191,6 +193,7 @@ describe Mida::Document, 'when run against a full html document containing one i
   it 'should return all the properties and types with the correct values' do
     expected_results = [{
       type: nil,
+      id: nil,
       properties: {
         'itemreviewed' => ['Romeo Pizza'],
         'reviewer' => ['Ulysses Grant'],
@@ -236,10 +239,11 @@ describe Mida::Document, 'when run against a full html document containing one i
   it 'should return all the properties and types with the correct values' do
     expected_results = [{
       type: nil,
+      id: nil,
       properties: {
         'itemreviewed' => ['Romeo Pizza'],
         'address' => [{
-          type: nil, properties: {
+          type: nil, id: nil, properties: {
             'firstline' => ['237 Italian Way'],
             'country' => ['United Kingdom']
            }
@@ -284,13 +288,16 @@ describe Mida::Document, 'when run against a full html document containing one i
   it 'should return all the properties and types with the correct values' do
     expected_results = [{
       type: nil,
+      id: nil,
       properties: {
         'itemreviewed' => ['Romeo Pizza'],
         'address' => [{
           type: nil,
+          id: nil,
           properties: {
             'firstline' => [{
               type: nil,
+              id: nil,
               properties: {
                 'number' => ['237'],
                 'road' => ['Italian Way']
@@ -345,6 +352,7 @@ describe Mida::Document, 'when run against a full html document containing one i
   it 'should return all the properties and types with the correct values' do
     expected_results = [{
       type: 'http://data-vocabulary.org/Review',
+      id: nil,
       properties: {
         'itemreviewed' => ['Romeo Pizza'],
         'reviewer' => ['Ulysses Grant'],
@@ -405,6 +413,7 @@ describe Mida::Document, 'when run against a full html document containing two n
   it 'should return all the properties and types with the correct values for 1st itemscope' do
     expected_results = [{
       type: 'http://data-vocabulary.org/Review',
+      id: nil,
       properties: {
         'itemreviewed' => ['Romeo Pizza'],
         'rating' => ['4.5']
@@ -416,6 +425,7 @@ describe Mida::Document, 'when run against a full html document containing two n
   it 'should return all the properties from the text for 2nd itemscope' do
     expected_results = [{
       type: 'http://data-vocabulary.org/Organization',
+      id: nil,
       properties: {
         'name' => ['An org name'],
         'url' => ['http://example.com']
@@ -465,11 +475,13 @@ describe Mida::Document, 'when run against a full html document containing one
     it 'should return all the properties from the text with the correct values' do
       expected_results = [{
         type: 'http://data-vocabulary.org/Product',
+        id: nil,
         properties: {
           'name' => ['DC07'],
           'brand' => ['Dyson'],
           'review' => [{
             type: 'http://data-vocabulary.org/Review-aggregate',
+            id: nil,
             properties: {
               'count' => ['1'],
               'rating' => ['5.0']
@@ -526,12 +538,14 @@ describe Mida::Document, 'when run against a document containing an itemscope
       pending("get the contains: feature working")
       expected_result = {
         type: 'http://data-vocabulary.org/Product',
+        id: nil,
         properties: {
           'name' => 'DC07',
           'brand' => 'Dyson'
         },
         contains: {
           type: 'http://data-vocabulary.org/Review-aggregate',
+          id: nil,
           properties: {
             'count' => '1',
             'rating' => '5.0'
@@ -567,10 +581,12 @@ describe Mida::Document, 'when run against a document using itemrefs' do
   it 'should return all the properties from the text with the correct values' do
     expected_results = [{
       type: nil,
+      id: nil,
       properties: {
         'name' => ['Amanda'],
         'band' => [{
           type: nil,
+          id: nil,
           properties: {
             'name' => ['Jazz Band'],
             'size' => ['12']
@@ -619,11 +635,13 @@ describe Mida::Document, 'when run against a document using multiple itemprops w
   it 'should return all the properties from the text with the correct values' do
     expected_results = [{
       type: 'icecreams',
+      id: nil,
       properties: {
         'flavour' => [
           'Lemon sorbet',
           'Apricot sorbet',
           { type: 'icecream-type',
+            id: nil,
             properties: {
               'fruit' => ['Strawberry'],
               'style' => ['Homemade']
@@ -654,6 +672,7 @@ describe Mida::Document, 'when run against a document using an itemprop with mul
   it 'should return all the properties from the text with the correct values' do
     expected_results = [{
       type: nil,
+      id: nil,
       properties: {
         'favourite-colour' => ['orange'],
         'favourite-fruit' => ['orange']
