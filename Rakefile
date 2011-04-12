@@ -9,6 +9,7 @@ spec = Gem::Specification.new do |s|
   s.version     = "0.0.0"
   s.author      = "Lawrence Woodman"
   s.email       = "lwoodman@vlifesystems.com"
+  s.homepage    = %q{http://github.com/LawrenceWoodman/mida}
   s.platform    = Gem::Platform::RUBY
   s.required_ruby_version = '>=1.9'
   s.files       = Dir['lib/**/*.rb'] + Dir['spec/**/*.rb'] + Dir['*.rdoc'] + Dir['Rakefile']
