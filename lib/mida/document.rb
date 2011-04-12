@@ -17,7 +17,7 @@ module Mida
     def initialize(target, page_url=nil)
       @doc = Nokogiri(target)
       @page_url = page_url
-      @items = extract_items(@doc)
+      @items = extract_items
     end
 
     # Returns an array of matching Mida::Item objects
@@ -37,8 +37,8 @@ module Mida
     end
 
   private
-    def extract_items(doc)
-      items_doc = doc.search('//*[@itemscope and not(@itemprop)]')
+    def extract_items
+      items_doc = @doc.search('//*[@itemscope and not(@itemprop)]')
       return nil unless items_doc
 
       items_doc.collect do |item_doc|
