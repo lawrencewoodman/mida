@@ -22,11 +22,19 @@ describe Mida::Item, 'when initialized with an itemscope containing just itempro
     end
 
     it '#properties should return the correct name/value pairs' do
-      @item.properties.should == {'first_name' => 'Lorry', 'last_name' => 'Woodman'}
+      @item.properties.should == {
+        'first_name' => ['Lorry'],
+        'last_name' => ['Woodman']
+      }
     end
 
     it '#to_h should return the correct type and properties' do
-      @item.to_h.should == {type: nil, properties: {'first_name' => 'Lorry', 'last_name' => 'Woodman'}}
+      @item.to_h.should == {
+        type: nil, properties: {
+          'first_name' => ['Lorry'],
+          'last_name' => ['Woodman']
+        }
+      }
     end
   end
 
@@ -42,11 +50,20 @@ describe Mida::Item, 'when initialized with an itemscope containing just itempro
     end
 
     it '#properties should return the correct name/value pairs' do
-      @item.properties.should == {'first_name' => 'Lorry', 'last_name' => 'Woodman'}
+      @item.properties.should == {
+        'first_name' => ['Lorry'],
+        'last_name' => ['Woodman']
+      }
     end
 
     it '#to_h should return the correct type and properties' do
-      @item.to_h.should == {type: 'person', properties: {'first_name' => 'Lorry', 'last_name' => 'Woodman'}}
+      @item.to_h.should == {
+        type: 'person',
+        properties: {
+          'first_name' => ['Lorry'],
+          'last_name' => ['Woodman']
+        }
+      }
     end
   end
 end
@@ -59,7 +76,7 @@ describe Mida::Item, 'when initialized with an itemscope containing an itemprop 
   end
 
   it 'should return the url as an absolute url' do
-    @item.properties['url'].should == 'http://example.com/home/lorry'
+    @item.properties['url'].should == ['http://example.com/home/lorry']
   end
 end
 
@@ -87,13 +104,19 @@ describe Mida::Item, 'when initialized with an itemscope containing itemprops su
   end
 
   it '#properties should return the correct name/value pairs' do
-    @item.properties.should == {'first_name' => 'Lorry', 'last_name' => 'Woodman'}
+    @item.properties.should == {
+      'first_name' => ['Lorry'],
+      'last_name' => ['Woodman']
+    }
   end
 
   it '#to_h should return the correct type and properties' do
     @item.to_h.should == {
       type: 'person',
-      properties: {'first_name' => 'Lorry', 'last_name' => 'Woodman'}
+      properties: {
+        'first_name' => ['Lorry'],
+        'last_name' => ['Woodman']
+      }
     }
   end
 
@@ -149,8 +172,8 @@ describe Mida::Item, 'when initialized with an itemscope containing itemprops wi
           'Apricot Sorbet',
           { type: 'icecream-type',
             properties: {
-              'fruit' => 'Strawberry',
-              'style' => 'Homemade'
+              'fruit' => ['Strawberry'],
+              'style' => ['Homemade']
             }
           }
         ]
@@ -193,9 +216,9 @@ describe Mida::Item, 'when initialized with an itemscope containing itemrefs' do
 
   it '#properties should return the correct name/value pairs' do
     @item.properties.should == {
-      'age' => '30',
-      'name' => 'Amanda',
-      'band' => Mida::Item.new(@empty_band_div)
+      'age' => ['30'],
+      'name' => ['Amanda'],
+      'band' => [Mida::Item.new(@empty_band_div)]
     }
   end
 
@@ -203,15 +226,15 @@ describe Mida::Item, 'when initialized with an itemscope containing itemrefs' do
     @item.to_h.should == {
       type: nil,
       properties: {
-        'age' => '30',
-        'name' => 'Amanda',
-        'band' => {
+        'age' => ['30'],
+        'name' => ['Amanda'],
+        'band' => [{
           type: nil,
           properties: {
-            'band_name' => 'Jazz Band',
-            'band_size' => '12'
+            'band_name' => ['Jazz Band'],
+            'band_size' => ['12']
           }
-        }
+        }]
       }
     }
   end
@@ -262,11 +285,10 @@ describe Mida::Item, 'when initialized with an itemscope containing itemscopes a
   end
 
   it '#properties should return the correct name/value pairs' do
-    p @item.properties['reviewer'].class
     @item.properties.should == {
-      'item_name' => 'Acme Anvil',
-      'rating' => '5',
-      'reviewer' => Mida::Item.new(@reviewer_el)
+      'item_name' => ['Acme Anvil'],
+      'rating' => ['5'],
+      'reviewer' => [Mida::Item.new(@reviewer_el)]
     }
   end
 
@@ -274,21 +296,21 @@ describe Mida::Item, 'when initialized with an itemscope containing itemscopes a
     @item.to_h.should == {
       type: 'review',
       properties: {
-        'item_name' => 'Acme Anvil',
-        'rating' => '5',
-        'reviewer' => {
+        'item_name' => ['Acme Anvil'],
+        'rating' => ['5'],
+        'reviewer' => [{
           type: 'person',
           properties: {
-            'first_name' => 'Lorry',
-            'last_name' => 'Woodman',
-            'represents' => {
+            'first_name' => ['Lorry'],
+            'last_name' => ['Woodman'],
+            'represents' => [{
               type: 'organization',
               properties: {
-                'name' => 'Acme'
+                'name' => ['Acme']
               }
-           }
+           }]
           }
-        }
+        }]
       }
     }
   end

@@ -16,14 +16,7 @@ end
 
 def test_properties(item, expected_result)
   item.properties.each do |name, value|
-    case
-    when value.is_a?(Array)
-      match_array(value, expected_result[:properties][name])
-    when value.is_a?(Mida::Item)
-      test_properties(value, expected_result[:properties][name])
-    else
-      value.should == expected_result[:properties][name]
-    end
+    match_array(value, expected_result[:properties][name])
   end
 end
 
@@ -101,25 +94,25 @@ describe Mida::Document, 'when run with a document containing textContent and no
 
     it 'should return all the properties and types with the correct values' do
       expected_results = [
-        { type: nil, properties: {'link_field' => ''} },
+        { type: nil, properties: {'link_field' => ['']} },
         { type: nil,
           properties: {
-            'span_field' => 'Some span content',
-            'dtreviewed' => '2009-01-06',
-            'meta_field' => 'Some meta content',
-            'a_field1' => 'http://example.com',
-            'a_field2' => '',
-            'a_field3' => '',
-            'a_field4' => '',
-            'area_right' => '',
-            'audio_field' => '',
-            'embed_field' => '',
-            'iframe_field' => 'http://www.example.com/iframe_test',
-            'img_field' => '',
-            'object_field' => '',
-            'source_field' => '',
-            'track_field' => '',
-            'video_field' => ''
+            'span_field' => ['Some span content'],
+            'dtreviewed' => ['2009-01-06'],
+            'meta_field' => ['Some meta content'],
+            'a_field1' => ['http://example.com'],
+            'a_field2' => [''],
+            'a_field3' => [''],
+            'a_field4' => [''],
+            'area_right' => [''],
+            'audio_field' => [''],
+            'embed_field' => [''],
+            'iframe_field' => ['http://www.example.com/iframe_test'],
+            'img_field' => [''],
+            'object_field' => [''],
+            'source_field' => [''],
+            'track_field' => [''],
+            'video_field' => ['']
           }
         }
       ]
@@ -136,25 +129,28 @@ describe Mida::Document, 'when run with a document containing textContent and no
 
     it 'should return all the properties and types with the correct values' do
       expected_results = [
-        { type: nil, properties: {'link_field' => 'http://example.com/start/stylesheet.css'} },
+        { type: nil, properties: {
+          'link_field' => ['http://example.com/start/stylesheet.css']
+          }
+        },
         { type: nil,
           properties: {
-            'span_field' => 'Some span content',
-            'dtreviewed' => '2009-01-06',
-            'meta_field' => 'Some meta content',
-            'a_field1' => 'http://example.com',
-            'a_field2' => 'http://example.com/start/welcome/index.html',
-            'a_field3' => 'http://example.com/intro',
-            'a_field4' => 'http://example.com/intro/index.html',
-            'area_right' => 'http://example.com/start/right.html',
-            'audio_field' => 'http://example.com/start/asound.ogg',
-            'embed_field' => 'http://example.com/start/helloworld.swf',
-            'iframe_field' => 'http://www.example.com/iframe_test',
-            'img_field' => 'http://example.com/start/animage.png',
-            'object_field' => 'http://example.com/start/object.png',
-            'source_field' => 'http://example.com/start/song.ogg',
-            'track_field' => 'http://example.com/start/atrack.ogg',
-            'video_field' => 'http://example.com/start/movie.ogg'
+            'span_field' => ['Some span content'],
+            'dtreviewed' => ['2009-01-06'],
+            'meta_field' => ['Some meta content'],
+            'a_field1' => ['http://example.com'],
+            'a_field2' => ['http://example.com/start/welcome/index.html'],
+            'a_field3' => ['http://example.com/intro'],
+            'a_field4' => ['http://example.com/intro/index.html'],
+            'area_right' => ['http://example.com/start/right.html'],
+            'audio_field' => ['http://example.com/start/asound.ogg'],
+            'embed_field' => ['http://example.com/start/helloworld.swf'],
+            'iframe_field' => ['http://www.example.com/iframe_test'],
+            'img_field' => ['http://example.com/start/animage.png'],
+            'object_field' => ['http://example.com/start/object.png'],
+            'source_field' => ['http://example.com/start/song.ogg'],
+            'track_field' => ['http://example.com/start/atrack.ogg'],
+            'video_field' => ['http://example.com/start/movie.ogg']
           }
         }
       ]
@@ -196,13 +192,13 @@ describe Mida::Document, 'when run against a full html document containing one i
     expected_results = [{
       type: nil,
       properties: {
-        'itemreviewed' => 'Romeo Pizza',
-        'reviewer' => 'Ulysses Grant',
-        'dtreviewed' => '2009-01-06',
-        'fielda' => 'a5482',
-        'summary' => 'Delicious, tasty pizza in Eastlake!',
-        'description' => 'This is a very nice pizza place.',
-        'rating' => '4.5'
+        'itemreviewed' => ['Romeo Pizza'],
+        'reviewer' => ['Ulysses Grant'],
+        'dtreviewed' => ['2009-01-06'],
+        'fielda' => ['a5482'],
+        'summary' => ['Delicious, tasty pizza in Eastlake!'],
+        'description' => ['This is a very nice pizza place.'],
+        'rating' => ['4.5']
       }
     }]
 
@@ -241,9 +237,14 @@ describe Mida::Document, 'when run against a full html document containing one i
     expected_results = [{
       type: nil,
       properties: {
-        'itemreviewed' => 'Romeo Pizza',
-        'address' => { type: nil, properties: {'firstline' => '237 Italian Way', 'country' => 'United Kingdom' } },
-        'rating' => '4.5'
+        'itemreviewed' => ['Romeo Pizza'],
+        'address' => [{
+          type: nil, properties: {
+            'firstline' => ['237 Italian Way'],
+            'country' => ['United Kingdom']
+           }
+        }],
+        'rating' => ['4.5']
       }
     }]
 
@@ -284,21 +285,21 @@ describe Mida::Document, 'when run against a full html document containing one i
     expected_results = [{
       type: nil,
       properties: {
-        'itemreviewed' => 'Romeo Pizza',
-        'address' => {
+        'itemreviewed' => ['Romeo Pizza'],
+        'address' => [{
           type: nil,
           properties: {
-            'firstline' => {
+            'firstline' => [{
               type: nil,
               properties: {
-                'number' => '237',
-                'road' => 'Italian Way'
+                'number' => ['237'],
+                'road' => ['Italian Way']
               },
-            },
-            'country' => 'United Kingdom'
+            }],
+            'country' => ['United Kingdom']
           },
-        },
-        'rating' => '4.5'
+        }],
+        'rating' => ['4.5']
       }
     }]
 
@@ -345,12 +346,12 @@ describe Mida::Document, 'when run against a full html document containing one i
     expected_results = [{
       type: 'http://data-vocabulary.org/Review',
       properties: {
-        'itemreviewed' => 'Romeo Pizza',
-        'reviewer' => 'Ulysses Grant',
-        'dtreviewed' => '2009-01-06',
-        'summary' => 'Delicious, tasty pizza in Eastlake!',
-        'description'  => 'This is a very nice pizza place.',
-        'rating' => '4.5'
+        'itemreviewed' => ['Romeo Pizza'],
+        'reviewer' => ['Ulysses Grant'],
+        'dtreviewed' => ['2009-01-06'],
+        'summary' => ['Delicious, tasty pizza in Eastlake!'],
+        'description'  => ['This is a very nice pizza place.'],
+        'rating' => ['4.5']
       }
     }]
     test_parsing(@md, %r{http://data-vocabulary.org/Review}, expected_results)
@@ -405,8 +406,8 @@ describe Mida::Document, 'when run against a full html document containing two n
     expected_results = [{
       type: 'http://data-vocabulary.org/Review',
       properties: {
-        'itemreviewed' => 'Romeo Pizza',
-        'rating' => '4.5'
+        'itemreviewed' => ['Romeo Pizza'],
+        'rating' => ['4.5']
       }
     }]
     test_parsing(@md, %r{http://data-vocabulary.org/Review}, expected_results)
@@ -416,8 +417,8 @@ describe Mida::Document, 'when run against a full html document containing two n
     expected_results = [{
       type: 'http://data-vocabulary.org/Organization',
       properties: {
-        'name' => 'An org name',
-        'url' => 'http://example.com'
+        'name' => ['An org name'],
+        'url' => ['http://example.com']
       }
     }]
     test_parsing(@md, %r{http://data-vocabulary.org/Organization}, expected_results)
@@ -465,15 +466,15 @@ describe Mida::Document, 'when run against a full html document containing one
       expected_results = [{
         type: 'http://data-vocabulary.org/Product',
         properties: {
-          'name' => 'DC07',
-          'brand' => 'Dyson',
-          'review' => {
+          'name' => ['DC07'],
+          'brand' => ['Dyson'],
+          'review' => [{
             type: 'http://data-vocabulary.org/Review-aggregate',
             properties: {
-              'count' => '1',
-              'rating' => '5.0'
+              'count' => ['1'],
+              'rating' => ['5.0']
             }
-          }
+          }]
         }
       }]
 
@@ -567,15 +568,15 @@ describe Mida::Document, 'when run against a document using itemrefs' do
     expected_results = [{
       type: nil,
       properties: {
-        'name' => 'Amanda',
-        'band' => {
+        'name' => ['Amanda'],
+        'band' => [{
           type: nil,
           properties: {
-            'name' => 'Jazz Band',
-            'size' => '12'
+            'name' => ['Jazz Band'],
+            'size' => ['12']
           }
-        },
-        'age' => '30'
+        }],
+        'age' => ['30']
       }
     }]
 
@@ -624,8 +625,8 @@ describe Mida::Document, 'when run against a document using multiple itemprops w
           'Apricot sorbet',
           { type: 'icecream-type',
             properties: {
-              'fruit' => 'Strawberry',
-              'style' => 'Homemade'
+              'fruit' => ['Strawberry'],
+              'style' => ['Homemade']
             }
           }
         ]
@@ -654,8 +655,8 @@ describe Mida::Document, 'when run against a document using an itemprop with mul
     expected_results = [{
       type: nil,
       properties: {
-        'favourite-colour' => 'orange',
-        'favourite-fruit' => 'orange'
+        'favourite-colour' => ['orange'],
+        'favourite-fruit' => ['orange']
       }
     }]
 

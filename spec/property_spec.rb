@@ -46,9 +46,9 @@ describe Mida::Property, 'when parsing an itemscope element that has a relative 
     reviewer = property['reviewer']
     reviewer.type.should == 'person'
     reviewer.properties.should == {
-      'first_name' => 'Lorry',
-      'last_name' => 'Woodman',
-      'url' => 'http://example.com/home/LorryWoodman'
+      'first_name' => ['Lorry'],
+      'last_name' => ['Woodman'],
+      'url' => ['http://example.com/home/LorryWoodman']
     }
   end
 end

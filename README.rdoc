@@ -22,7 +22,7 @@ The following examples assume that you have required +mida+ and
 +open-uri+.
 
 === Extracting Microdata from a page
-All the Microdata is extracted from a page when a new Mida::Document instance
+All the Microdata is extracted from a page when a new <tt>Mida::Document</tt> instance
 is created.
 
 To extract all the Microdata from a webpage:
@@ -50,9 +50,8 @@ To find out the +itemtype+ of the +Item+:
   item = doc.items.first
   puts item.type
 
-+properties+ are returned as a hash containing name/value pairs.  The
-values can be either a single +String+ value, a <tt>Mida::Item</tt> instance
-or an +Array+ containing either of the previous two value types.
+Properties are returned as a hash containing name/values pairs.  The
+values will be an array of either +String+ or <tt>Mida::Item</tt> instances.
 
 To see the +properties+ of the +Item+:
   puts item.properties

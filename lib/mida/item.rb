@@ -7,8 +7,9 @@ module Mida
     # The Type of the item
     attr_reader :type
 
-    # A Hash representing the properties
-    # {'name' => 'value'}
+    # A Hash representing the properties as name/values paris
+    # The values will be an array containing either +String+
+    # or <tt>Mida::Item</tt> instances
     attr_reader :properties
 
     # Create a new Item object
@@ -20,7 +21,7 @@ module Mida
       @page_url, @type = page_url, extract_itemtype()
       @properties = {}
       add_itemref_properties
-      add_properties(extract_elements(itemscope))
+      traverse_elements(extract_elements(itemscope))
     end
 
     # Return a Hash representation
@@ -75,32 +76,24 @@ module Mida
     def add_itemref_properties
       itemref = extract_itemref()
       if itemref
-        itemref.split.each {|id| add_properties(find_with_id(id))}
+        itemref.split.each {|id| traverse_elements(find_with_id(id))}
       end
     end
 
-    def add_properties(elements)
+    def traverse_elements(elements)
       elements.each do |element|
         internal_elements = extract_elements(element)
         if internal_elements.empty? || element.attribute('itemscope')
           add_itemprop(element)
         else
-          add_properties(internal_elements)
+          traverse_elements(internal_elements)
         end
-      end
-    end
-
-    def add_property(name, value)
-      case
-      when (!@properties.has_key?(name)) then @properties[name] = value
-      when @properties[name].is_a?(Array) then @properties[name] << value
-      else @properties[name] = [@properties[name], value]
       end
     end
 
     def add_itemprop(itemprop)
       properties = Property.parse(itemprop, @page_url)
-      properties.each { |name, value| add_property(name, value) }
+      properties.each { |name, value| (@properties[name] ||= []) << value }
     end
 
   end
