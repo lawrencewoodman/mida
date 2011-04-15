@@ -19,7 +19,7 @@ With Ruby and Rubygems:
 
 == Usage
 The following examples assume that you have required +mida+ and
-+open-uri+.
+<tt>open-uri</tt>.
 
 === Extracting Microdata from a page
 All the Microdata is extracted from a page when a new <tt>Mida::Document</tt> instance
