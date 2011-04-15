@@ -16,7 +16,7 @@ spec = Gem::Specification.new do |s|
   s.extra_rdoc_files = ['README.rdoc', 'LICENSE.rdoc']
   s.rdoc_options << '--main' << 'README.rdoc'
   s.add_dependency('nokogiri')
-  s.add_development_dependency('rspec')
+  s.add_development_dependency('rspec', '>= 2.0' )
 end
 Rake::GemPackageTask.new(spec).define
 
