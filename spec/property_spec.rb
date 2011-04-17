@@ -22,6 +22,19 @@ describe Mida::Property, 'when parsing an element with one itemprop name' do
   end
 end
 
+describe Mida::Property, "when parsing an element who's inner text contains\
+  non microdata elements" do
+  before do
+    html = '<span itemprop="reviewer">Lorry <em>Woodman</em></span>'
+    doc = Nokogiri(html)
+    @itemprop = doc.search('./*').first
+  end
+
+  it '#parse should return a Hash with the correct name/value pair' do
+    Mida::Property.parse(@itemprop).should == {'reviewer' => 'Lorry Woodman'}
+  end
+end
+
 describe Mida::Property, 'when parsing an itemscope element that has a relative url' do
   before do
 

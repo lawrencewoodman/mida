@@ -136,6 +136,41 @@ describe Mida::Item, 'when initialized with an itemscope containing itemprops su
 
 end
 
+describe Mida::Item, "when initialized with an itemscope containing itemprops
+  who's inner text is surrounded by non-microdata elements" do
+  before do
+    html = '<div itemscope><span itemprop="reviewer">Lorry <em>Woodman</em></span></div>'
+    doc = Nokogiri(html)
+    itemscope = doc.search('./*').first
+    @item = Mida::Item.new(itemscope)
+  end
+
+  it '#type should return the correct type' do
+    @item.type.should == nil
+  end
+
+  it '#id should return the correct id' do
+    @item.id.should == nil
+  end
+
+  it '#properties should return the correct name/value pairs' do
+    @item.properties.should == {
+      'reviewer' => ['Lorry Woodman']
+    }
+  end
+
+  it '#to_h should return the correct type and properties' do
+    @item.to_h.should == {
+      type: nil,
+      id: nil,
+      properties: {
+        'reviewer' => ['Lorry Woodman']
+      }
+    }
+  end
+
+end
+
 describe Mida::Item, 'when initialized with an itemscope containing itemprops with the same name' do
   before do
     # Lemon Sorbet flavour
