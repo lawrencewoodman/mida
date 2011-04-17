@@ -11,11 +11,9 @@ module Mida
     # [element] The itemprop element to be parsed
     # [page_url] The url of the page, including the filename, used to form absolute urls
     def self.parse(element, page_url=nil)
-      hash = {}
-      extract_property_names(element).each do |name|
-        hash[name] = extract_property(element, page_url)
+      extract_property_names(element).each_with_object({}) do |name, memo|
+        memo[name] = extract_property(element, page_url)
       end
-      hash
     end
 
     NON_TEXTCONTENT_ELEMENTS = {
