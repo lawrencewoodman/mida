@@ -171,6 +171,47 @@ describe Mida::Item, "when initialized with an itemscope containing itemprops
 
 end
 
+describe Mida::Item, "when initialized with an itemscope containing an itemprop
+  nested within another itemprop" do
+  before do
+    html = '
+      <div itemscope>
+        <span itemprop="description">The animal is a <span itemprop="colour">green</span> parrot.</span>
+      </div>
+    '
+    doc = Nokogiri(html)
+    itemscope = doc.search('./*').first
+    @item = Mida::Item.new(itemscope)
+  end
+
+  it '#type should return the correct type' do
+    @item.type.should == nil
+  end
+
+  it '#id should return the correct id' do
+    @item.id.should == nil
+  end
+
+  it '#properties should return the correct name/value pairs' do
+    @item.properties.should == {
+      'description' => ['The animal is a green parrot.'],
+      'colour' => ['green']
+    }
+  end
+
+  it '#to_h should return the correct type and properties' do
+    @item.to_h.should == {
+      type: nil,
+      id: nil,
+      properties: {
+        'description' => ['The animal is a green parrot.'],
+        'colour' => ['green']
+      }
+    }
+  end
+
+end
+
 describe Mida::Item, 'when initialized with an itemscope containing itemprops with the same name' do
   before do
     # Lemon Sorbet flavour

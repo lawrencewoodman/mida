@@ -81,13 +81,11 @@ module Mida
 
     def traverse_elements(elements)
       elements.each do |element|
+        itemscope = element.attribute('itemscope')
+        itemprop = element.attribute('itemprop')
         internal_elements = extract_elements(element)
-        if internal_elements.empty? || element.attribute('itemscope')\
-           || element.attribute('itemprop')
-          add_itemprop(element)
-        else
-          traverse_elements(internal_elements)
-        end
+        add_itemprop(element) if itemscope || itemprop
+        traverse_elements(internal_elements) if internal_elements && !itemscope
       end
     end
 
