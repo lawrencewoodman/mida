@@ -1,0 +1,12 @@
+== 0.1.3 (18th April 2011)
+* Ensure itemprops are parsed properly if containing non-microdata elements
+* Support itemprops nested within other itemprops
+
+== 0.1.2 (14th April 2011)
+* Add version for rspec dependency
+
+== 0.1.1 (12th April 2011)
+* Improve gemspec description
+
+== 0.1.0 (12th April 2011)
+* Initial Release
