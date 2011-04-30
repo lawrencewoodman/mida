@@ -17,6 +17,10 @@ describe Mida::Item, 'when initialized with an itemscope containing just itempro
       @item = Mida::Item.new(itemscope_el)
     end
 
+    it '#vocabulary should return the correct vocabulary' do
+      @item.vocabulary.should == Mida::Vocabulary::Generic
+    end
+
     it '#type should return the correct type' do
       @item.type.should == nil
     end
@@ -34,7 +38,7 @@ describe Mida::Item, 'when initialized with an itemscope containing just itempro
 
     it '#to_h should return the correct type and properties' do
       @item.to_h.should == {
-        type: nil, id: nil, properties: {
+        vocabulary: Mida::Vocabulary::Generic, type: nil, id: nil, properties: {
           'first_name' => ['Lorry'],
           'last_name' => ['Woodman']
         }
@@ -47,6 +51,10 @@ describe Mida::Item, 'when initialized with an itemscope containing just itempro
       # The surrounding reviewer itemscope element
       itemscope_el = mock_element('div', {'itemprop' => 'reviewer', 'itemtype' => 'person', 'itemscope' => true}, nil, [@fn,@ln])
       @item = Mida::Item.new(itemscope_el)
+    end
+
+    it '#vocabulary should return the correct vocabulary' do
+      @item.vocabulary.should == Mida::Vocabulary::Generic
     end
 
     it '#type should return the correct type' do
@@ -66,6 +74,7 @@ describe Mida::Item, 'when initialized with an itemscope containing just itempro
 
     it '#to_h should return the correct type and properties' do
       @item.to_h.should == {
+        vocabulary: Mida::Vocabulary::Generic,
         type: 'person',
         id: nil,
         properties: {
@@ -112,6 +121,10 @@ describe Mida::Item, 'when initialized with an itemscope containing itemprops su
     @item.type.should == 'person'
   end
 
+  it '#vocabulary should return the correct vocabulary' do
+    @item.vocabulary.should == Mida::Vocabulary::Generic
+  end
+
   it '#id should return the correct id' do
     @item.id.should == nil
   end
@@ -125,6 +138,7 @@ describe Mida::Item, 'when initialized with an itemscope containing itemprops su
 
   it '#to_h should return the correct type and properties' do
     @item.to_h.should == {
+      vocabulary: Mida::Vocabulary::Generic,
       type: 'person',
       id: nil,
       properties: {
@@ -145,6 +159,10 @@ describe Mida::Item, "when initialized with an itemscope containing itemprops
     @item = Mida::Item.new(itemscope)
   end
 
+  it '#vocabulary should return the correct vocabulary' do
+    @item.vocabulary.should == Mida::Vocabulary::Generic
+  end
+
   it '#type should return the correct type' do
     @item.type.should == nil
   end
@@ -161,6 +179,7 @@ describe Mida::Item, "when initialized with an itemscope containing itemprops
 
   it '#to_h should return the correct type and properties' do
     @item.to_h.should == {
+      vocabulary: Mida::Vocabulary::Generic,
       type: nil,
       id: nil,
       properties: {
@@ -184,6 +203,10 @@ describe Mida::Item, "when initialized with an itemscope containing an itemprop
     @item = Mida::Item.new(itemscope)
   end
 
+  it '#vocabulary should return the correct vocabulary' do
+    @item.vocabulary.should == Mida::Vocabulary::Generic
+  end
+
   it '#type should return the correct type' do
     @item.type.should == nil
   end
@@ -201,6 +224,7 @@ describe Mida::Item, "when initialized with an itemscope containing an itemprop
 
   it '#to_h should return the correct type and properties' do
     @item.to_h.should == {
+      vocabulary: Mida::Vocabulary::Generic,
       type: nil,
       id: nil,
       properties: {
@@ -239,6 +263,10 @@ describe Mida::Item, 'when initialized with an itemscope containing itemprops wi
     @item = Mida::Item.new(icecreams)
   end
 
+  it '#vocabulary should return the correct vocabulary' do
+    @item.vocabulary.should == Mida::Vocabulary::Generic
+  end
+
   it '#type should return the correct type' do
     @item.type.should == 'icecreams'
   end
@@ -259,13 +287,15 @@ describe Mida::Item, 'when initialized with an itemscope containing itemprops wi
 
   it '#to_h should return the correct type and properties' do
     @item.to_h.should == {
+      vocabulary: Mida::Vocabulary::Generic,
       type: 'icecreams',
       id: nil,
       properties: {
         'flavour' => [
           'Lemon Sorbet',
           'Apricot Sorbet',
-          { type: 'icecream-type',
+          { vocabulary: Mida::Vocabulary::Generic,
+            type: 'icecream-type',
             id: nil,
             properties: {
               'fruit' => ['Strawberry'],
@@ -306,6 +336,10 @@ describe Mida::Item, 'when initialized with an itemscope containing itemrefs' do
     @item = Mida::Item.new(age_div)
   end
 
+  it '#vocabulary should return the correct vocabulary' do
+    @item.vocabulary.should == Mida::Vocabulary::Generic
+  end
+
   it '#type should return the correct type' do
     @item.type.should == nil
   end
@@ -324,12 +358,14 @@ describe Mida::Item, 'when initialized with an itemscope containing itemrefs' do
 
   it '#to_h should return the correct type and properties' do
     @item.to_h.should == {
+      vocabulary: Mida::Vocabulary::Generic,
       type: nil,
       id: nil,
       properties: {
         'age' => ['30'],
         'name' => ['Amanda'],
         'band' => [{
+          vocabulary: Mida::Vocabulary::Generic,
           type: nil,
           id: nil,
           properties: {
@@ -358,6 +394,10 @@ describe Mida::Item, 'when initialized with an itemscope containing an itemid' d
     @item = Mida::Item.new(book)
   end
 
+  it '#vocabulary should return the correct vocabulary' do
+    @item.vocabulary.should == Mida::Vocabulary::Generic
+  end
+
   it '#type should return the correct type' do
     @item.type.should == 'book'
   end
@@ -375,6 +415,7 @@ describe Mida::Item, 'when initialized with an itemscope containing an itemid' d
 
   it '#to_h should return the correct type and properties' do
     @item.to_h.should == {
+      vocabulary: Mida::Vocabulary::Generic,
       type: 'book',
       id: 'urn:isbn:978-1-849510-50-9',
       properties: {
@@ -425,6 +466,10 @@ describe Mida::Item, 'when initialized with an itemscope containing itemscopes a
   before do
   end
 
+  it '#vocabulary should return the correct vocabulary' do
+    @item.vocabulary.should == Mida::Vocabulary::Generic
+  end
+
   it '#type should return the correct type' do
     @item.type.should == 'review'
   end
@@ -443,18 +488,21 @@ describe Mida::Item, 'when initialized with an itemscope containing itemscopes a
 
   it '#to_h should return the correct type and properties' do
     @item.to_h.should == {
+      vocabulary: Mida::Vocabulary::Generic,
       type: 'review',
       id: nil,
       properties: {
         'item_name' => ['Acme Anvil'],
         'rating' => ['5'],
         'reviewer' => [{
+          vocabulary: Mida::Vocabulary::Generic,
           type: 'person',
           id: nil,
           properties: {
             'first_name' => ['Lorry'],
             'last_name' => ['Woodman'],
             'represents' => [{
+              vocabulary: Mida::Vocabulary::Generic,
               type: 'organization',
               id: nil,
               properties: {
@@ -465,5 +513,72 @@ describe Mida::Item, 'when initialized with an itemscope containing itemscopes a
         }]
       }
     }
+  end
+end
+
+describe Mida::Item, 'when initialized with an itemscope that matches a non-generic registered vocabulary' do
+  before do
+
+    class Colour < Mida::VocabularyDesc
+      itemtype_regexp %r{http://example.com/vocab/colour}
+      has_one 'red', 'green', 'blue'
+    end
+    Mida::register_vocabulary(Colour)
+
+    class Person < Mida::VocabularyDesc
+      itemtype_regexp %r{http://example.com/vocab/person}
+      has_one 'name'
+      has_one 'url'
+      has_many 'limbs'
+      has_many 'favourite-colours' do
+        types Colour
+      end
+    end
+    Mida::register_vocabulary(Person)
+
+    red = mock_element('span', {'itemprop' => 'red'}, '0xFF')
+    green = mock_element('span', {'itemprop' => 'green'}, '0x00')
+    blue = mock_element('span', {'itemprop' => 'blue'}, '0xFF')
+    purple = mock_element('div', {'itemscope' => true,
+                                  'itemtype' => 'http://example.com/vocab/colour',
+                                  'itemprop' => 'favourite-colours'},
+                                 nil, [red, green, blue])
+    orange = mock_element('span', {'itemprop' => 'favourite-colours'}, 'Orange')
+
+    name1 = mock_element('span', {'itemprop' => 'name'}, 'Lawrence Woodman')
+    name2 = mock_element('span', {'itemprop' => 'name'}, 'Lorry Woodman')
+    url = mock_element('a', {'itemprop' => 'url', 'href' => 'http://example.com/myhomepage'})
+    arm = mock_element('span', {'itemprop' => 'limbs'}, 'Arm')
+    leg = mock_element('span', {'itemprop' => 'limbs'}, 'Leg')
+    robert_wilson = mock_element('span', {'itemprop' => 'favourite-author'}, 'Robert Wilson')
+    itemscope_el = mock_element('div', {'itemscope' => true,
+                                        'itemtype' =>'http://example.com/vocab/person'
+                                       }, nil, [name1, name2, url, arm, leg, purple, orange, robert_wilson])
+    @item = Mida::Item.new(itemscope_el, "http://example.com")
+  end
+
+  it '#vocabulary should return the correct vocabulary' do
+    @item.vocabulary.should == Person
+  end
+
+  it 'should reject properties that have multiple values if has_one specified' do
+    @item.properties.should_not have_key('name')
+  end
+
+  it 'should accept properties that have a single value if has_one specified' do
+    @item.properties['url'].should == ['http://example.com/myhomepage']
+  end
+
+  it 'should accept properties that have a many values if has_many specified' do
+    @item.properties['limbs'].should == ['Arm', 'Leg']
+  end
+
+  it 'should register properties using the specified types' do
+    @item.properties['favourite-colours'].size.should == 1
+    @item.properties['favourite-colours'].first.vocabulary.should == Colour
+  end
+
+  it 'should reject properties that are not specified' do
+    @item.properties.should_not have_key('favourite-author')
   end
 end

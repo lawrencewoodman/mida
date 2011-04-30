@@ -94,8 +94,10 @@ describe Mida::Document, 'when run with a document containing textContent and no
 
     it 'should return all the properties and types with the correct values' do
       expected_results = [
-        { type: nil, id: nil, properties: {'link_field' => ['']} },
-        { type: nil,
+        { vocabulary: Mida::Vocabulary::Generic,
+          type: nil, id: nil, properties: {'link_field' => ['']} },
+        { vocabulary: Mida::Vocabulary::Generic,
+          type: nil,
           id: nil,
           properties: {
             'span_field' => ['Some span content'],
@@ -130,11 +132,13 @@ describe Mida::Document, 'when run with a document containing textContent and no
 
     it 'should return all the properties and types with the correct values' do
       expected_results = [
-        { type: nil, id: nil, properties: {
+        { vocabulary: Mida::Vocabulary::Generic,
+          type: nil, id: nil, properties: {
           'link_field' => ['http://example.com/start/stylesheet.css']
           }
         },
-        { type: nil,
+        { vocabulary: Mida::Vocabulary::Generic,
+          type: nil,
           id: nil,
           properties: {
             'span_field' => ['Some span content'],
@@ -192,6 +196,7 @@ describe Mida::Document, 'when run against a full html document containing one i
 
   it 'should return all the properties and types with the correct values' do
     expected_results = [{
+      vocabulary: Mida::Vocabulary::Generic,
       type: nil,
       id: nil,
       properties: {
@@ -238,11 +243,13 @@ describe Mida::Document, 'when run against a full html document containing one i
 
   it 'should return all the properties and types with the correct values' do
     expected_results = [{
+      vocabulary: Mida::Vocabulary::Generic,
       type: nil,
       id: nil,
       properties: {
         'itemreviewed' => ['Romeo Pizza'],
         'address' => [{
+          vocabulary: Mida::Vocabulary::Generic,
           type: nil, id: nil, properties: {
             'firstline' => ['237 Italian Way'],
             'country' => ['United Kingdom']
@@ -287,15 +294,18 @@ describe Mida::Document, 'when run against a full html document containing one i
 
   it 'should return all the properties and types with the correct values' do
     expected_results = [{
+      vocabulary: Mida::Vocabulary::Generic,
       type: nil,
       id: nil,
       properties: {
         'itemreviewed' => ['Romeo Pizza'],
         'address' => [{
+          vocabulary: Mida::Vocabulary::Generic,
           type: nil,
           id: nil,
           properties: {
             'firstline' => [{
+              vocabulary: Mida::Vocabulary::Generic,
               type: nil,
               id: nil,
               properties: {
@@ -351,6 +361,7 @@ describe Mida::Document, 'when run against a full html document containing one i
 
   it 'should return all the properties and types with the correct values' do
     expected_results = [{
+      vocabulary: Mida::Vocabulary::Generic,
       type: 'http://data-vocabulary.org/Review',
       id: nil,
       properties: {
@@ -412,6 +423,7 @@ describe Mida::Document, 'when run against a full html document containing two n
 
   it 'should return all the properties and types with the correct values for 1st itemscope' do
     expected_results = [{
+      vocabulary: Mida::Vocabulary::Generic,
       type: 'http://data-vocabulary.org/Review',
       id: nil,
       properties: {
@@ -424,6 +436,7 @@ describe Mida::Document, 'when run against a full html document containing two n
 
   it 'should return all the properties from the text for 2nd itemscope' do
     expected_results = [{
+      vocabulary: Mida::Vocabulary::Generic,
       type: 'http://data-vocabulary.org/Organization',
       id: nil,
       properties: {
@@ -474,12 +487,14 @@ describe Mida::Document, 'when run against a full html document containing one
   context "when looking at the outer vocabulary" do
     it 'should return all the properties from the text with the correct values' do
       expected_results = [{
+        vocabulary: Mida::Vocabulary::Generic,
         type: 'http://data-vocabulary.org/Product',
         id: nil,
         properties: {
           'name' => ['DC07'],
           'brand' => ['Dyson'],
           'review' => [{
+            vocabulary: Mida::Vocabulary::Generic,
             type: 'http://data-vocabulary.org/Review-aggregate',
             id: nil,
             properties: {
@@ -580,11 +595,13 @@ describe Mida::Document, 'when run against a document using itemrefs' do
 
   it 'should return all the properties from the text with the correct values' do
     expected_results = [{
+      vocabulary: Mida::Vocabulary::Generic,
       type: nil,
       id: nil,
       properties: {
         'name' => ['Amanda'],
         'band' => [{
+          vocabulary: Mida::Vocabulary::Generic,
           type: nil,
           id: nil,
           properties: {
@@ -634,13 +651,15 @@ describe Mida::Document, 'when run against a document using multiple itemprops w
 
   it 'should return all the properties from the text with the correct values' do
     expected_results = [{
+      vocabulary: Mida::Vocabulary::Generic,
       type: 'icecreams',
       id: nil,
       properties: {
         'flavour' => [
           'Lemon sorbet',
           'Apricot sorbet',
-          { type: 'icecream-type',
+          { vocabulary: Mida::Vocabulary::Generic,
+            type: 'icecream-type',
             id: nil,
             properties: {
               'fruit' => ['Strawberry'],
@@ -671,6 +690,7 @@ describe Mida::Document, 'when run against a document using an itemprop with mul
 
   it 'should return all the properties from the text with the correct values' do
     expected_results = [{
+      vocabulary: Mida::Vocabulary::Generic,
       type: nil,
       id: nil,
       properties: {

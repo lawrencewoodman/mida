@@ -11,7 +11,7 @@ module Mida
 
     # Create a new Microdata object
     #
-    # [target] The string containing the html that you want to parse
+    # [target] The string containing the html that you want to parse.
     # [page_url] The url of target used for form absolute urls. This must
     #            include the filename, e.g. index.html.
     def initialize(target, page_url=nil)
@@ -23,26 +23,31 @@ module Mida
     # Returns an array of matching Mida::Item objects
     #
     # [vocabulary] A regexp to match the item types against
+    #              or a Class derived from Mida::Vocabulary
+    #              to match against
     def search(vocabulary, items=@items)
       found_items = []
+      regexp_passed = vocabulary.kind_of?(Regexp)
+      regexp = if regexp_passed then vocabulary else vocabulary.itemtype_regexp end
+
       items.each do |item|
         # Allows matching against empty string, otherwise couldn't match
         # as item.type can be nil
-        if (item.type.nil? && "" =~ vocabulary) || (item.type =~ vocabulary)
+        if (item.type.nil? && "" =~ regexp) || (item.type =~ regexp)
           found_items << item
         end
-        found_items += search_values(item.properties.values, vocabulary)
+        found_items += search_values(item.properties.values, regexp)
       end
       found_items
     end
 
   private
     def extract_items
-      items_doc = @doc.search('//*[@itemscope and not(@itemprop)]')
-      return nil unless items_doc
+      itemscopes = @doc.search('//*[@itemscope and not(@itemprop)]')
+      return nil unless itemscopes
 
-      items_doc.collect do |item_doc|
-        Item.new(item_doc, @page_url)
+      itemscopes.collect do |itemscope|
+        Item.new(itemscope, @page_url)
       end
     end
 
