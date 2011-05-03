@@ -3,7 +3,7 @@ module Mida
   # Class used to describe a vocabulary
   #
   # To specify a vocabulary use the following methods:
-  # +regexp+, +has_one+, +has_many+, +types+
+  # +itemtype_regexp+, +has_one+, +has_many+, +types+
   class VocabularyDesc
 
     # Sets the regular expression to match against the +itemtype+
@@ -50,6 +50,8 @@ module Mida
         end
       end
     end
+
+    private_class_method :has
 
   end
 end
