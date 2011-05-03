@@ -10,7 +10,7 @@ This is based on the latest Published version of the Microdata Specification
 dated {5th April 2011}[http://www.w3.org/TR/2011/WD-microdata-20110405/].
 
 == Installation
-With Ruby and Rubygems:
+Mida keeps RubyGems[http://rubygems.org/gems/mida] up-to-date with its latest version, so installing is as easy as:
   gem install mida
 
 === Requirements:
@@ -57,6 +57,29 @@ values will be an array of either +String+ or <tt>Mida::Item</tt> instances.
 
 To see the +properties+ of the +Item+:
   puts doc.items.first.properties
+
+=== Working with Vocabularies
+Mida allows you to define vocabularies, so that input data can be constrained to match
+expected patterns.  By default a generic vocabulary (<tt>Mida::Vocabulary::Generic</tt>)
+is registered which will match against any +itemtype+ with any number of properties.
+
+If you want to specify a vocabulary you create a class derived from <tt>Mida::VocabularyDesc</tt>
+and use +itemtype+, +has_one+, +has_many+ and +types+ to describe the vocabulary.
+
+As an example the following describes a subset of Google's Review vocabulary:
+  class Review < Mida::VocabularyDesc
+    itemtype %r{http://data-vocabulary.org/review}
+    has_one 'itemreviewed'
+    has_one 'rating'
+  end
+
+To register the above Vocabulary use:
+  Mida::Vocabulary.register(Review)
+
+Now if Mida is parsing some input and manages to match against the +Review+ +itemtype+, it
+will only allow the specified properties and will reject any that don't have the correct number.  It
+will also set <tt>Item#vocabulary</tt> accordingly, e.g.
+  doc.items.first.vocabulary      # => Review
 
 == Bugs/Feature Requests
 If you find a bug or want to make a feature request, please report it at the
