@@ -2,27 +2,27 @@ require_relative 'spec_helper'
 require_relative '../lib/mida'
 
 
-describe Mida::Property, 'when parsing an element without an itemprop attribute' do
+describe Mida::Itemprop, 'when parsing an element without an itemprop attribute' do
   before do
     @element = mock_element('span')
   end
 
   it '#parse should return an empty Hash' do
-    Mida::Property.parse(@element).should == {}
+    Mida::Itemprop.parse(@element).should == {}
   end
 end
 
-describe Mida::Property, 'when parsing an element with one itemprop name' do
+describe Mida::Itemprop, 'when parsing an element with one itemprop name' do
   before do
     @element = mock_element('span', {'itemprop' => 'reviewer'}, 'Lorry Woodman')
   end
 
   it '#parse should return a Hash with the correct name/value pair' do
-    Mida::Property.parse(@element).should == {'reviewer' => 'Lorry Woodman'}
+    Mida::Itemprop.parse(@element).should == {'reviewer' => 'Lorry Woodman'}
   end
 end
 
-describe Mida::Property, "when parsing an element who's inner text contains\
+describe Mida::Itemprop, "when parsing an element who's inner text contains\
   non microdata elements" do
   before do
     html = '<span itemprop="reviewer">Lorry <em>Woodman</em></span>'
@@ -31,11 +31,11 @@ describe Mida::Property, "when parsing an element who's inner text contains\
   end
 
   it '#parse should return a Hash with the correct name/value pair' do
-    Mida::Property.parse(@itemprop).should == {'reviewer' => 'Lorry Woodman'}
+    Mida::Itemprop.parse(@itemprop).should == {'reviewer' => 'Lorry Woodman'}
   end
 end
 
-describe Mida::Property, 'when parsing an itemscope element that has a relative url' do
+describe Mida::Itemprop, 'when parsing an itemscope element that has a relative url' do
   before do
 
     # The first_name element
@@ -54,7 +54,7 @@ describe Mida::Property, 'when parsing an itemscope element that has a relative 
   end
 
   it '#parse should return a Hash with the correct name/value pair' do
-    property = Mida::Property.parse(@itemscope_el, "http://example.com")
+    property = Mida::Itemprop.parse(@itemscope_el, "http://example.com")
     property.size.should == 1
     reviewer = property['reviewer']
     reviewer.type.should == 'person'
@@ -66,13 +66,13 @@ describe Mida::Property, 'when parsing an itemscope element that has a relative 
   end
 end
 
-describe Mida::Property, 'when parsing an element with multiple itemprop names' do
+describe Mida::Itemprop, 'when parsing an element with multiple itemprop names' do
   before do
     @element = mock_element('span', {'itemprop' => 'reviewer friend person'}, 'the property text')
   end
 
   it '#parse should return a Hash with the name/value pairs' do
-    Mida::Property.parse(@element).should == {
+    Mida::Itemprop.parse(@element).should == {
       'reviewer' => 'the property text',
       'friend' => 'the property text',
       'person' => 'the property text'
@@ -80,7 +80,7 @@ describe Mida::Property, 'when parsing an element with multiple itemprop names' 
   end
 end
 
-describe Mida::Property, 'when parsing an element with non text content url values' do
+describe Mida::Itemprop, 'when parsing an element with non text content url values' do
   before :all do
     URL_ELEMENTS = {
       'a' => 'href',     'area' => 'href',
@@ -98,7 +98,7 @@ describe Mida::Property, 'when parsing an element with non text content url valu
       url = 'register/index.html'
       URL_ELEMENTS.each do |tag, attr|
         element = mock_element(tag, {'itemprop' => 'url', attr => url})
-        Mida::Property.parse(element).should == {'url' => ''}
+        Mida::Itemprop.parse(element).should == {'url' => ''}
       end
     end
 
@@ -112,7 +112,7 @@ describe Mida::Property, 'when parsing an element with non text content url valu
       urls.each do |url|
         URL_ELEMENTS.each do |tag, attr|
           element = mock_element(tag, {'itemprop' => 'url', attr => url})
-          Mida::Property.parse(element).should == {'url' => url}
+          Mida::Itemprop.parse(element).should == {'url' => url}
         end
       end
     end
@@ -127,7 +127,7 @@ describe Mida::Property, 'when parsing an element with non text content url valu
       url = 'register/index.html'
       URL_ELEMENTS.each do |tag, attr|
         element = mock_element(tag, {'itemprop' => 'url', attr => url})
-        Mida::Property.parse(element, @page_url).should ==
+        Mida::Itemprop.parse(element, @page_url).should ==
           {'url' => 'http://example.com/test/register/index.html'}
       end
     end
@@ -142,7 +142,7 @@ describe Mida::Property, 'when parsing an element with non text content url valu
       urls.each do |url|
         URL_ELEMENTS.each do |tag, attr|
           element = mock_element(tag, {'itemprop' => 'url', attr => url})
-          Mida::Property.parse(element, @page_url).should == {'url' => url}
+          Mida::Itemprop.parse(element, @page_url).should == {'url' => url}
         end
       end
     end
@@ -150,16 +150,16 @@ describe Mida::Property, 'when parsing an element with non text content url valu
   end
 end
 
-describe Mida::Property, 'when parsing an element with non text content non url values' do
+describe Mida::Itemprop, 'when parsing an element with non text content non url values' do
   it 'should get values from a meta content attribute' do
     element = mock_element('meta', {'itemprop' => 'reviewer',
                                     'content' => 'Lorry Woodman'})
-    Mida::Property.parse(element).should == {'reviewer' => 'Lorry Woodman'}
+    Mida::Itemprop.parse(element).should == {'reviewer' => 'Lorry Woodman'}
   end
 
   it 'should get time from an time datatime attribute' do
     element = mock_element('time', {'itemprop' => 'dtreviewed',
                                     'datetime' => '2011-04-04'})
-    Mida::Property.parse(element).should == {'dtreviewed' => '2011-04-04'}
+    Mida::Itemprop.parse(element).should == {'dtreviewed' => '2011-04-04'}
   end
 end

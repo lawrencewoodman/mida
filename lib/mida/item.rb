@@ -145,7 +145,7 @@ module Mida
     end
 
     def add_itemprop(itemprop)
-      properties = Property.parse(itemprop, @page_url)
+      properties = Itemprop.parse(itemprop, @page_url)
       properties.each { |name, value| (@properties[name] ||= []) << value }
     end
 

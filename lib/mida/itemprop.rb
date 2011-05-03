@@ -4,7 +4,7 @@ require 'uri'
 module Mida
 
   # Module that parses itemprop elements
-  module Property
+  module Itemprop
 
     # Returns a Hash representing the property.
     # Hash is of the form {'property name' => 'value'}
