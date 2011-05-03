@@ -63,6 +63,9 @@ module Mida
       end
     end
 
+    private_class_method :make_absolute_url, :extract_property_names
+    private_class_method :extract_property_value, :extract_property
+
   end
 
 end
