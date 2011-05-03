@@ -25,7 +25,7 @@ module Mida
     def initialize(itemscope, page_url=nil)
       @itemscope, @page_url = itemscope, page_url
       @type, @id = extract_attribute('itemtype'), extract_attribute('itemid')
-      @vocabulary = Mida.find_vocabulary(@type)
+      @vocabulary = Mida::Vocabulary.find_vocabulary(@type)
       @properties = {}
       add_itemref_properties
       parse_elements(extract_elements(@itemscope))
@@ -33,11 +33,12 @@ module Mida
     end
 
     # Return a Hash representation
-    # of the form { vocabulary: 'http://example.com/vocab/review'
-    #               type: 'The item type',
-    #               id: 'urn:isbn:1-934356-08-5'
-    #               properties: {'a name' => 'avalue' }
-    #             }
+    # of the form:
+    #   { vocabulary: 'http://example.com/vocab/review',
+    #     type: 'The item type',
+    #     id: 'urn:isbn:1-934356-08-5',
+    #     properties: {'a name' => 'avalue' }
+    #   }
     def to_h
       {vocabulary: @vocabulary, type: @type, id: @id, properties: properties_to_h(@properties)}
     end
