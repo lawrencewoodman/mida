@@ -520,13 +520,13 @@ describe Mida::Item, 'when initialized with an itemscope that matches a non-gene
   before do
 
     class Colour < Mida::VocabularyDesc
-      itemtype_regexp %r{http://example.com/vocab/colour}
+      itemtype %r{http://example.com/vocab/colour}
       has_one 'red', 'green', 'blue'
     end
     Mida::Vocabulary.register_vocabulary(Colour)
 
     class Person < Mida::VocabularyDesc
-      itemtype_regexp %r{http://example.com/vocab/person}
+      itemtype %r{http://example.com/vocab/person}
       has_one 'name'
       has_one 'url'
       has_many 'limbs'

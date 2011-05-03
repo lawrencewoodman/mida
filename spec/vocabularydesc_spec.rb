@@ -4,14 +4,14 @@ require_relative '../lib/mida'
 describe Mida::VocabularyDesc, 'when subclassed and given has statements with no blocks' do
   before do
     class Organization < Mida::VocabularyDesc
-      itemtype_regexp %r{http://example\.com.*?organization$}i
+      itemtype %r{http://example\.com.*?organization$}i
       has_one 'name'
       has_many 'tel', 'url'
     end
   end
 
-  it '#itemtype_regexp should return the correct regexp' do
-    Organization.itemtype_regexp.should == %r{http://example\.com.*?organization$}i
+  it '#itemtype should return the correct regexp' do
+    Organization.itemtype.should == %r{http://example\.com.*?organization$}i
   end
 
   it 'should specify name to appear once' do
@@ -27,17 +27,17 @@ end
 describe Mida::VocabularyDesc, 'when subclassed and given has statements with blocks' do
   before do
     class Rating < Mida::VocabularyDesc
-      itemtype_regexp %r{http://example\.com.*?rating$}i
+      itemtype %r{http://example\.com.*?rating$}i
       has_one 'best', 'value'
     end
 
     class Comment < Mida::VocabularyDesc
-      itemtype_regexp %r{http://example\.com.*?comment$}i
+      itemtype %r{http://example\.com.*?comment$}i
       has_one 'commentor', 'comment'
     end
 
     class Review < Mida::VocabularyDesc
-      itemtype_regexp %r{http://example\.com.*?review$}i
+      itemtype %r{http://example\.com.*?review$}i
       has_one 'itemreviewed'
       has_one 'rating' do
         types Rating, String
@@ -48,8 +48,8 @@ describe Mida::VocabularyDesc, 'when subclassed and given has statements with bl
     end
   end
 
-  it '#itemtype_regexp should return the correct regexp' do
-    Review.itemtype_regexp.should == %r{http://example\.com.*?review$}i
+  it '#itemtype should return the correct regexp' do
+    Review.itemtype.should == %r{http://example\.com.*?review$}i
   end
 
   it 'should specify itemreviewed to appear once' do
@@ -80,7 +80,7 @@ end
 describe Mida::VocabularyDesc, 'when subclassed and used with :any for properties and types' do
   before do
     class Person < Mida::VocabularyDesc
-      itemtype_regexp %r{}
+      itemtype %r{}
       has_one 'name'
       has_many :any do
         types :any
@@ -88,8 +88,8 @@ describe Mida::VocabularyDesc, 'when subclassed and used with :any for propertie
     end
   end
 
-  it '#itemtype_regexp should return the correct regexp' do
-    Person.itemtype_regexp.should == %r{}
+  it '#itemtype should return the correct regexp' do
+    Person.itemtype.should == %r{}
   end
 
   it 'should specify that name only appears once' do

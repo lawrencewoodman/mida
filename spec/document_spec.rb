@@ -724,7 +724,7 @@ describe Mida::Document, 'when run against a full html document containing an it
     '
 
     class Review < Mida::VocabularyDesc
-      itemtype_regexp %r{http://data-vocabulary.org/Review}
+      itemtype %r{http://data-vocabulary.org/Review}
       has_one 'itemreviewed', 'reviewer', 'dtreviewed', 'summary'
       has_one 'rating', 'description'
     end

@@ -3,7 +3,7 @@ module Mida
 
     # A Generic vocabulary that will match against anything
     class Generic < Mida::VocabularyDesc
-      itemtype_regexp %r{}
+      itemtype %r{}
       has_many :any do
         types :any
       end

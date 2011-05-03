@@ -3,16 +3,16 @@ module Mida
   # Class used to describe a vocabulary
   #
   # To specify a vocabulary use the following methods:
-  # +itemtype_regexp+, +has_one+, +has_many+, +types+
+  # +itemtype+, +has_one+, +has_many+, +types+
   class VocabularyDesc
 
     # Sets the regular expression to match against the +itemtype+
     # or returns the current regular expression
-    def self.itemtype_regexp(regexp_arg=nil)
+    def self.itemtype(regexp_arg=nil)
       if regexp_arg
-        @itemtype_regexp = regexp_arg
+        @itemtype = regexp_arg
       else
-        @itemtype_regexp
+        @itemtype
       end
     end
 

@@ -12,7 +12,7 @@ module Mida
     # Find the last vocabulary registered that matches the itemtype
     def self.find_vocabulary(itemtype)
       @vocabularies.reverse_each do |vocabulary|
-        if ((itemtype || "") =~ vocabulary.itemtype_regexp) then return vocabulary end
+        if ((itemtype || "") =~ vocabulary.itemtype) then return vocabulary end
       end
       nil
     end

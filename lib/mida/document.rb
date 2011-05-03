@@ -28,7 +28,7 @@ module Mida
     def search(vocabulary, items=@items)
       found_items = []
       regexp_passed = vocabulary.kind_of?(Regexp)
-      regexp = if regexp_passed then vocabulary else vocabulary.itemtype_regexp end
+      regexp = if regexp_passed then vocabulary else vocabulary.itemtype end
 
       items.each do |item|
         # Allows matching against empty string, otherwise couldn't match
