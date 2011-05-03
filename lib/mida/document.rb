@@ -23,7 +23,7 @@ module Mida
     # Returns an array of matching Mida::Item objects
     #
     # [vocabulary] A regexp to match the item types against
-    #              or a Class derived from Mida::Vocabulary
+    #              or a Class derived from Mida::VocabularyDesc
     #              to match against
     def search(vocabulary, items=@items)
       found_items = []
