@@ -9,7 +9,7 @@ module Mida
       end
     end
 
-    register_vocabulary(Generic)
+    register(Generic)
   end
 
 end

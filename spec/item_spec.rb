@@ -523,7 +523,7 @@ describe Mida::Item, 'when initialized with an itemscope that matches a non-gene
       itemtype %r{http://example.com/vocab/colour}
       has_one 'red', 'green', 'blue'
     end
-    Mida::Vocabulary.register_vocabulary(Colour)
+    Mida::Vocabulary.register(Colour)
 
     class Person < Mida::VocabularyDesc
       itemtype %r{http://example.com/vocab/person}
@@ -534,7 +534,7 @@ describe Mida::Item, 'when initialized with an itemscope that matches a non-gene
         types Colour
       end
     end
-    Mida::Vocabulary.register_vocabulary(Person)
+    Mida::Vocabulary.register(Person)
 
     red = mock_element('span', {'itemprop' => 'red'}, '0xFF')
     green = mock_element('span', {'itemprop' => 'green'}, '0x00')

@@ -728,7 +728,7 @@ describe Mida::Document, 'when run against a full html document containing an it
       has_one 'itemreviewed', 'reviewer', 'dtreviewed', 'summary'
       has_one 'rating', 'description'
     end
-    Mida::Vocabulary.register_vocabulary(Review)
+    Mida::Vocabulary.register(Review)
 
     @md = Mida::Document.new(html)
 

@@ -25,7 +25,7 @@ module Mida
     def initialize(itemscope, page_url=nil)
       @itemscope, @page_url = itemscope, page_url
       @type, @id = extract_attribute('itemtype'), extract_attribute('itemid')
-      @vocabulary = Mida::Vocabulary.find_vocabulary(@type)
+      @vocabulary = Mida::Vocabulary.find(@type)
       @properties = {}
       add_itemref_properties
       parse_elements(extract_elements(@itemscope))
