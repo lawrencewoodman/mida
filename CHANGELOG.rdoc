@@ -1,3 +1,8 @@
+== 0.2.0 (3rd May 2011)
+* Add ability to describe and conform to vocabularies
+* Rename Mida::Property to Mida::Itemprop to better reflect use
+* Make some of the Mida::Itemprop class methods private
+
 == 0.1.3 (18th April 2011)
 * Ensure itemprops are parsed properly if containing non-microdata elements
 * Support itemprops nested within other itemprops
