@@ -104,3 +104,26 @@ describe Mida::VocabularyDesc, 'when subclassed and used with :any for propertie
     Person.prop_spec[:any][:types].should == [:any]
   end
 end
+
+describe Mida::VocabularyDesc, 'when subclassed' do
+
+  before do
+    # Make sure the class is redefined afresh to make sure that
+    # inherited() hook is called
+    Mida::Vocabulary.unregister(Person)
+    Object.send(:remove_const, :Person)
+
+    class Person < Mida::VocabularyDesc
+      itemtype %r{}
+      has_one 'name'
+      has_many :any do
+        types :any
+      end
+    end
+  end
+
+  it 'should register the vocabulary subclass' do
+    Mida::Vocabulary.vocabularies.should include(Person)
+  end
+
+end

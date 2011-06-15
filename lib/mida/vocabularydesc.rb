@@ -6,6 +6,10 @@ module Mida
   # +itemtype+, +has_one+, +has_many+, +types+
   class VocabularyDesc
 
+    def self.inherited(subclass)
+      Vocabulary.register(subclass)
+    end
+
     # Sets the regular expression to match against the +itemtype+
     # or returns the current regular expression
     def self.itemtype(regexp_arg=nil)

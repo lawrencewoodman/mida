@@ -9,7 +9,6 @@ module Mida
       end
     end
 
-    register(Generic)
   end
 
 end
