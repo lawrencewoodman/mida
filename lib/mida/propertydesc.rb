@@ -7,20 +7,21 @@ module Mida
       if block_given?
         instance_eval(&block)
       else
-        types(String)
+        types(:text)
       end
       @num = num
     end
 
-    # The types a property can take. E.g. +String+, or another +Vocabulary+
-    # in order of preference
+    # The types a property can take.
+    # This can be a datatype such as +:text+ or a +Vocabulary+.
+    # The types should be supplied in order of preference.
     # If you want to say any type, then use +:any+ as the class
-    def types(*type_classes)
-      @types += type_classes
+    def types(*types)
+      @types += types
     end
 
     def to_h
-      {num: @num, types: @types || [String]}
+      {num: @num, types: @types || [:text]}
     end
 
   end

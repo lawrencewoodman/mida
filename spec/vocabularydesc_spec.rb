@@ -40,7 +40,7 @@ describe Mida::VocabularyDesc, 'when subclassed and given has statements with bl
       itemtype %r{http://example\.com.*?review$}i
       has_one 'itemreviewed'
       has_one 'rating' do
-        types Rating, String
+        types Rating, :text
       end
       has_many 'comments' do
         types Comment
@@ -56,16 +56,16 @@ describe Mida::VocabularyDesc, 'when subclassed and given has statements with bl
     Review.prop_spec['itemreviewed'][:num].should == :one
   end
 
-  it 'should specify that itemreviewed only have the type String' do
-    Review.prop_spec['itemreviewed'][:types].should == [String]
+  it 'should specify that itemreviewed only have the type :text' do
+    Review.prop_spec['itemreviewed'][:types].should == [:text]
   end
 
   it 'should specify rating to appear once' do
     Review.prop_spec['rating'][:num].should == :one
   end
 
-  it 'should specify rating to only have the types: Rating, String' do
-    Review.prop_spec['rating'][:types].should == [Rating, String]
+  it 'should specify rating to only have the types: Rating, :text' do
+    Review.prop_spec['rating'][:types].should == [Rating, :text]
   end
 
   it 'should specify comments to appear many times' do

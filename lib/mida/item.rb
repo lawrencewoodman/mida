@@ -1,4 +1,5 @@
 require 'nokogiri'
+require_relative 'datatypes'
 
 module Mida
 
@@ -59,7 +60,7 @@ module Mida
       @properties =
       @properties.each_with_object({}) do |(property, values), hash|
         if valid_property?(property, values)
-          hash[property] = valid_values(property, values)
+          hash[property] = validate_values(property, values)
         end
       end
     end
@@ -76,25 +77,38 @@ module Mida
       [property, :any].any? {|prop| valid_num_values?(prop, values)}
     end
 
-    def valid_values(property, values)
+    # Return valid values, converted to the correct +DataType+ if necessary
+    def validate_values(property, values)
       prop_types = if @vocabulary.prop_spec.has_key?(property)
         @vocabulary.prop_spec[property][:types]
       else
         @vocabulary.prop_spec[:any][:types]
       end
 
-      values.select {|value| valid_type(prop_types, value) }
+      valid_values = []
+      values.each do |value|
+        if (type = valid_type?(prop_types, value))
+          if DataTypes::TYPES.include?(type)
+            DataTypes.extract(type, value)
+          end
+          valid_values << value
+        end
+      end
+      valid_values
     end
 
-    def valid_type(prop_types, value)
+    # Returns the valid type of the +value+ or +nil+ if not valid
+    def valid_type?(valid_types, value)
       if value.respond_to?(:vocabulary)
-        if prop_types.include?(value.vocabulary) || prop_types.include?(:any)
-          return true
+        if valid_types.include?(value.vocabulary) || valid_types.include?(:any)
+          return value.vocabulary
         end
-      elsif prop_types.include?(value.class) || prop_types.include?(:any)
-        return true
+      elsif (type = valid_types.find {|type| DataTypes.valid?(type, value)})
+        return type
+      elsif valid_types.include?(:any)
+        return :any
       end
-      false
+      nil
     end
 
     def extract_attribute(attribute)
