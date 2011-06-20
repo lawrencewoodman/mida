@@ -1,10 +1,11 @@
 require_relative 'spec_helper'
-require_relative '../lib/mida'
+require_relative '../lib/mida/itemprop'
 
 
 describe Mida::Itemprop, 'when parsing an element without an itemprop attribute' do
   before do
-    @element = mock_element('span')
+    html = '<span>Lorry</span>'
+    @element = Nokogiri(html).children.first
   end
 
   it '#parse should return an empty Hash' do
@@ -14,7 +15,8 @@ end
 
 describe Mida::Itemprop, 'when parsing an element with one itemprop name' do
   before do
-    @element = mock_element('span', {'itemprop' => 'reviewer'}, 'Lorry Woodman')
+    html = '<span itemprop="reviewer">Lorry Woodman</span>'
+    @element = Nokogiri(html).children.first
   end
 
   it '#parse should return a Hash with the correct name/value pair' do
@@ -26,8 +28,7 @@ describe Mida::Itemprop, "when parsing an element who's inner text contains\
   non microdata elements" do
   before do
     html = '<span itemprop="reviewer">Lorry <em>Woodman</em></span>'
-    doc = Nokogiri(html)
-    @itemprop = doc.search('./*').first
+    @itemprop = Nokogiri(html).children.first
   end
 
   it '#parse should return a Hash with the correct name/value pair' do
@@ -37,45 +38,35 @@ end
 
 describe Mida::Itemprop, 'when parsing an itemscope element that has a relative url' do
   before do
+    html = html_wrap <<-EOS
+      <div itemprop="reviewer" itemtype="person" itemscope>
+        <a itemprop="url" href="home/LorryWoodman">
+        </a>
+      </div>
+    EOS
 
-    # The first_name element
-    fn = mock_element('span', {'itemprop' => 'first_name'}, 'Lorry')
-
-    # The last_name element
-    ln = mock_element('span', {'itemprop' => 'last_name'}, 'Woodman')
-
-    # The url.  This is important to check whether the page_url is passed onto Item
-    url = mock_element('a', {'itemprop' => 'url', 'href' => 'home/LorryWoodman'})
-
-    # The surrounding reviewer itemscope element
-    @itemscope_el = mock_element('div', {'itemprop' => 'reviewer',
-                                         'itemtype' => 'person',
-                                         'itemscope' =>true}, nil, [fn,ln,url])
+    itemprop = Nokogiri(html).search('//*[@itemscope]')
+    @properties = Mida::Itemprop.parse(itemprop, "http://example.com")
   end
 
-  it '#parse should return a Hash with the correct name/value pair' do
-    property = Mida::Itemprop.parse(@itemscope_el, "http://example.com")
-    property.size.should == 1
-    reviewer = property['reviewer']
-    reviewer.type.should == 'person'
-    reviewer.properties.should == {
-      'first_name' => ['Lorry'],
-      'last_name' => ['Woodman'],
-      'url' => ['http://example.com/home/LorryWoodman']
-    }
+  it 'should create an absolute url' do
+    url = @properties['reviewer'].properties['url']
+    url.should == ['http://example.com/home/LorryWoodman']
   end
 end
 
 describe Mida::Itemprop, 'when parsing an element with multiple itemprop names' do
   before do
-    @element = mock_element('span', {'itemprop' => 'reviewer friend person'}, 'the property text')
+    html = '<span itemprop="reviewer friend person">some text</span>'
+    itemprop = Nokogiri(html).children.first
+    @properties = Mida::Itemprop.parse(itemprop)
   end
 
-  it '#parse should return a Hash with the name/value pairs' do
-    Mida::Itemprop.parse(@element).should == {
-      'reviewer' => 'the property text',
-      'friend' => 'the property text',
-      'person' => 'the property text'
+  it 'it should return a Hash with the each of the itemprop names as keys' do
+    @properties.should == {
+      'reviewer' => 'some text',
+      'friend' => 'some text',
+      'person' => 'some text'
     }
   end
 end
@@ -97,7 +88,8 @@ describe Mida::Itemprop, 'when parsing an element with non text content url valu
     it 'should return nothing for relative urls' do
       url = 'register/index.html'
       URL_ELEMENTS.each do |tag, attr|
-        element = mock_element(tag, {'itemprop' => 'url', attr => url})
+        html = html_wrap %Q{<#{tag} itemprop="url" #{attr}="#{url}">The url</#{tag}>}
+        element = Nokogiri(html).search('//*[@itemprop]').first
         Mida::Itemprop.parse(element).should == {'url' => ''}
       end
     end
@@ -111,7 +103,8 @@ describe Mida::Itemprop, 'when parsing an element with non text content url valu
 
       urls.each do |url|
         URL_ELEMENTS.each do |tag, attr|
-          element = mock_element(tag, {'itemprop' => 'url', attr => url})
+          html = html_wrap %Q{<#{tag} itemprop="url" #{attr}="#{url}">The url</#{tag}>}
+          element = Nokogiri(html).search('//*[@itemprop]').first
           Mida::Itemprop.parse(element).should == {'url' => url}
         end
       end
@@ -126,7 +119,8 @@ describe Mida::Itemprop, 'when parsing an element with non text content url valu
     it 'should return the absolute url for relative urls' do
       url = 'register/index.html'
       URL_ELEMENTS.each do |tag, attr|
-        element = mock_element(tag, {'itemprop' => 'url', attr => url})
+        html = html_wrap %Q{<#{tag} itemprop="url" #{attr}="#{url}">The url</#{tag}>}
+        element = Nokogiri(html).search('//*[@itemprop]').first
         Mida::Itemprop.parse(element, @page_url).should ==
           {'url' => 'http://example.com/test/register/index.html'}
       end
@@ -141,7 +135,8 @@ describe Mida::Itemprop, 'when parsing an element with non text content url valu
 
       urls.each do |url|
         URL_ELEMENTS.each do |tag, attr|
-          element = mock_element(tag, {'itemprop' => 'url', attr => url})
+          html = html_wrap %Q{<#{tag} itemprop="url" #{attr}="#{url}">The url</#{tag}>}
+          element = Nokogiri(html).search('//*[@itemprop]').first
           Mida::Itemprop.parse(element, @page_url).should == {'url' => url}
         end
       end
@@ -152,14 +147,14 @@ end
 
 describe Mida::Itemprop, 'when parsing an element with non text content non url values' do
   it 'should get values from a meta content attribute' do
-    element = mock_element('meta', {'itemprop' => 'reviewer',
-                                    'content' => 'Lorry Woodman'})
+    html = html_wrap %q{<meta itemprop="reviewer" content="Lorry Woodman"/>}
+    element = Nokogiri(html).search('//*[@itemprop]').first
     Mida::Itemprop.parse(element).should == {'reviewer' => 'Lorry Woodman'}
   end
 
   it 'should get time from an time datatime attribute' do
-    element = mock_element('time', {'itemprop' => 'dtreviewed',
-                                    'datetime' => '2011-04-04'})
-    Mida::Itemprop.parse(element).should == {'dtreviewed' => '2011-04-04'}
+    html = html_wrap %q{<time itemprop="dtreviewed" datetime="2011-05-04"/>}
+    element = Nokogiri(html).search('//*[@itemprop]').first
+    Mida::Itemprop.parse(element).should == {'dtreviewed' => '2011-05-04'}
   end
 end

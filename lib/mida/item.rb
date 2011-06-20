@@ -1,10 +1,14 @@
 require 'nokogiri'
+require_relative '../mida'
 require_relative 'datatypes'
+require_relative 'itemscope'
+require_relative 'vocabulary'
 
 module Mida
 
-  # Class that holds each item/itemscope
+  # Class that holds a validated item
   class Item
+
     # The vocabulary used to interpret this item
     attr_reader :vocabulary
 
@@ -19,17 +23,15 @@ module Mida
     # or <tt>Mida::Item</tt> instances
     attr_reader :properties
 
-    # Create a new Item object
+    # Create a new Item object from an +Itemscope+ and validates
+    # its +properties+
     #
-    # [itemscope] The itemscope that you want to parse.
-    # [page_url] The url of target used for form absolute url.
-    def initialize(itemscope, page_url=nil)
-      @itemscope, @page_url = itemscope, page_url
-      @type, @id = extract_attribute('itemtype'), extract_attribute('itemid')
+    # [itemscope] The itemscope that has been parsed by +Itemscope+
+    def initialize(itemscope)
+      @type = itemscope.type
+      @id = itemscope.id
       @vocabulary = Mida::Vocabulary.find(@type)
-      @properties = {}
-      add_itemref_properties
-      parse_elements(extract_elements(@itemscope))
+      @properties = itemscope.properties
       validate_properties
     end
 
@@ -87,6 +89,7 @@ module Mida
 
       valid_values = []
       values.each do |value|
+        value = Item.new(value) if is_itemscope?(value)
         if (type = valid_type?(prop_types, value))
           if DataTypes::TYPES.include?(type)
             DataTypes.extract(type, value)
@@ -97,9 +100,17 @@ module Mida
       valid_values
     end
 
+    def is_itemscope?(object)
+      object.kind_of?(Itemscope)
+    end
+
+    def is_item?(object)
+      object.respond_to?(:vocabulary)
+    end
+
     # Returns the valid type of the +value+ or +nil+ if not valid
     def valid_type?(valid_types, value)
-      if value.respond_to?(:vocabulary)
+      if is_item?(value)
         if valid_types.include?(value.vocabulary) || valid_types.include?(:any)
           return value.vocabulary
         end
@@ -109,19 +120,6 @@ module Mida
         return :any
       end
       nil
-    end
-
-    def extract_attribute(attribute)
-      (value = @itemscope.attribute(attribute)) ? value.value : nil
-    end
-
-    def extract_elements(itemscope)
-      itemscope.search('./*')
-    end
-
-    # Find an element with a matching id
-    def find_with_id(id)
-      @itemscope.search("//*[@id='#{id}']")
     end
 
     # The value as it should appear in to_h()
@@ -137,31 +135,6 @@ module Mida
       properties.each_with_object({}) do |(name, value), hash|
         hash[name] = value_to_h(value)
       end
-    end
-
-    # Add any properties referred to by 'itemref'
-    def add_itemref_properties
-      itemref = extract_attribute('itemref')
-      if itemref
-        itemref.split.each {|id| parse_elements(find_with_id(id))}
-      end
-    end
-
-    def parse_elements(elements)
-      elements.each {|element| parse_element(element)}
-    end
-
-    def parse_element(element)
-      itemscope = element.attribute('itemscope')
-      itemprop = element.attribute('itemprop')
-      internal_elements = extract_elements(element)
-      add_itemprop(element) if itemscope || itemprop
-      parse_elements(internal_elements) if internal_elements && !itemscope
-    end
-
-    def add_itemprop(itemprop)
-      properties = Itemprop.parse(itemprop, @page_url)
-      properties.each { |name, value| (@properties[name] ||= []) << value }
     end
 
   end

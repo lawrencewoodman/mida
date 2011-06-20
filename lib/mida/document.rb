@@ -47,14 +47,15 @@ module Mida
       return nil unless itemscopes
 
       itemscopes.collect do |itemscope|
-        Item.new(itemscope, @page_url)
+        itemscope = Itemscope.new(itemscope, @page_url)
+        Item.new(itemscope)
       end
     end
 
     def search_values(values, vocabulary)
       items = []
       values.each do |value|
-        if value.is_a?(Mida::Item) then items += search(vocabulary, [value])
+        if value.is_a?(Item) then items += search(vocabulary, [value])
         elsif value.is_a?(Array) then items += search_values(value, vocabulary)
         end
       end
