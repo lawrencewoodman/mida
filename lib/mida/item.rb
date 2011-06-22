@@ -37,13 +37,12 @@ module Mida
 
     # Return a Hash representation
     # of the form:
-    #   { vocabulary: 'http://example.com/vocab/review',
-    #     type: 'The item type',
+    #   { type: 'http://example.com/vocab/review',
     #     id: 'urn:isbn:1-934356-08-5',
     #     properties: {'a name' => 'avalue' }
     #   }
     def to_h
-      {vocabulary: @vocabulary, type: @type, id: @id, properties: properties_to_h(@properties)}
+      {type: @type, id: @id, properties: properties_to_h(@properties)}
     end
 
     def to_s

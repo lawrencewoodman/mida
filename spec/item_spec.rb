@@ -29,7 +29,6 @@ describe Mida::Item, 'when initialized with an incomplete itemscope' do
 
   it '#to_h should return the correct type and properties' do
     @item.to_h.should == {
-      vocabulary: Mida::Vocabulary::Generic,
       type: nil,
       id: nil,
       properties: {}
@@ -69,7 +68,6 @@ describe Mida::Item, 'when initialized with a complete itemscope of an unknown t
 
   it '#to_h should return the correct type and properties' do
     @item.to_h.should == {
-      vocabulary: Mida::Vocabulary::Generic,
       type: 'book',
       id: "urn:isbn:978-1-849510-50-9",
       properties: {
@@ -112,7 +110,6 @@ describe Mida::Item, 'when initialized with an itemscope of a known type' do
 
   it '#to_h should return the correct type and properties' do
     @item.to_h.should == {
-      vocabulary: Person,
       type: 'http://example.com/vocab/person',
       id: nil,
       properties: {
@@ -156,7 +153,6 @@ describe Mida::Item, 'when initialized with an itemscope of a known type' do
 
   it '#to_h should return the correct type and properties' do
     @item.to_h.should == {
-      vocabulary: Person,
       type: 'http://example.com/vocab/person',
       id: nil,
       properties: {
