@@ -1,9 +1,9 @@
 require_relative 'spec_helper'
 require_relative '../lib/mida'
 
-describe Mida::VocabularyDesc, 'when subclassed and given has statements with no blocks' do
+describe Mida::Vocabulary, 'when subclassed and given has statements with no blocks' do
   before do
-    class Organization < Mida::VocabularyDesc
+    class Organization < Mida::Vocabulary
       itemtype %r{http://example\.com.*?organization$}i
       has_one 'name'
       has_many 'tel', 'url'
@@ -24,19 +24,19 @@ describe Mida::VocabularyDesc, 'when subclassed and given has statements with no
   end
 end
 
-describe Mida::VocabularyDesc, 'when subclassed and given has statements with blocks' do
+describe Mida::Vocabulary, 'when subclassed and given has statements with blocks' do
   before do
-    class Rating < Mida::VocabularyDesc
+    class Rating < Mida::Vocabulary
       itemtype %r{http://example\.com.*?rating$}i
       has_one 'best', 'value'
     end
 
-    class Comment < Mida::VocabularyDesc
+    class Comment < Mida::Vocabulary
       itemtype %r{http://example\.com.*?comment$}i
       has_one 'commentor', 'comment'
     end
 
-    class Review < Mida::VocabularyDesc
+    class Review < Mida::Vocabulary
       itemtype %r{http://example\.com.*?review$}i
       has_one 'itemreviewed'
       has_one 'rating' do
@@ -77,10 +77,10 @@ describe Mida::VocabularyDesc, 'when subclassed and given has statements with bl
   end
 end
 
-describe Mida::VocabularyDesc, 'when subclassed and used with :any for properties and types' do
+describe Mida::Vocabulary, 'when subclassed and used with :any for properties and types' do
   before do
-    class Person < Mida::VocabularyDesc
-      itemtype %r{}
+    class Person < Mida::Vocabulary
+      itemtype %r{http://example.com/vocab/person}
       has_one 'name'
       has_many :any do
         extract :any
@@ -89,7 +89,7 @@ describe Mida::VocabularyDesc, 'when subclassed and used with :any for propertie
   end
 
   it '#itemtype should return the correct regexp' do
-    Person.itemtype.should == %r{}
+    Person.itemtype.should == %r{http://example.com/vocab/person}
   end
 
   it 'should specify that name only appears once' do
@@ -105,7 +105,7 @@ describe Mida::VocabularyDesc, 'when subclassed and used with :any for propertie
   end
 end
 
-describe Mida::VocabularyDesc, 'when subclassed' do
+describe Mida::Vocabulary, 'when subclassed' do
 
   before do
     # Make sure the class is redefined afresh to make sure that
@@ -113,8 +113,8 @@ describe Mida::VocabularyDesc, 'when subclassed' do
     Mida::Vocabulary.unregister(Person)
     Object.send(:remove_const, :Person)
 
-    class Person < Mida::VocabularyDesc
-      itemtype %r{}
+    class Person < Mida::Vocabulary
+      itemtype %r{http://example.com/vocab/person}
       has_one 'name'
       has_many :any do
         extract :any

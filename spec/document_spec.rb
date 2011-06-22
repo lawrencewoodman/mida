@@ -703,7 +703,7 @@ describe Mida::Document, 'when run against a full html document containing an it
       </body></html>
     '
 
-    class Review < Mida::VocabularyDesc
+    class Review < Mida::Vocabulary
       itemtype %r{http://data-vocabulary.org/Review}
       has_one 'itemreviewed', 'reviewer', 'dtreviewed', 'summary'
       has_one 'rating', 'description'

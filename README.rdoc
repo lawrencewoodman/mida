@@ -60,22 +60,22 @@ To see the +properties+ of the +Item+:
 
 === Working with Vocabularies
 Mida allows you to define vocabularies, so that input data can be constrained to match
-expected patterns.  By default a generic vocabulary (<tt>Mida::Vocabulary::Generic</tt>)
+expected patterns.  By default a generic vocabulary (<tt>Mida::GenericVocabulary</tt>)
 is registered which will match against any +itemtype+ with any number of properties.
 
-If you want to specify a vocabulary you create a class derived from <tt>Mida::VocabularyDesc</tt>
+If you want to specify a vocabulary you create a class derived from <tt>Mida::Vocabulary</tt>
 and use +itemtype+, +has_one+, +has_many+ and +extract+ to describe the vocabulary.
 
 As an example the following describes a subset of Google's Review vocabulary:
 
-  class Rating < Mida::VocabularyDesc
+  class Rating < Mida::Vocabulary
     itemtype %r{http://data-vocabulary.org/rating}i
     has_one 'best'
     has_one 'worst'
     has_one 'value'
   end
 
-  class Review < Mida::VocabularyDesc
+  class Review < Mida::Vocabulary
     itemtype %r{http://data-vocabulary.org/review}i
     has_one 'itemreviewed'
     has_one 'rating' do
@@ -83,7 +83,7 @@ As an example the following describes a subset of Google's Review vocabulary:
     end
   end
 
-When you create a subclass of <tt>Mida::VocabularyDesc</tt> it automatically
+When you create a subclass of <tt>Mida::Vocabulary</tt> it automatically
 registers the Vocabulary.
 
 Now if Mida is parsing some input and manages to match against the +Review+ +itemtype+, it

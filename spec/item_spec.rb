@@ -16,7 +16,7 @@ describe Mida::Item, 'when initialized with an incomplete itemscope' do
   end
 
   it '#vocabulary should return the correct vocabulary' do
-    @item.vocabulary.should == Mida::Vocabulary::Generic
+    @item.vocabulary.should == Mida::GenericVocabulary
   end
 
   it '#id should return the same id as the itemscope' do
@@ -52,7 +52,7 @@ describe Mida::Item, 'when initialized with a complete itemscope of an unknown t
   end
 
   it '#vocabulary should return the correct vocabulary' do
-    @item.vocabulary.should == Mida::Vocabulary::Generic
+    @item.vocabulary.should == Mida::GenericVocabulary
   end
 
   it '#id should return the same id as the itemscope' do
@@ -80,7 +80,7 @@ end
 
 describe Mida::Item, 'when initialized with an itemscope of a known type' do
   before do
-    class Person < Mida::VocabularyDesc
+    class Person < Mida::Vocabulary
       itemtype %r{http://example.com/vocab/person}
       has_one 'name'
       has_many 'url'
@@ -123,7 +123,7 @@ end
 
 describe Mida::Item, 'when initialized with an itemscope of a known type' do
   before do
-    class Person < Mida::VocabularyDesc
+    class Person < Mida::Vocabulary
       itemtype %r{http://example.com/vocab/person}
       has_one 'name'
       has_many 'url'
@@ -166,7 +166,11 @@ end
 
 describe Mida::Item, 'when initialized with an itemscope of a known type that does not fully match vocabulary' do
   before do
-    class Person < Mida::VocabularyDesc
+    # Make sure the class is redefined afresh to make sure that
+    # inherited() hook is called
+    Mida::Vocabulary.unregister(Person)
+    Object.send(:remove_const, :Person)
+    class Person < Mida::Vocabulary
       itemtype %r{http://example.com/vocab/person}
       has_one 'name', 'tel'
       has_many 'url', 'city'
@@ -201,12 +205,12 @@ end
 
 describe Mida::Item, 'when initialized with an itemscope containing another correct itemscope' do
   before do
-    class Tel < Mida::VocabularyDesc
+    class Tel < Mida::Vocabulary
       itemtype %r{http://example.com/vocab/tel}
       has_one 'dial_code', 'number'
     end
 
-    class Person < Mida::VocabularyDesc
+    class Person < Mida::Vocabulary
       itemtype %r{http://example.com/vocab/person}
       has_one 'name'
       has_many 'tel' do
@@ -254,7 +258,7 @@ end
 
 describe Mida::Item, 'when initialized with an itemscope containing another invalid itemscope' do
   before do
-    class Person < Mida::VocabularyDesc
+    class Person < Mida::Vocabulary
       itemtype %r{http://example.com/vocab/person}
       has_one 'name'
       has_many 'tel'
