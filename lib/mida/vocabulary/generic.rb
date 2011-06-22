@@ -5,7 +5,7 @@ module Mida
     class Generic < Mida::VocabularyDesc
       itemtype %r{}
       has_many :any do
-        types :any
+        extract :any
       end
     end
 

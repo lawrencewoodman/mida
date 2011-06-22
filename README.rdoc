@@ -64,17 +64,27 @@ expected patterns.  By default a generic vocabulary (<tt>Mida::Vocabulary::Gener
 is registered which will match against any +itemtype+ with any number of properties.
 
 If you want to specify a vocabulary you create a class derived from <tt>Mida::VocabularyDesc</tt>
-and use +itemtype+, +has_one+, +has_many+ and +types+ to describe the vocabulary.
+and use +itemtype+, +has_one+, +has_many+ and +extract+ to describe the vocabulary.
 
 As an example the following describes a subset of Google's Review vocabulary:
-  class Review < Mida::VocabularyDesc
-    itemtype %r{http://data-vocabulary.org/review}
-    has_one 'itemreviewed'
-    has_one 'rating'
+
+  class Rating < Mida::VocabularyDesc
+    itemtype %r{http://data-vocabulary.org/rating}i
+    has_one 'best'
+    has_one 'worst'
+    has_one 'value'
   end
 
-To register the above Vocabulary use:
-  Mida::Vocabulary.register(Review)
+  class Review < Mida::VocabularyDesc
+    itemtype %r{http://data-vocabulary.org/review}i
+    has_one 'itemreviewed'
+    has_one 'rating' do
+      extract Rating, :text
+    end
+  end
+
+When you create a subclass of <tt>Mida::VocabularyDesc</tt> it automatically
+registers the Vocabulary.
 
 Now if Mida is parsing some input and manages to match against the +Review+ +itemtype+, it
 will only allow the specified properties and will reject any that don't have the correct number.  It

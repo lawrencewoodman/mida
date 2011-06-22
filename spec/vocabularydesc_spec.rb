@@ -40,10 +40,10 @@ describe Mida::VocabularyDesc, 'when subclassed and given has statements with bl
       itemtype %r{http://example\.com.*?review$}i
       has_one 'itemreviewed'
       has_one 'rating' do
-        types Rating, :text
+        extract Rating, :text
       end
       has_many 'comments' do
-        types Comment
+        extract Comment
       end
     end
   end
@@ -83,7 +83,7 @@ describe Mida::VocabularyDesc, 'when subclassed and used with :any for propertie
       itemtype %r{}
       has_one 'name'
       has_many :any do
-        types :any
+        extract :any
       end
     end
   end
@@ -117,7 +117,7 @@ describe Mida::VocabularyDesc, 'when subclassed' do
       itemtype %r{}
       has_one 'name'
       has_many :any do
-        types :any
+        extract :any
       end
     end
   end
