@@ -20,7 +20,7 @@
   <div id="topBanner">
     <div id="topBannerInner">
        
-      <img id="logo" src="images/logo.png" alt="Mida"/>
+      <img id="logo" src="/images/logo.png" alt="Mida"/>
       <nav>
         <ul>
         {% if page.menuOption == "home" %}
@@ -29,10 +29,10 @@
           <li><a class="unselected" href="/">Home</a></li>
         {% endif %}
 
-        {% if page.menuOption == "contact" %}
-          <li><a class="selected" href="/contact">Contact</a></li>
+        {% if page.menuOption == "contributing" %}
+          <li><a class="selected" href="/contributing">Contributing</a></li>
         {% else %}
-          <li><a class="unselected" href="/contact">Contact</a></li>
+          <li><a class="unselected" href="/contributing">Contributing</a></li>
         {% endif %}
         </ul>
       </nav>
