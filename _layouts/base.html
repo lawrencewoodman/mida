@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" charset="utf-8>
+
+<head>
+  <title>{{ page.title }}</title>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+
+  <meta name="description" content="A Ruby Microdata parser/extractor"/>
+  <meta name="keywords" content="ruby microdata parser extractor"/>
+
+  <link rel="stylesheet" href="/css/sitestyle.css" media="screen" type="text/css" />
+
+  <!-- Fix for ie 5&6 where id doesnt render transparent images properly-->
+  <!--[if lt IE 7.]>
+    <script defer type="text/javascript" src="/js/pngfix.js"></script>
+  <![endif]-->
+</head>
+
+<body>
+  <div id="topBanner">
+    <div id="topBannerInner">
+       
+      <img id="logo" src="images/logo.png" alt="Mida"/>
+      <nav>
+        <ul>
+          <!--<li id="logo"><a href="/">Mida</a></li>-->
+          <!--<li id="logo"><img src="images/logo.png" alt="Mida"/></li>-->
+        {% if page.menuOption == "home" %}
+          <li><a class="selected" href="/">Home</a></li>
+        {% else %}
+          <li><a class="unselected" href="/">Home</a></li>
+        {% endif %}
+
+        {% if page.menuOption == "contact" %}
+          <li><a class="selected" href="/contact">Contact</a></li>
+        {% else %}
+          <li><a class="unselected" href="/contact">Contact</a></li>
+        {% endif %}
+        </ul>
+      </nav>
+    </div>
+  </div>
+
+  <div id="content">
+    {{ content }}
+  </div>
+
+  </body>
+</html>

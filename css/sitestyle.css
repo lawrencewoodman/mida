@@ -1,0 +1,118 @@
+body {  
+  color: black; 
+  font-family: corbel, 'lucida grande', helvetica, sans-serif;
+  font-weight: normal;
+  width: 100%;
+  font-size: 14pt;
+  margin: 0 auto;
+}
+
+/* ----- Top Banner ----- */
+
+div#topBanner {
+  vertical-align: bottom;
+  width: 100%;
+  height: 80px;
+  background:black;
+  margin: 0 0 1em;
+  padding: 0;
+}
+
+div#topBannerInner {
+  position: relative;
+  height: 80px;
+  vertical-align: bottom;
+  margin: 0 auto;
+  max-width: 1024px;
+  padding: 0;
+}
+
+img#logo {
+  position: absolute;
+  top: 10px;
+  vertical-align: bottom;
+  padding: 0;
+  margin: 0;
+}
+
+nav {
+  position: relative;
+  top: 40px;
+  left: 180px;
+  vertical-align: bottom;
+  margin:0;
+  padding: 0;
+}
+
+nav ul {
+  background: black;
+  vertical-align: bottom;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  height: 40px;
+}
+
+nav li {
+  float: left;
+  height: 40px;
+}
+
+/* Menu items */
+nav a.selected {
+  font-weight: bold;
+  display: block;
+  height: 40px;
+  line-height: 40px;
+  text-decoration: none;
+  background: white;
+  color: black;
+  padding:0 14px;
+  border-radius: 10px 10px 0px 0px;
+  -moz-border-radius: 10px 10px 0px 0px; 
+}
+
+nav a.unselected {
+  font-weight: bold;
+  display: block;
+  height: 40px;
+  line-height: 40px;
+  text-decoration: none;
+  padding:0 14px;
+  color: white;
+  background: gray;
+  border-radius: 10px 10px 0px 0px;
+  -moz-border-radius: 10px 10px 0px 0px; 
+  -webkit-border-radius: 10px 10px 0px 0px; 
+}
+
+/* ----- Main content ----- */
+div#content {
+  margin: auto;
+  max-width: 1024px;
+  background: white;
+  border: none;
+  min-height: 500px;
+  line-height: 150%;
+}
+
+
+div#midaExplanation {
+  margin: 0 auto;
+  width: 50%;
+  text-align: center;
+  padding: 1em;
+  background: #EEE;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+}
+
+pre {
+  margin-left: 1em;
+  background: #EEE;
+}
+
+h1,h2,h3,h4 {
+  margin-bottom: 0;
+}
