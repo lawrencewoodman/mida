@@ -17,3 +17,89 @@ Mida keeps RubyGems up-to-date with its latest version, so installing is as easy
   <li>Nokogiri</li>
 </ul>
 
+<h2>Usage</h2>
+
+The following examples assume that you have required <code>mida</code>
+and <code>open-uri</code>.
+
+<h3>Extracting Microdata from a page</h3>
+
+All the Microdata is extracted from a page when a new
+<code>Mida::Document</code> instance is created.<br />
+<br />
+To extract all the Microdata from a webpage:<br />
+
+<pre><code>url = 'http://example.com'
+open(url) {|f| doc = Mida::Document.new(f, url)}</code></pre>
+
+The top-level Items will be held in an array accessible via
+<code>doc.items</code>.<br />
+<br />
+To simply list all the top-level Items that have been found:<br />
+
+<pre><code>puts doc.items</code></pre>
+
+<h3>Searching</h3>
+
+If you want to search for an Item that has a specific itemtype/vocabulary
+ his can be done with the search method.<br />
+<br />
+To return all the Items that use one of Google’s Review vocabularies:<br />
+
+<pre><code>doc.search(%r{http://data-vocabulary\.org.*?review.*?}i)</pre></code>
+
+<h3>Inspecting an Item</h3>
+Each Item is a <code>Mida::Item</code> instance and has four main methods of
+interest: <code>type</code>, <code>vocabulary</code>, <code>properties</code>
+and <code>id</code>.<br />
+<br />
+To find out the itemtype of the Item:<br />
+<pre><code>puts doc.items.first.type</code></pre>
+
+To find out the itemid of the Item:<br />
+
+<pre></code>puts doc.items.first.id</code></pre>
+
+Properties are returned as a hash containing name/values pairs. The values will
+be an array of either <code>String</code> or <code>Mida::Item</code> instances.<br />
+<br />
+To see the properties of the Item:<br />
+<pre><code>puts doc.items.first.properties</code></pre>
+
+<h3>Working with Vocabularies</h3>
+Mida allows you to define vocabularies, so that input data can be constrained
+to match expected patterns. By default a generic vocabulary
+(<code>Mida::GenericVocabulary</code>) is registered, which will match against
+any itemtype with any number of properties.<br />
+<br />
+If you want to specify a vocabulary, you create a class derived from
+<code>Mida::Vocabulary</code> and use <code>itemtype</code>,
+<code>has_one</code>, <code>has_many</code> and <code>extract</code>
+to describe the vocabulary.<br />
+<br />
+As an example the following describes a subset of Google’s Review vocabulary:<br />
+<pre><code>class Rating &lt; Mida::Vocabulary
+  itemtype %r{http://data-vocabulary.org/rating}i
+  has_one 'best'
+  has_one 'worst'
+  has_one 'value'
+end
+
+class Review &lt; Mida::Vocabulary
+  itemtype %r{http://data-vocabulary.org/review}i
+  has_one 'itemreviewed'
+  has_one 'rating' do
+    extract Rating, :text
+  end
+end</code></pre>
+
+When you create a subclass of <code>Mida::Vocabulary</code> it automatically
+registers the Vocabulary.<br />
+<br />
+Now if Mida is parsing some input and manages to match against the
+<code>Review</code> <code>Vocabulary</code>, it will only allow the specified
+properties and will reject any that don't have the correct number. It will
+also set <code>Item#vocabulary</code> accordingly, e.g.
+
+<pre><code>doc.items.first.vocabulary      # => Review</code></pre>
+
