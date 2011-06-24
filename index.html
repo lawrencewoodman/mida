@@ -1,11 +1,11 @@
 ---
 layout: base
-title: Mida - A Microdata extractor/parser library
+title: Mida - A Microdata extractor/parser library for Ruby
 menuOption: home
 ---
 
 <h2>Mida</h2>
-Mida is a Ruby Microdata extractor/parser library.
+Mida is a Microdata extractor/parser library for Ruby.
 
 <h2>Installation</h2>
 Mida keeps RubyGems up-to-date with its latest version, so installing is as easy as:<br />
@@ -46,7 +46,7 @@ If you want to search for an Item that has a specific itemtype/vocabulary
 <br />
 To return all the Items that use one of Google’s Review vocabularies:<br />
 
-<pre><code>doc.search(%r{http://data-vocabulary\.org.*?review.*?}i)</pre></code>
+<pre><code>doc.search(%r{http://data-vocabulary\.org.*?review.*?}i)</code></pre>
 
 <h3>Inspecting an Item</h3>
 Each Item is a <code>Mida::Item</code> instance and has four main methods of
@@ -58,7 +58,7 @@ To find out the itemtype of the Item:<br />
 
 To find out the itemid of the Item:<br />
 
-<pre></code>puts doc.items.first.id</code></pre>
+<pre><code>puts doc.items.first.id</code></pre>
 
 Properties are returned as a hash containing name/values pairs. The values will
 be an array of either <code>String</code> or <code>Mida::Item</code> instances.<br />
