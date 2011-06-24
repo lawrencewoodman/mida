@@ -59,20 +59,7 @@ nav li {
 }
 
 /* Menu items */
-nav a.selected {
-  font-weight: bold;
-  display: block;
-  height: 40px;
-  line-height: 40px;
-  text-decoration: none;
-  background: white;
-  color: black;
-  padding:0 14px;
-  border-radius: 10px 10px 0px 0px;
-  -moz-border-radius: 10px 10px 0px 0px; 
-}
-
-nav a.unselected {
+nav a {
   font-weight: bold;
   display: block;
   height: 40px;
@@ -85,6 +72,12 @@ nav a.unselected {
   -moz-border-radius: 10px 10px 0px 0px; 
   -webkit-border-radius: 10px 10px 0px 0px; 
 }
+
+nav a#current {
+  background: white;
+  color: black;
+}
+
 
 /* ----- Main content ----- */
 div#content {

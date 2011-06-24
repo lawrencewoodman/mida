@@ -23,17 +23,10 @@
       <img id="logo" src="/images/logo.png" alt="Mida"/>
       <nav>
         <ul>
-        {% if page.menuOption == "home" %}
-          <li><a class="selected" href="/">Home</a></li>
-        {% else %}
-          <li><a class="unselected" href="/">Home</a></li>
-        {% endif %}
-
-        {% if page.menuOption == "contributing" %}
-          <li><a class="selected" href="/contributing">Contributing</a></li>
-        {% else %}
-          <li><a class="unselected" href="/contributing">Contributing</a></li>
-        {% endif %}
+          <li><a {%if page.menuOption == "home"%}id="current"{%endif%}
+                 href="/">Home</a></li>
+          <li><a {%if page.menuOption == "contributing"%}id="current"{%endif%}
+                 href="/contributing">Contributing</a></li>
         </ul>
       </nav>
     </div>
