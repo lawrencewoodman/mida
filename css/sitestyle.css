@@ -65,6 +65,7 @@ nav a {
   height: 40px;
   line-height: 40px;
   text-decoration: none;
+  margin-left: 1px;
   padding:0 14px;
   color: white;
   background: gray;
