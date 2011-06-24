@@ -1,6 +1,7 @@
 = Mida
 
-* {Mida Project Page}[https://github.com/LawrenceWoodman/mida]
+* {Mida Project Page}[http://lawrencewoodman.github.com/mida]
+* {Mida Github Repository}[https://github.com/LawrenceWoodman/mida]
 * {Mida Bug Tracker}[https://github.com/LawrenceWoodman/mida/issues]
 
 == Description
@@ -43,8 +44,8 @@ To return all the +Items+ that use one of Google's Review vocabularies:
   doc.search(%r{http://data-vocabulary\.org.*?review.*?}i)
 
 === Inspecting an +Item+
-Each +Item+ is a <tt>Mida::Item</tt> instance and has three main methods of
-interest, +type+, +properties+ and +id+.
+Each +Item+ is a <tt>Mida::Item</tt> instance and has four main methods of
+interest: +type+, +vocabulary+, +properties+ and +id+.
 
 To find out the +itemtype+ of the +Item+:
   puts doc.items.first.type
