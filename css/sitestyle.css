@@ -89,12 +89,12 @@ nav a.unselected {
 /* ----- Main content ----- */
 div#content {
   margin: 0 auto;
-  padding-top: 0.5ex;
+  padding: 0.5em 1em;
   max-width: 1024px;
   background: white;
   border: none;
   min-height: 500px;
-  line-height: 150%;
+  line-height: 1.5;
 }
 
 pre {
