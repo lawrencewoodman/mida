@@ -1,4 +1,5 @@
 destination: ./_site
+baseurl: /mida
 safe:        true
 auto:        true
 lsi:         false

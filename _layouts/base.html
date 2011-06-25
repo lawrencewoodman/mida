@@ -8,27 +8,22 @@
   <meta name="description" content="A Ruby Microdata parser/extractor"/>
   <meta name="keywords" content="ruby microdata parser extractor"/>
 
-  <link rel="stylesheet" href="/css/sitestyle.css" media="screen" type="text/css" />
-
-  <!-- Fix for ie 5&6 where id doesnt render transparent images properly-->
-  <!--[if lt IE 7.]>
-    <script defer type="text/javascript" src="/js/pngfix.js"></script>
-  <![endif]-->
+  <link rel="stylesheet" href="/mida/css/sitestyle.css" media="screen" type="text/css" />
 </head>
 
 <body>
   <div id="topBanner">
     <div id="topBannerInner">
        
-      <img id="logo" src="/images/logo.png" alt="Mida"/>
+      <img id="logo" src="/mida/images/logo.png" alt="Mida"/>
       <nav>
         <ul>
           <li><a {%if page.menuOption == "home"%}id="current"{%endif%}
-                 href="/">Home</a></li>
+                 href="/mida/">Home</a></li>
           <li><a {%if page.menuOption == "contributing"%}id="current"{%endif%}
-                 href="/contributing">Contributing</a></li>
+                 href="/mida/contributing">Contributing</a></li>
           <li><a {%if page.menuOption == "bugs"%}id="current"{%endif%}
-                 href="/bugs">Bug Reporting</a></li>
+                 href="/mida/bugs">Bug Reporting</a></li>
         </ul>
       </nav>
     </div>
