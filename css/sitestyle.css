@@ -4,14 +4,13 @@ body {
   font-weight: normal;
   width: 100%;
   font-size: 14pt;
-  margin: 0 auto;
+  margin: 0;
 }
 
 /* ----- Top Banner ----- */
 
 div#topBanner {
   vertical-align: bottom;
-  width: 100%;
   height: 120px;
   background:black;
   margin: 0;
@@ -45,7 +44,7 @@ nav {
 }
 
 nav ul {
-  background: black;
+  max-width: 744px
   vertical-align: bottom;
   list-style: none;
   padding: 0;
