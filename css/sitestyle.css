@@ -44,7 +44,7 @@ nav {
 }
 
 nav ul {
-  max-width: 744px
+  max-width: 744px;
   vertical-align: bottom;
   list-style: none;
   padding: 0;
