@@ -6,9 +6,9 @@ module Mida
       @num, @types = num, []
       if block_given?
         instance_eval(&block)
-        @types = [:text] unless @types.size >= 1
+        @types = [DataType::Text] unless @types.size >= 1
       else
-        @types = [:text]
+        @types = [DataType::Text]
       end
     end
 

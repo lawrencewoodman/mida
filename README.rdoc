@@ -80,7 +80,7 @@ As an example the following describes a subset of Google's Review vocabulary:
     itemtype %r{http://data-vocabulary.org/review}i
     has_one 'itemreviewed'
     has_one 'rating' do
-      extract Rating, :text
+      extract Rating, Mida::DataType::Text
     end
   end
 

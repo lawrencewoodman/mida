@@ -1,6 +1,6 @@
 require 'nokogiri'
 require_relative '../mida'
-require_relative 'datatypes'
+require_relative 'datatype'
 require_relative 'itemscope'
 require_relative 'vocabulary'
 
@@ -88,11 +88,12 @@ module Mida
 
       valid_values = []
       values.each do |value|
-        value = Item.new(value) if is_itemscope?(value)
-        if (type = valid_type?(prop_types, value))
-          if DataTypes::TYPES.include?(type)
-            DataTypes.extract(type, value)
-          end
+        if is_itemscope?(value)
+          value = Item.new(value)
+          valid_values << value if valid_item?(prop_types, value)
+        elsif (type = valid_datatype?(prop_types, value))
+          valid_values << type.extract(value)
+        elsif prop_types.include?(:any)
           valid_values << value
         end
       end
@@ -103,22 +104,16 @@ module Mida
       object.kind_of?(Itemscope)
     end
 
-    def is_item?(object)
-      object.respond_to?(:vocabulary)
+    # Returns whether the +item+ is a <tt>valid_type</tt>
+    def valid_item?(valid_types, item)
+      valid_types.include?(item.vocabulary) || valid_types.include?(:any)
     end
 
     # Returns the valid type of the +value+ or +nil+ if not valid
-    def valid_type?(valid_types, value)
-      if is_item?(value)
-        if valid_types.include?(value.vocabulary) || valid_types.include?(:any)
-          return value.vocabulary
-        end
-      elsif (type = valid_types.find {|type| DataTypes.valid?(type, value)})
-        return type
-      elsif valid_types.include?(:any)
-        return :any
+    def valid_datatype?(valid_types, value)
+      valid_types.find do |type|
+        type.respond_to?(:valid?) && type.valid?(value)
       end
-      nil
     end
 
     # The value as it should appear in to_h()

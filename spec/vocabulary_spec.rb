@@ -40,7 +40,7 @@ describe Mida::Vocabulary, 'when subclassed and given has statements with blocks
       itemtype %r{http://example\.com.*?review$}i
       has_one 'itemreviewed'
       has_one 'rating' do
-        extract Rating, :text
+        extract Rating, Mida::DataType::Text
       end
       has_many 'comments' do
         extract Comment
@@ -56,16 +56,16 @@ describe Mida::Vocabulary, 'when subclassed and given has statements with blocks
     Review.prop_spec['itemreviewed'][:num].should == :one
   end
 
-  it 'should specify that itemreviewed only have the type :text' do
-    Review.prop_spec['itemreviewed'][:types].should == [:text]
+  it 'should specify that itemreviewed only have the type Mida::DataType::Text' do
+    Review.prop_spec['itemreviewed'][:types].should == [Mida::DataType::Text]
   end
 
   it 'should specify rating to appear once' do
     Review.prop_spec['rating'][:num].should == :one
   end
 
-  it 'should specify rating to only have the types: Rating, :text' do
-    Review.prop_spec['rating'][:types].should == [Rating, :text]
+  it 'should specify rating to only have the types: Rating, Mida::DataType::Text' do
+    Review.prop_spec['rating'][:types].should == [Rating, Mida::DataType::Text]
   end
 
   it 'should specify comments to appear many times' do

@@ -214,7 +214,7 @@ describe Mida::Item, 'when initialized with an itemscope containing another corr
       itemtype %r{http://example.com/vocab/person}
       has_one 'name'
       has_many 'tel' do
-        extract Tel, :text
+        extract Tel, Mida::DataType::Text
       end
     end
 

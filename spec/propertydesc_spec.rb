@@ -10,8 +10,8 @@ describe Mida::PropertyDesc, 'when initialized without a block' do
     @propertyDesc.to_h[:num].should == 3
   end
 
-  it '#to_h[:types] should equal :text' do
-    @propertyDesc.to_h[:types].should == [:text]
+  it '#to_h[:types] should equal DataType::Text' do
+    @propertyDesc.to_h[:types].should == [Mida::DataType::Text]
   end
 end
 
@@ -20,8 +20,8 @@ describe Mida::PropertyDesc, 'when initialized with a block with no specified ty
     @propertyDesc = Mida::PropertyDesc.new(3) {}
   end
 
-  it '#to_h[:types] should equal :text' do
-    @propertyDesc.to_h[:types].should == [:text]
+  it '#to_h[:types] should equal DataType::Text' do
+    @propertyDesc.to_h[:types].should == [Mida::DataType::Text]
   end
 end
 

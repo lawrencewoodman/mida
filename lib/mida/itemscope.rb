@@ -1,5 +1,4 @@
 require 'nokogiri'
-require_relative 'datatypes'
 
 module Mida
 
