@@ -64,13 +64,29 @@ describe Mida::Itemscope, 'when initialized with an itemscope containing an item
         <a itemprop="url" href="home/lorry">Lorry</a>
       </div>
     EOS
-    doc = Nokogiri(html).children.first
-    @itemscope = Mida::Itemscope.new(doc, "http://example.com")
+    @doc = Nokogiri(html).children.first
   end
 
-  it 'should return the url as an absolute url' do
-    @itemscope.properties['url'].should == ['http://example.com/home/lorry']
+  context 'and the page url is not passed' do
+    before do
+      @itemscope = Mida::Itemscope.new(@doc)
+    end
+
+    it 'should return the url as an absolute url' do
+      @itemscope.properties['url'].should == ['']
+    end
   end
+
+  context 'and the page url is passed' do
+    before do
+      @itemscope = Mida::Itemscope.new(@doc, "http://example.com")
+    end
+
+    it 'should return the url as an absolute url' do
+      @itemscope.properties['url'].should == ['http://example.com/home/lorry']
+    end
+  end
+
 end
 
 describe Mida::Itemscope, 'when initialized with an itemscope containing itemprops surrounded by a non microdata element' do
