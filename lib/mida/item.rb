@@ -89,8 +89,9 @@ module Mida
       valid_values = []
       values.each do |value|
         if is_itemscope?(value)
-          value = Item.new(value)
-          valid_values << value if valid_item?(prop_types, value)
+          if valid_itemtype?(prop_types, value.type)
+            valid_values << Item.new(value)
+          end
         elsif (type = valid_datatype?(prop_types, value))
           valid_values << type.extract(value)
         elsif prop_types.include?(:any)
@@ -104,9 +105,13 @@ module Mida
       object.kind_of?(Itemscope)
     end
 
-    # Returns whether the +item+ is a <tt>valid_type</tt>
-    def valid_item?(valid_types, item)
-      valid_types.include?(item.vocabulary) || valid_types.include?(:any)
+    # Returns whether the +itemtype+ is a valid type
+    def valid_itemtype?(valid_types, itemtype)
+      return true if valid_types.include?(:any)
+
+      valid_types.find do |type|
+        type.respond_to?(:itemtype) && type.itemtype =~ itemtype
+      end
     end
 
     # Returns the valid type of the +value+ or +nil+ if not valid
