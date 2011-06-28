@@ -40,6 +40,43 @@ shared_examples_for 'one root itemscope' do
   end
 end
 
+describe Mida::Document do
+  before do
+    html = '
+      <html><body>
+        There is some text here
+        <div>
+          and also some here
+          <div itemscope itemtype="http://data-vocabulary.org/Review">
+            <span itemprop="itemreviewed">Romeo Pizza</span>
+            Rating: <span itemprop="rating">4.5</span>
+          </div>
+          <div itemscope itemtype="http://data-vocabulary.org/Organization">
+            <span itemprop="name">An org name</span>
+            <span itemprop="url">http://example.com</span>
+          </div>
+        </div>
+      </body></html>
+    '
+
+    @md = Mida::Document.new(html)
+  end
+
+  it '#each should pass each item to the block' do
+    item_num = 0
+    @md.each {|item| item.should == @md.items[item_num]; item_num += 1}
+  end
+
+  it 'should have access to the Enumerable mixin methods such as #find' do
+    review = @md.find {|item| item.type == 'http://data-vocabulary.org/Review'}
+    review.type.should == 'http://data-vocabulary.org/Review'
+    review.properties['itemreviewed'].should == ["Romeo Pizza"]
+
+    organization = @md.find {|item| item.type == 'http://data-vocabulary.org/Organization'}
+    organization.type.should == 'http://data-vocabulary.org/Organization'
+    organization.properties['name'].should == ["An org name"]
+  end
+end
 
 describe Mida::Document, 'when run against a full html document containing two non-nested itemscopes with itemtypes' do
 

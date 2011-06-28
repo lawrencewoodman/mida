@@ -4,6 +4,7 @@ module Mida
 
   # Class that holds the extracted Microdata
   class Document
+    include Enumerable
 
     # An Array of Mida::Item objects.  These are all top-level
     # and hence not properties of other Items
@@ -18,6 +19,11 @@ module Mida
       @doc = Nokogiri(target)
       @page_url = page_url
       @items = extract_items
+    end
+
+    # Implements method for Enumerable
+    def each
+      @items.each {|item| yield(item)}
     end
 
     # Returns an array of matching Mida::Item objects
