@@ -26,25 +26,22 @@ module Mida
       @items.each {|item| yield(item)}
     end
 
-    # Returns an array of matching Mida::Item objects
+    # Returns an array of matching <tt>Mida::Item</tt> objects
     #
-    # [vocabulary] A regexp to match the item types against
-    #              or a Class derived from Mida::VocabularyDesc
-    #              to match against
-    def search(vocabulary, items=@items)
-      found_items = []
-      regexp_passed = vocabulary.kind_of?(Regexp)
-      regexp = if regexp_passed then vocabulary else vocabulary.itemtype end
-
-      items.each do |item|
+    # This drills down through each +Item+ to find match items
+    #
+    # [itemtype] A regexp to match the item types against
+    # [items]    An array of items to search.  If no argument supplied, will
+    #            search through all items in the document.
+    def search(itemtype, items=@items)
+      items.each_with_object([]) do |item, found_items|
         # Allows matching against empty string, otherwise couldn't match
         # as item.type can be nil
-        if (item.type.nil? && "" =~ regexp) || (item.type =~ regexp)
+        if (item.type.nil? && "" =~ itemtype) || (item.type =~ itemtype)
           found_items << item
         end
-        found_items += search_values(item.properties.values, regexp)
+        found_items.concat(search_values(item.properties.values, itemtype))
       end
-      found_items
     end
 
   private
@@ -59,13 +56,11 @@ module Mida
     end
 
     def search_values(values, vocabulary)
-      items = []
-      values.each do |value|
-        if value.is_a?(Item) then items += search(vocabulary, [value])
-        elsif value.is_a?(Array) then items += search_values(value, vocabulary)
+      values.each_with_object([]) do |value, items|
+        if value.is_a?(Item) then items.concat(search(vocabulary, [value]))
+        elsif value.is_a?(Array) then items.concat(search_values(value, vocabulary))
         end
       end
-      items
     end
 
   end

@@ -78,6 +78,43 @@ describe Mida::Document do
   end
 end
 
+describe Mida::Document, 'when run against a full html document containing itemscopes with and without itemtypes' do
+
+  before do
+    html = '
+      <html><body>
+        There is some text here
+        <div>
+          and also some here
+          <div itemscope itemtype="http://data-vocabulary.org/Review">
+            <span itemprop="itemreviewed">Romeo Pizza</span>
+            Rating: <span itemprop="rating">4.5</span>
+          </div>
+          <div itemscope>
+            <span itemprop="name">An org name</span>
+            <span itemprop="url">http://example.com</span>
+          </div>
+        </div>
+      </body></html>
+    '
+
+    @md = Mida::Document.new(html)
+
+  end
+
+  it '#search should be able to match against items without an itemtype' do
+    items = @md.search(%r{^$})
+    items.size.should == 1
+    items[0].properties['name'].should == ['An org name']
+  end
+
+  it '#search should be able to match against items with an itemtype' do
+    items = @md.search(%r{^.+$})
+    items.size.should == 1
+    items[0].type.should == 'http://data-vocabulary.org/Review'
+  end
+end
+
 describe Mida::Document, 'when run against a full html document containing two non-nested itemscopes with itemtypes' do
 
   before do
@@ -180,6 +217,7 @@ describe Mida::Document, 'when run against a full html document containing one
       %r{http://data-vocabulary.org/Review-aggregate}
     ]
     vocabularies.each {|vocabulary| @md.search(vocabulary).size.should == 1}
+
   end
 
   context "when looking at the outer vocabulary" do
