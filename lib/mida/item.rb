@@ -60,45 +60,71 @@ module Mida
     def validate_properties
       @properties =
       @properties.each_with_object({}) do |(property, values), hash|
-        if valid_property?(property, values)
-          hash[property] = validate_values(property, values)
-        end
+        valid_values = validate_values(property, values)
+        hash[property] = valid_values unless valid_values.nil?
       end
     end
 
-    # Return whether the number of values conforms to the spec
-    def valid_num_values?(property, values)
-      return false unless @vocabulary.prop_spec.has_key?(property)
-      property_spec = @vocabulary.prop_spec[property]
-      (property_spec[:num] == :many ||
-        (property_spec[:num] == :one && values.length == 1))
+    # Return whether the number of values conforms to +num+
+    def valid_num_values?(num, values)
+      num == :many || (num == :one && values.length == 1)
     end
 
+    # Return whether this property name is valid
     def valid_property?(property, values)
-      [property, :any].any? {|prop| valid_num_values?(prop, values)}
+      [property, :any].any? do |prop|
+        @vocabulary.prop_spec.has_key?(prop)
+      end
     end
 
-    # Return valid values, converted to the correct +DataType+ if necessary
+    # Return valid values, converted to the correct +DataType+
+    # or +Item+ and number if necessary
     def validate_values(property, values)
-      prop_types = if @vocabulary.prop_spec.has_key?(property)
+      return nil unless valid_property?(property, values)
+      prop_num = property_number(property)
+      return nil unless valid_num_values?(prop_num, values)
+      prop_types = property_types(property)
+
+      valid_values = values.each_with_object([]) do |value, valid_values|
+        new_value = validate_value(prop_types, value)
+        valid_values << new_value unless new_value.nil?
+      end
+
+      # Convert property to correct number
+      prop_num == :many ? valid_values : valid_values.first
+    end
+
+    # Returns value, converted to correct +DataType+ or +Item+
+    def validate_value(prop_types, value)
+      valid_value = nil
+      if is_itemscope?(value)
+        if valid_itemtype?(prop_types, value.type)
+          valid_value = Item.new(value)
+        end
+      elsif (type = valid_datatype?(prop_types, value))
+        valid_value = type.extract(value)
+      elsif prop_types.include?(:any)
+        valid_value = value
+      end
+      valid_value
+    end
+
+    # Return the correct type for this property
+    def property_types(property)
+      if @vocabulary.prop_spec.has_key?(property)
         @vocabulary.prop_spec[property][:types]
       else
         @vocabulary.prop_spec[:any][:types]
       end
+    end
 
-      valid_values = []
-      values.each do |value|
-        if is_itemscope?(value)
-          if valid_itemtype?(prop_types, value.type)
-            valid_values << Item.new(value)
-          end
-        elsif (type = valid_datatype?(prop_types, value))
-          valid_values << type.extract(value)
-        elsif prop_types.include?(:any)
-          valid_values << value
-        end
+    # Return the correct number for this property
+    def property_number(property)
+      if @vocabulary.prop_spec.has_key?(property)
+        @vocabulary.prop_spec[property][:num]
+      else
+        @vocabulary.prop_spec[:any][:num]
       end
-      valid_values
     end
 
     def is_itemscope?(object)

@@ -103,7 +103,7 @@ describe Mida::Item, 'when initialized with an itemscope of a known type' do
 
   it '#properties should return the same properties as the itemscope' do
     @item.properties.should == {
-      'name' => ['Lorry Woodman'],
+      'name' => 'Lorry Woodman',
       'url' => ['http://example.com/user/lorry']
     }
   end
@@ -113,7 +113,7 @@ describe Mida::Item, 'when initialized with an itemscope of a known type' do
       type: 'http://example.com/vocab/person',
       id: nil,
       properties: {
-        'name' => ['Lorry Woodman'],
+        'name' => 'Lorry Woodman',
         'url' => ['http://example.com/user/lorry']
       }
     }
@@ -144,9 +144,17 @@ describe Mida::Item, 'when initialized with an itemscope of a known type' do
     @item.vocabulary.should == Person
   end
 
+  it 'should return has_one properties as a single value' do
+    @item.properties['name'].should == 'Lorry Woodman'
+  end
+
+  it 'should return has_many properties as an array' do
+    @item.properties['url'].should == ['http://example.com/user/lorry']
+  end
+
   it '#properties should return the same properties as the itemscope' do
     @item.properties.should == {
-      'name' => ['Lorry Woodman'],
+      'name' => 'Lorry Woodman',
       'url' => ['http://example.com/user/lorry']
     }
   end
@@ -156,7 +164,7 @@ describe Mida::Item, 'when initialized with an itemscope of a known type' do
       type: 'http://example.com/vocab/person',
       id: nil,
       properties: {
-        'name' => ['Lorry Woodman'],
+        'name' => 'Lorry Woodman',
         'url' => ['http://example.com/user/lorry']
       }
     }
@@ -245,8 +253,8 @@ describe Mida::Item, 'when initialized with an itemscope containing another corr
   it 'should validate and convert the nested itemscope' do
     @item.properties['tel'][1].vocabulary.should == Tel
     @item.properties['tel'][1].properties.should == {
-      'dial_code' => ['0248583'],
-      'number' => ['000004847582'],
+      'dial_code' => '0248583',
+      'number' => '000004847582',
     }
   end
 
