@@ -1,4 +1,4 @@
-require_relative 'vocabulary'
+require 'mida/vocabulary'
 
 module Mida
 

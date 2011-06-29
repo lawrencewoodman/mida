@@ -1,4 +1,4 @@
-require_relative '../../lib/mida/datatype'
+require 'mida/datatype'
 
 describe Mida::DataType::ISO8601Date do
   it '#valid? should return true if a valid iso8601 date has been passed' do

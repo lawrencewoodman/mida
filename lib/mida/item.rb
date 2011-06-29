@@ -1,8 +1,5 @@
 require 'nokogiri'
-require_relative '../mida'
-require_relative 'datatype'
-require_relative 'itemscope'
-require_relative 'vocabulary'
+require 'mida'
 
 module Mida
 

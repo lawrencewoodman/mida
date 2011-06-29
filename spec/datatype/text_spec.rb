@@ -1,4 +1,4 @@
-require_relative '../../lib/mida/datatype'
+require 'mida/datatype'
 
 describe Mida::DataType::Text do
 

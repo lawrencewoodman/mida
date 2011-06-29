@@ -6,9 +6,9 @@ module Mida
   end
 end
 
-require_relative 'datatype/boolean'
-require_relative 'datatype/float'
-require_relative 'datatype/integer'
-require_relative 'datatype/iso8601date'
-require_relative 'datatype/number'
-require_relative 'datatype/text'
+require 'mida/datatype/boolean'
+require 'mida/datatype/float'
+require 'mida/datatype/integer'
+require 'mida/datatype/iso8601date'
+require 'mida/datatype/number'
+require 'mida/datatype/text'

@@ -1,6 +1,5 @@
-require 'nokogiri'
-require_relative 'spec_helper'
-require_relative '../lib/mida'
+require 'spec_helper'
+require 'mida'
 
 describe Mida::Itemscope, 'when initialized with an itemscope_node containing just itemprops' do
   before do

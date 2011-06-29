@@ -1,5 +1,5 @@
-require_relative 'spec_helper'
-require_relative '../lib/mida'
+require 'spec_helper'
+require 'mida'
 
 describe Mida::Vocabulary, 'when subclassed and given has statements with no blocks' do
   before do

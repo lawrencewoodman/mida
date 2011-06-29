@@ -1,6 +1,6 @@
 require 'nokogiri'
 require 'uri'
-require_relative 'itemscope'
+require 'mida/itemscope'
 
 module Mida
 

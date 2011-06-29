@@ -6,4 +6,4 @@ module Mida
 
 end
 
-require_relative 'mida/genericvocabulary'
+require 'mida/genericvocabulary'

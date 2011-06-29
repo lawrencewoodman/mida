@@ -1,6 +1,6 @@
-require_relative 'spec_helper'
-require_relative '../lib/mida/item'
-require_relative '../lib/mida/vocabulary'
+require 'spec_helper'
+require 'mida/item'
+require 'mida/vocabulary'
 
 describe Mida::Item, 'when initialized with an incomplete itemscope' do
   before do
