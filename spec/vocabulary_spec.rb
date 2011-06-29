@@ -15,12 +15,12 @@ describe Mida::Vocabulary, 'when subclassed and given has statements with no blo
   end
 
   it 'should specify name to appear once' do
-    Organization.prop_spec['name'][:num].should == :one
+    Organization.properties['name'][:num].should == :one
   end
 
   it 'should specify tel and url to appear many times' do
-    Organization.prop_spec['tel'][:num].should == :many
-    Organization.prop_spec['url'][:num].should == :many
+    Organization.properties['tel'][:num].should == :many
+    Organization.properties['url'][:num].should == :many
   end
 end
 
@@ -53,27 +53,27 @@ describe Mida::Vocabulary, 'when subclassed and given has statements with blocks
   end
 
   it 'should specify itemreviewed to appear once' do
-    Review.prop_spec['itemreviewed'][:num].should == :one
+    Review.properties['itemreviewed'][:num].should == :one
   end
 
   it 'should specify that itemreviewed only have the type Mida::DataType::Text' do
-    Review.prop_spec['itemreviewed'][:types].should == [Mida::DataType::Text]
+    Review.properties['itemreviewed'][:types].should == [Mida::DataType::Text]
   end
 
   it 'should specify rating to appear once' do
-    Review.prop_spec['rating'][:num].should == :one
+    Review.properties['rating'][:num].should == :one
   end
 
   it 'should specify rating to only have the types: Rating, Mida::DataType::Text' do
-    Review.prop_spec['rating'][:types].should == [Rating, Mida::DataType::Text]
+    Review.properties['rating'][:types].should == [Rating, Mida::DataType::Text]
   end
 
   it 'should specify comments to appear many times' do
-    Review.prop_spec['comments'][:num].should == :many
+    Review.properties['comments'][:num].should == :many
   end
 
   it 'should specify that comments only have the type Comment' do
-    Review.prop_spec['comments'][:types].should == [Comment]
+    Review.properties['comments'][:types].should == [Comment]
   end
 end
 
@@ -93,15 +93,15 @@ describe Mida::Vocabulary, 'when subclassed and used with :any for properties an
   end
 
   it 'should specify that name only appears once' do
-    Person.prop_spec['name'][:num].should == :one
+    Person.properties['name'][:num].should == :one
   end
 
   it 'should specify that any other property can appear many times' do
-    Person.prop_spec[:any][:num].should == :many
+    Person.properties[:any][:num].should == :many
   end
   
   it 'should specify that any other property can have any type' do
-    Person.prop_spec[:any][:types].should == [:any]
+    Person.properties[:any][:types].should == [:any]
   end
 end
 
@@ -124,6 +124,25 @@ describe Mida::Vocabulary, 'when subclassed' do
 
   it 'should register the vocabulary subclass' do
     Mida::Vocabulary.vocabularies.should include(Person)
+  end
+
+end
+
+describe Mida::Vocabulary, 'when subclassed and has no properties' do
+
+  before do
+
+    class Empty < Mida::Vocabulary
+      itemtype %r{http://example.com/vocab/empty}
+    end
+  end
+
+  it 'should register the vocabulary subclass' do
+    Mida::Vocabulary.vocabularies.should include(Empty)
+  end
+
+  it '#properties should return an empty hash' do
+    Mida::Vocabulary.properties.should == {}
   end
 
 end

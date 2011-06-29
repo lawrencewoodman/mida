@@ -7,7 +7,16 @@ module Mida
   # +itemtype+, +has_one+, +has_many+
   class Vocabulary
 
+    class << self
+      # Return the properties specification
+      attr_reader :properties
+
+      # Return the registered vocabularies
+      attr_reader :vocabularies
+    end
+
     @vocabularies = Set.new
+    @properties = {}
 
     # Register a vocabulary that can be used when parsing,
     # later vocabularies are given precedence over earlier ones
@@ -28,11 +37,6 @@ module Mida
       nil
     end
 
-    # Return the registered vocabularies
-    def self.vocabularies
-      @vocabularies
-    end
-
     def self.inherited(subclass)
       register(subclass)
     end
@@ -47,10 +51,6 @@ module Mida
       end
     end
 
-    # Getter to read the created propeties specification
-    def self.prop_spec
-      @prop_spec || {}
-    end
 
     # Defines the properties as only containing one value
     # If want to say any property name, then use +:any+ as a name
@@ -67,10 +67,10 @@ module Mida
     end
 
     def self.has(num, *property_names, &block)
-      @prop_spec ||= {}
-      property_names.each_with_object(@prop_spec) do |name, prop_spec|
+      @properties ||= {}
+      property_names.each_with_object(@properties) do |name, properties|
         property_desc = PropertyDesc.new(num, &block)
-        prop_spec[name] = property_desc.to_h
+        properties[name] = property_desc.to_h
       end
     end
 

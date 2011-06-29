@@ -70,7 +70,7 @@ module Mida
     # Return whether this property name is valid
     def valid_property?(property, values)
       [property, :any].any? do |prop|
-        @vocabulary.prop_spec.has_key?(prop)
+        @vocabulary.properties.has_key?(prop)
       end
     end
 
@@ -107,19 +107,19 @@ module Mida
 
     # Return the correct type for this property
     def property_types(property)
-      if @vocabulary.prop_spec.has_key?(property)
-        @vocabulary.prop_spec[property][:types]
+      if @vocabulary.properties.has_key?(property)
+        @vocabulary.properties[property][:types]
       else
-        @vocabulary.prop_spec[:any][:types]
+        @vocabulary.properties[:any][:types]
       end
     end
 
     # Return the correct number for this property
     def property_number(property)
-      if @vocabulary.prop_spec.has_key?(property)
-        @vocabulary.prop_spec[property][:num]
+      if @vocabulary.properties.has_key?(property)
+        @vocabulary.properties[property][:num]
       else
-        @vocabulary.prop_spec[:any][:num]
+        @vocabulary.properties[:any][:num]
       end
     end
 
