@@ -3,15 +3,13 @@ module Mida
 
     # Integer data type
     module Integer
-      # Returns whether a value is valid for this type
-      def self.valid?(value)
-        Integer(value) rescue nil
+
+      # Returns the +value+ as an integer
+      # Relies on +Integer+ to raise +ArgumentError+ if not valid
+      def self.extract(value)
+        Integer(value)
       end
 
-      # Returns the value as an integer
-      def self.extract(value)
-        valid?(value)
-      end
     end
   end
 end

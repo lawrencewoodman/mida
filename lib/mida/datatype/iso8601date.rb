@@ -5,14 +5,12 @@ module Mida
 
     # ISO 8601 Date data type
     module ISO8601Date
-      # Returns whether a value is valid for this type
-      def self.valid?(value)
-        DateTime.iso8601(value) rescue nil
-      end
 
-      # Returns the +date+ as a +DateTime+ instance
-      def self.extract(date)
-        valid?(date)
+      # Returns the +value+ as a +DateTime+ instance
+      # Relies on <tt>DateTime#iso8601</tt> to raise
+      # +ArgumentError+ if not valid
+      def self.extract(value)
+        DateTime.iso8601(value)
       end
     end
   end

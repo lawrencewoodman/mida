@@ -3,15 +3,13 @@ module Mida
 
     # Float data type
     module Float
-      # Returns whether a value is valid for this type
-      def self.valid?(value)
-        Float(value) rescue nil
+
+      # Returns the +value+ as a floating point number
+      # Relies on +Float+ to raise +ArgumentError+ if not valid
+      def self.extract(value)
+        Float(value)
       end
 
-      # Returns the value as a floating point number
-      def self.extract(value)
-        valid?(value)
-      end
     end
   end
 end

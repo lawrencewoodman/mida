@@ -91,19 +91,18 @@ module Mida
       prop_num == :many ? valid_values : valid_values.first
     end
 
-    # Returns value, converted to correct +DataType+ or +Item+
+    # Returns value converted to correct +DataType+ or +Item+
+    # or +nil+ if not valid
     def validate_value(prop_types, value)
-      valid_value = nil
       if is_itemscope?(value)
-        if valid_itemtype?(prop_types, value.type)
-          valid_value = Item.new(value)
-        end
-      elsif (type = valid_datatype?(prop_types, value))
-        valid_value = type.extract(value)
+        valid_itemtype?(prop_types, value.type) ? Item.new(value) : nil
+      elsif (extract_value = datatype_extract(prop_types, value))
+        extract_value
       elsif prop_types.include?(:any)
-        valid_value = value
+        value
+      else
+        nil
       end
-      valid_value
     end
 
     # Return the correct type for this property
@@ -137,18 +136,22 @@ module Mida
       end
     end
 
-    # Returns the valid type of the +value+ or +nil+ if not valid
-    def valid_datatype?(valid_types, value)
+    # Returns the extracted value or +nil+ if none of the datatypes
+    # could extract the +value+
+    def datatype_extract(valid_types, value)
       valid_types.find do |type|
-        type.respond_to?(:valid?) && type.valid?(value)
+        begin
+          return type.extract(value) if type.respond_to?(:extract)
+        rescue ArgumentError
+        end
       end
+      nil
     end
 
     # The value as it should appear in to_h()
     def value_to_h(value)
-      case
-      when value.is_a?(Array) then value.collect {|element| value_to_h(element)}
-      when value.is_a?(Item) then value.to_h
+      if value.is_a?(Array) then value.collect {|element| value_to_h(element)}
+      elsif value.is_a?(Item) then value.to_h
       else value
       end
     end

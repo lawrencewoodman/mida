@@ -2,24 +2,22 @@ require 'mida/datatype'
 
 describe Mida::DataType::Number do
 
-  it '#valid? should return true if a floating point number' do
-    Mida::DataType::Number.valid?("3.14").should be_true
-  end
-  
-  it '#valid? should return true if an integer' do
-    Mida::DataType::Number.valid?("3").should be_true
-  end
-  
-  it '#valid? should return false if not a number' do
-    Mida::DataType::Number.valid?("a").should be_false
+  it '#extract should raise an exception if not a number' do
+    test = lambda {Mida::DataType::Number.extract('hello')}
+    test.should raise_error(ArgumentError)
   end
 
-  it '#valid? should return false if empty' do
-    Mida::DataType::Number.valid?("").should be_false
+  it '#extract should raise an exception if value is empty' do
+    test = lambda {Mida::DataType::Number.extract('')}
+    test.should raise_error(ArgumentError)
   end
 
-  it '#extract should return the input value as a number' do
-    value_string, value_num = "3.14", 3.14
-    Mida::DataType::Number.extract(value_string).should == value_num
+  it '#extract? should return the input value as a number if a floating point' do
+    Mida::DataType::Number.extract("3.14").should == 3.14
   end
+
+  it '#extract? should return the input value as a number if a integer' do
+    Mida::DataType::Number.extract("3").should == 3
+  end
+
 end

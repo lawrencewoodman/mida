@@ -3,14 +3,15 @@ module Mida
 
     # Boolean data type
     module Boolean
-      # Returns whether a value is valid for this type
-      def self.valid?(value)
-        ['true', 'false'].include?(value.downcase)
-      end
 
-      # Returns the value as a boolean
+      # Returns the +value+ as a boolean
+      # or raises ArgumentError if not valid
       def self.extract(value)
-        value.downcase == 'true'
+        case value.downcase
+        when 'true' then true
+        when 'false' then false
+        else raise ArgumentError, 'Invalid value'
+        end
       end
     end
   end

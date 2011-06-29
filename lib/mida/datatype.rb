@@ -1,7 +1,8 @@
 module Mida
-  # Module to hold the various data types
-  # Each DataType should be a module containing class methods:
-  # <tt>valid?</tt> and +extract+
+  # Module to hold the various data types.
+  # Each DataType should be a module containing the class method: +extract+
+  # which returns the value extracted or raises an +ArgumentError+ exception
+  # if input value is not valid.
   module DataType
   end
 end

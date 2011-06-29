@@ -83,6 +83,9 @@ describe Mida::Item, 'when initialized with an itemscope of a known type' do
     class Person < Mida::Vocabulary
       itemtype %r{http://example.com/vocab/person}
       has_one 'name'
+      has_many 'date' do
+        extract Mida::DataType::ISO8601Date, Mida::DataType::Text
+      end
       has_many 'url'
     end
 
@@ -91,49 +94,7 @@ describe Mida::Item, 'when initialized with an itemscope of a known type' do
     itemscope.stub!(:id).and_return(nil)
     itemscope.stub!(:properties).and_return(
       { 'name' => ['Lorry Woodman'],
-        'url' => ['http://example.com/user/lorry']
-      }
-    )
-    @item = Mida::Item.new(itemscope)
-  end
-
-  it '#vocabulary should return the correct vocabulary' do
-    @item.vocabulary.should == Person
-  end
-
-  it '#properties should return the same properties as the itemscope' do
-    @item.properties.should == {
-      'name' => 'Lorry Woodman',
-      'url' => ['http://example.com/user/lorry']
-    }
-  end
-
-  it '#to_h should return the correct type and properties' do
-    @item.to_h.should == {
-      type: 'http://example.com/vocab/person',
-      id: nil,
-      properties: {
-        'name' => 'Lorry Woodman',
-        'url' => ['http://example.com/user/lorry']
-      }
-    }
-  end
-
-end
-
-describe Mida::Item, 'when initialized with an itemscope of a known type' do
-  before do
-    class Person < Mida::Vocabulary
-      itemtype %r{http://example.com/vocab/person}
-      has_one 'name'
-      has_many 'url'
-    end
-
-    itemscope = mock(Mida::Itemscope)
-    itemscope.stub!(:type).and_return("http://example.com/vocab/person")
-    itemscope.stub!(:id).and_return(nil)
-    itemscope.stub!(:properties).and_return(
-      { 'name' => ['Lorry Woodman'],
+        'date' => ['2nd October 2009', '2009-10-02'],
         'url' => ['http://example.com/user/lorry']
       }
     )
@@ -152,9 +113,22 @@ describe Mida::Item, 'when initialized with an itemscope of a known type' do
     @item.properties['url'].should == ['http://example.com/user/lorry']
   end
 
+  it 'should reject datatypes that are not valid' do
+    @item.properties['date'][0].should == '2nd October 2009'
+  end
+
+  it 'should accept datatypes that are valid' do
+    @item.properties['date'][1].should == Date.iso8601('2009-10-02')
+  end
+
+  it 'should reject datatypes that are not valid' do
+    @item.properties['date'][1].should == Date.iso8601('2009-10-02')
+  end
+
   it '#properties should return the same properties as the itemscope' do
     @item.properties.should == {
       'name' => 'Lorry Woodman',
+      'date' => ['2nd October 2009', Date.iso8601('2009-10-02')],
       'url' => ['http://example.com/user/lorry']
     }
   end
@@ -165,6 +139,7 @@ describe Mida::Item, 'when initialized with an itemscope of a known type' do
       id: nil,
       properties: {
         'name' => 'Lorry Woodman',
+        'date' => ['2nd October 2009', Date.iso8601('2009-10-02')],
         'url' => ['http://example.com/user/lorry']
       }
     }
