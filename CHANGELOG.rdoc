@@ -1,7 +1,23 @@
+== 0.3.0 (29th June 2011)
+* Merge +VocabularyDesc+ into +Vocabulary+
+* Vocabularies are now auto registered using +inherited+ hook
+* Removed vocabulary from <tt>Item#to_h</tt>
+* Deprecate +types+ to describe a Vocabulary property if favour of +extract+
+* Add +DataType+ so can use <tt>DataType::Text</tt> instead of +String+ for a
+  type
+* Add various <tt>DataType</tt>s: +Boolean+, +Float+, +Integer+, +Number+,
+  +ISO8601Date+, +Text+
+* Add Bundler support
+* Properties marked as <tt>has_one</tt> now output a single value instead of
+  an +Array+
+* <tt>Document#search</tt> now only uses a +Regexp+ to search with
+* +Document+ now includes +Enumerable+ Mixin
+
 == 0.2.0 (3rd May 2011)
 * Add ability to describe and conform to vocabularies
-* Rename Mida::Property to Mida::Itemprop to better reflect use
-* Make some of the Mida::Itemprop class methods private
+* Rename <tt>Mida::Property</tt> to <tt>Mida::Itemprop</tt> to better reflect
+  use
+* Make some of the <tt>Mida::Itemprop</tt> class methods private
 
 == 0.1.3 (18th April 2011)
 * Ensure itemprops are parsed properly if containing non-microdata elements
