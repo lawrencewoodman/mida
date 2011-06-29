@@ -93,18 +93,18 @@ to describe the vocabulary.<br />
 <br />
 As an example the following describes a subset of Google’s Review vocabulary:<br />
 {% highlight ruby %}
-class Rating &lt; Mida::Vocabulary
+class Rating < Mida::Vocabulary
   itemtype %r{http://data-vocabulary.org/rating}i
   has_one 'best'
   has_one 'worst'
   has_one 'value'
 end
 
-class Review &lt; Mida::Vocabulary
+class Review < Mida::Vocabulary
   itemtype %r{http://data-vocabulary.org/review}i
   has_one 'itemreviewed'
   has_one 'rating' do
-    extract Rating, :text
+    extract Rating, Mida::DataType::Text
   end
 end
 {% endhighlight %}
