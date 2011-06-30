@@ -1,0 +1,11 @@
+---
+layout: news_article
+title: Mida v0.1.0 Released
+author:
+  name: Lawrence Woodman
+  url: http://techtinkering.com
+---
+This is the first release of Mida.  It was written after hearing rumours of
+Google making increasing use of Microdata; if this turns out to be true then
+more sites will in-turn make use of it and a Microdata parser will become very
+useful.

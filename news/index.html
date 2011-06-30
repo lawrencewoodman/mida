@@ -1,0 +1,20 @@
+---
+layout: base
+title: Mida News
+menuOption: news
+---
+<ul id="posts">
+  {% for post in site.posts %}
+  <li>
+    <article>
+      <header>
+        <h2><a href="/mida{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a></h2>
+        by <a class="author" href="{{ post.author.url }}">{{ post.author.name }}</a>
+        {{ post.date | date_to_long_string }}
+      </header>
+      {{ post.content }}
+    </article>
+  </li>
+  {% endfor %}
+</ul>
+

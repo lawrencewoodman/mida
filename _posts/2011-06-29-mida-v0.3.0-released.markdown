@@ -1,0 +1,30 @@
+---
+layout: news_article
+title: Mida v0.3.0 Released
+author:
+  name: Lawrence Woodman
+  url: http://techtinkering.com
+---
+The new release includes quite a few refinements such as auto registering the
+vocabularies via the `inherited` hook and adding various `DataType`s such as
+`Boolean`, `Float`, ISO8601Date, etc.
+To improve output when using `pp` or `y` on `Item#to_h` the `vocabulary` has
+been removed.
+
+There are a couple of changes to watch out for:
+
+* When describing a vocabulary `types` has been deprecated in favour of
+  `extract`.  This was done in case greater flexibility was needed at a later
+  date by providing `extract` with a block.  If this happens `extract` would
+  make more sense as a name.
+* `String` can no longer be used as a type when describing a `Vocabulary`,
+  instead use `DataType::Text`
+* Properties marked as `has_one` now output a single value instead of an `Array`
+* `Document#search` now only uses a `Regexp` to search with as this greatly
+   simplified the code
+
+The project would benefit from greater collaboration, to aid this `Bundler`
+support has been added.
+
+To see the complete list of changes, please have a look at the
+[CHANGELOG](https://github.com/LawrenceWoodman/mida/blob/master/CHANGELOG.rdoc).

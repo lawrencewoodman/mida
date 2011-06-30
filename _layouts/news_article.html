@@ -1,0 +1,12 @@
+---
+layout: base
+menuOption: news
+---
+<article>
+  <header>
+    <h2>{{ page.title }}</h2>
+    by <a id="author" href="{{ page.author.url }}">{{ page.author.name }}</a>
+    {{ page.date | date_to_long_string }}
+  </header>
+  {{ content }}
+</article>

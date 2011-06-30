@@ -10,6 +10,10 @@
 
   <link rel="stylesheet" href="/mida/css/sitestyle.css" media="screen" type="text/css" />
   <link rel="stylesheet" href="/mida/css/html_pygments.css" media="screen" type="text/css" />
+  {% if page.menuOption == "news" %}
+    <link rel="stylesheet" href="/mida/css/news.css" media="screen" type="text/css" />
+  {% endif %}
+
 </head>
 
 <body>
@@ -21,6 +25,8 @@
         <ul>
           <li><a {%if page.menuOption == "home"%}id="current"{%endif%}
                  href="/mida/">Home</a></li>
+          <li><a {%if page.menuOption == "news"%}id="current"{%endif%}
+                 href="/mida/news" title="View all the news for Mida">News</a></li>
           <li><a {%if page.menuOption == "contributing"%}id="current"{%endif%}
                  href="/mida/contributing">Contributing</a></li>
           <li><a {%if page.menuOption == "bugs"%}id="current"{%endif%}

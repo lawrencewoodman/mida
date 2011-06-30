@@ -1,0 +1,10 @@
+h2 a {
+  color: black;
+}
+
+a.author { color: blue; }
+a.author:visited { color: blue; }
+
+ul#posts { margin: 0; padding: 0; list-style: none;}
+article ul { list-style: disc outside none; }
+

@@ -90,6 +90,14 @@ div#content {
   line-height: 1.5;
 }
 
+div#content a {
+  text-decoration: none;
+}
+
+div#content a:hover {
+  text-decoration: underline;
+}
+
 h1,h2,h3,h4 {
   margin-bottom: 0;
 }
