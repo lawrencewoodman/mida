@@ -3,16 +3,22 @@ layout: base
 title: Mida News
 menuOption: news
 ---
-<ul id="posts">
+<ul id="posts" itemscope itemtype="http://schema.org/Blog">
   {% for post in site.posts %}
   <li>
-    <article>
+    <article itemprop="blogPosts" itemscope itemtype="http://schema.org/BlogPosting">
       <header>
-        <h2><a href="/mida{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a></h2>
-        by <a class="author" href="{{ post.author.url }}">{{ post.author.name }}</a>
-        {{ post.date | date_to_long_string }}
+        <h2 itemprop="name"><a href="/mida{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a></h2>
+        by <span itemscope itemprop="author" itemtype="http://schema.org/Person">
+             <a itemprop="url" class="author" href="{{ post.author.url }}">
+               <span itemprop="name">{{ post.author.name }}</span>
+             </a>
+           </span>
+        <time itemprop="datePublished" datetime="{{ post.date | date: '%Y-%m-%d'}}">
+          {{ post.date | date_to_long_string }}
+        </time>
       </header>
-      {{ post.content }}
+      <div itemprop="articleBody">{{ post.content }}</div>
     </article>
   </li>
   {% endfor %}
