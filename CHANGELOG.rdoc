@@ -1,3 +1,8 @@
+== 0.3.1 (5th July 2011)
+* Add bin/mida exectuable
+* Changed <tt>Item#to_h</tt> to only return keys with values
+* Add validate option to +Document+ and +Item+ to turn on/off validation
+
 == 0.3.0 (29th June 2011)
 * Merge +VocabularyDesc+ into +Vocabulary+
 * Vocabularies are now auto registered using +inherited+ hook
