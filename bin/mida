@@ -1,9 +1,10 @@
 #!/usr/bin/env ruby
 ## Mida: Microdata parser/extractor
 ##
-## Usage: mida [OPTIONS] [SOURCES]
+## Usage: mida [options...] [sources...]
 ##
-## Find the Microdata in the given SOURCES, which can be urls or files.
+## Find the Microdata in the given 'sources', which can be urls or files.
+## Urls must be prefixed with: http://
 ##
 
 require 'open-uri'
@@ -15,7 +16,7 @@ def banner
   File.readlines(__FILE__).
   grep(/^##.*/).
   map { |line| line.chomp[3..-1] }.
-  join("\n")
+  join("\n")+"\n"+"  Options:\n"
 end
 
 begin
@@ -31,11 +32,14 @@ rescue LoadError
   raise
 end
 
-options = {}
+options = {sourcename: true}
 ARGV.options do |option|
   option.banner = banner
   option.on('-c','--count', 'Display the counts of each Microdata Type') do
     options[:count] = true
+  end
+  option.on('-n','--no-sourcename', "Don't display the source name") do
+    options[:sourcename] = false
   end
   option.on('-t','--type TYPE', Regexp,
             'A regexp to match the itemtypes against') do |type|
@@ -46,8 +50,7 @@ ARGV.options do |option|
   begin
     option.parse!
   rescue OptionParser::InvalidOption => error
-    puts error
-    puts option; exit
+    puts "#{error}\n#{option}"; exit
   end
   if ARGV.empty? then puts option; exit end
 end
@@ -80,10 +83,14 @@ def parse_source(source, options)
       doc = Mida::Document.new(f, url)
       type = options[:type] || %r{}
       items = doc.search(type)
-      if options.include?(:count)
-        display_count(items)
+      if items.empty?
+        puts "No microdata found in this document."; exit
       else
-        display_items(items)
+        if options.include?(:count)
+          display_count(items)
+        else
+          display_items(items)
+        end
       end
     end
   rescue
@@ -93,7 +100,7 @@ def parse_source(source, options)
 end
 
 ARGV.each do |source|
-  puts "Parsing: #{source}"
+  puts "Parsing: #{source}" if options[:sourcename]
   parse_source(source, options)
   puts
 end  
