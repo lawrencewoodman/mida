@@ -1,0 +1,99 @@
+#!/usr/bin/env ruby
+## Mida: Microdata parser/extractor
+##
+## Usage: mida [OPTIONS] [SOURCES]
+##
+## Find the Microdata in the given SOURCES, which can be urls or files.
+##
+
+require 'open-uri'
+require 'yaml'
+require 'optparse'
+
+# Displays comment at top of file
+def banner
+  File.readlines(__FILE__).
+  grep(/^##.*/).
+  map { |line| line.chomp[3..-1] }.
+  join("\n")
+end
+
+begin
+  require 'mida'
+rescue LoadError
+  raise if $!.to_s !~ /mida/
+  libdir = File.expand_path("../../lib", __FILE__).sub(/^#{Dir.pwd}/, '.')
+  if !$:.include?(libdir)
+    warn "warn: #{$!.to_s}. trying again with #{libdir} on load path."
+    $:.unshift libdir
+    retry
+  end
+  raise
+end
+
+options = {}
+ARGV.options do |option|
+  option.banner = banner
+  option.on('-c','--count', 'Display the counts of each Microdata Type') do
+    options[:count] = true
+  end
+  option.on('-t','--type TYPE', Regexp,
+            'A regexp to match the itemtypes against') do |type|
+    options[:type] = type
+  end
+  option.on_tail('-h','--help', 'This help message') {puts option; exit}
+
+  begin
+    option.parse!
+  rescue OptionParser::InvalidOption => error
+    puts error
+    puts option; exit
+  end
+  if ARGV.empty? then puts option; exit end
+end
+
+# Get the url from the source if there is one
+def get_url
+  ARGV.first =~ %r{^http://.*} ? ARGV.first : nil
+end
+
+# Display each item as yaml
+def display_items(items)
+  items.each {|item| puts item.to_h.to_yaml} 
+end
+
+# Returns a hash {type => count}
+def count_types(types)
+  types.each_with_object(Hash.new(0)) {|type,count| count[type] += 1}
+end
+
+# Display the number of each type of item
+def display_count(items)
+  types = items.collect {|item| item.type}
+  count_types(types).each {|type, count| puts "Found #{count} #{type}"}
+end
+
+def parse_source(source, options)
+  url = get_url  
+  begin
+    open(source) do |f|
+      doc = Mida::Document.new(f, url)
+      type = options[:type] || %r{}
+      items = doc.search(type)
+      if options.include?(:count)
+        display_count(items)
+      else
+        display_items(items)
+      end
+    end
+  rescue
+    puts "Failed to parse: #{source}"
+    exit
+  end
+end
+
+ARGV.each do |source|
+  puts "Parsing: #{source}"
+  parse_source(source, options)
+  puts
+end  

@@ -15,7 +15,7 @@ spec = Gem::Specification.new do |s|
   s.files       = Dir['lib/**/*.rb'] + Dir['spec/**/*.rb'] + Dir['*.rdoc'] + Dir['Rakefile']
   s.extra_rdoc_files = ['README.rdoc', 'LICENSE.rdoc', 'CHANGELOG.rdoc']
   s.rdoc_options << '--main' << 'README.rdoc'
-  s.add_dependency('nokogiri')
+  s.add_dependency('nokogiri', '>= 1.5')
   s.add_development_dependency('rspec', '>= 2.0' )
 end
 Rake::GemPackageTask.new(spec).define
