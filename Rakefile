@@ -1,7 +1,7 @@
 task :default => :spec
 
 desc "Create Gem"
-require 'rake/gempackagetask'
+require 'rubygems/package_task'
 spec = Gem::Specification.new do |s|
   s.name        = "mida"
   s.summary     = "A Microdata parser/extractor library"
@@ -18,7 +18,7 @@ spec = Gem::Specification.new do |s|
   s.add_dependency('nokogiri', '>= 1.5')
   s.add_development_dependency('rspec', '>= 2.0' )
 end
-Rake::GemPackageTask.new(spec).define
+Gem::PackageTask.new(spec).define
 
 desc "Run Specs"
 require 'rspec/core/rake_task'
