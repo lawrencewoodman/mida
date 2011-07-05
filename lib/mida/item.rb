@@ -39,7 +39,12 @@ module Mida
     #     properties: {'a name' => 'avalue' }
     #   }
     def to_h
-      {type: @type, id: @id, properties: properties_to_h(@properties)}
+      # Only fill hash with non-nil values
+      hash = {}
+      @type and hash[:type] = @type
+      @id and hash[:id] = @id
+      @properties.any? and hash[:properties] = properties_to_h(@properties)
+      hash
     end
 
     def to_s

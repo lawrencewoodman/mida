@@ -27,12 +27,8 @@ describe Mida::Item, 'when initialized with an incomplete itemscope' do
     @item.properties.should == {}
   end
 
-  it '#to_h should return the correct type and properties' do
-    @item.to_h.should == {
-      type: nil,
-      id: nil,
-      properties: {}
-    }
+  it '#to_h should return an empty hash' do
+    @item.to_h.should == {}
   end
 end
 
@@ -66,7 +62,7 @@ describe Mida::Item, 'when initialized with a complete itemscope of an unknown t
     }
   end
 
-  it '#to_h should return the correct type and properties' do
+  it '#to_h should return the correct type, id and properties' do
     @item.to_h.should == {
       type: 'book',
       id: "urn:isbn:978-1-849510-50-9",
@@ -136,7 +132,6 @@ describe Mida::Item, 'when initialized with an itemscope of a known type' do
   it '#to_h should return the correct type and properties' do
     @item.to_h.should == {
       type: 'http://example.com/vocab/person',
-      id: nil,
       properties: {
         'name' => 'Lorry Woodman',
         'date' => ['2nd October 2009', Date.iso8601('2009-10-02')],

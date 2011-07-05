@@ -161,7 +161,6 @@ describe Mida::Document, 'when run against a full html document containing two n
   it 'should return all the properties and types with the correct values for 1st itemscope' do
     expected_results = [{
       type: 'http://data-vocabulary.org/Review',
-      id: nil,
       properties: {
         'itemreviewed' => ['Romeo Pizza'],
         'rating' => ['4.5']
@@ -173,7 +172,6 @@ describe Mida::Document, 'when run against a full html document containing two n
   it 'should return all the properties from the text for 2nd itemscope' do
     expected_results = [{
       type: 'http://data-vocabulary.org/Organization',
-      id: nil,
       properties: {
         'name' => ['An org name'],
         'url' => ['http://example.com']
@@ -224,13 +222,11 @@ describe Mida::Document, 'when run against a full html document containing one
     it 'should return all the properties from the text with the correct values' do
       expected_results = [{
         type: 'http://data-vocabulary.org/Product',
-        id: nil,
         properties: {
           'name' => ['DC07'],
           'brand' => ['Dyson'],
           'review' => [{
             type: 'http://data-vocabulary.org/Review-aggregate',
-            id: nil,
             properties: {
               'count' => ['1'],
               'rating' => ['5.0']
@@ -287,14 +283,12 @@ describe Mida::Document, 'when run against a document containing an itemscope
       pending("get the contains: feature working")
       expected_result = {
         type: 'http://data-vocabulary.org/Product',
-        id: nil,
         properties: {
           'name' => 'DC07',
           'brand' => 'Dyson'
         },
         contains: {
           type: 'http://data-vocabulary.org/Review-aggregate',
-          id: nil,
           properties: {
             'count' => '1',
             'rating' => '5.0'
