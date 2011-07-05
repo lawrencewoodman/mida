@@ -109,15 +109,11 @@ describe Mida::Item, 'when initialized with an itemscope of a known type' do
     @item.properties['url'].should == ['http://example.com/user/lorry']
   end
 
-  it 'should reject datatypes that are not valid' do
+  it 'should accept datatypes that are valid' do
     @item.properties['date'][0].should == '2nd October 2009'
   end
 
   it 'should accept datatypes that are valid' do
-    @item.properties['date'][1].should == Date.iso8601('2009-10-02')
-  end
-
-  it 'should reject datatypes that are not valid' do
     @item.properties['date'][1].should == Date.iso8601('2009-10-02')
   end
 
@@ -152,31 +148,58 @@ describe Mida::Item, 'when initialized with an itemscope of a known type that do
       itemtype %r{http://example.com/vocab/person}
       has_one 'name', 'tel'
       has_many 'url', 'city'
+      has_one 'dob' do
+        extract Mida::DataType::ISO8601Date
+      end
     end
 
-    itemscope = mock(Mida::Itemscope)
-    itemscope.stub!(:type).and_return("http://example.com/vocab/person")
-    itemscope.stub!(:id).and_return(nil)
-    itemscope.stub!(:properties).and_return(
+    @itemscope = mock(Mida::Itemscope)
+    @itemscope.stub!(:type).and_return("http://example.com/vocab/person")
+    @itemscope.stub!(:id).and_return(nil)
+    @itemscope.stub!(:properties).and_return(
       { 'name' => ['Lorry Woodman'],
         'tel' => ['000004847582', '111111857485'],
         'url' => ['http://example.com/user/lorry'],
-        'city' => ['Bristol']
+        'city' => ['Bristol'],
+        'dob' => 'When I was born'
       }
     )
-    @item = Mida::Item.new(itemscope)
   end
 
-  it '#vocabulary should return the correct vocabulary' do
-    @item.vocabulary.should == Person
+  context 'when validation selected' do
+    before do
+      @item = Mida::Item.new(@itemscope)
+    end
+
+    it '#vocabulary should return the correct vocabulary' do
+      @item.vocabulary.should == Person
+    end
+
+    it 'should not keep properties that have too many values' do
+      @item.properties.should_not have_key('tel')
+    end
+
+    it 'should not keep properties that have the wrong DataType' do
+      @item.properties.should_not have_key('dob')
+    end
   end
 
-  it 'should not keep properties that have too many values' do
-    @item.properties.should_not have_key('tel')
-  end
+  context 'when validation not selected' do
+    before do
+      @item = Mida::Item.new(@itemscope, false)
+    end
 
-  it 'should keep have_many properties even if they have only one value' do
-    @item.properties.should have_key('city')
+    it '#vocabulary should return the correct vocabulary' do
+      @item.vocabulary.should == Person
+    end
+
+    it 'should keep properties even if they have too many values' do
+      @item.properties.should have_key('tel')
+    end
+
+    it 'should keep properties even if they have the wrong DataType' do
+      @item.properties.should have_key('dob')
+    end
   end
 
 end

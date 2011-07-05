@@ -32,7 +32,7 @@ rescue LoadError
   raise
 end
 
-options = {sourcename: true}
+options = {sourcename: true, validate: true}
 ARGV.options do |option|
   option.banner = banner
   option.on('-c','--count', 'Display the counts of each Microdata Type') do
@@ -44,6 +44,10 @@ ARGV.options do |option|
   option.on('-t','--type TYPE', Regexp,
             'A regexp to match the itemtypes against') do |type|
     options[:type] = type
+  end
+  option.on('-v','--no-validate',
+            "Don't validate the items against known Vocabularies") do
+    options[:validate] = false
   end
   option.on_tail('-h','--help', 'This help message') {puts option; exit}
 
@@ -80,7 +84,7 @@ def parse_source(source, options)
   url = get_url  
   begin
     open(source) do |f|
-      doc = Mida::Document.new(f, url)
+      doc = Mida::Document.new(f, url, options[:validate])
       type = options[:type] || %r{}
       items = doc.search(type)
       if items.empty?

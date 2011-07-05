@@ -68,6 +68,49 @@ describe Mida::Document do
   end
 end
 
+describe Mida::Document, 'when initialized' do
+  before do
+    @html = '
+      <html><body>
+        <div itemscope itemtype="http://data-vocabulary.org/Review">
+          <span itemprop="itemreviewed">Romeo Pizza</span>
+          <span itemprop="itemreviewed">Some Other Pizza</span>
+        </div>
+      </body></html>
+    '
+
+    class Review < Mida::Vocabulary
+      itemtype %r{http://data-vocabulary.org/Review}
+      has_one 'item_reviewed'
+    end
+  end
+
+  context 'with validation on' do
+    before do
+      @md = Mida::Document.new(@html)
+    end
+
+    it 'should reject properties for items of known vocabularies that are not valid' do
+      @md.items[0].properties.should == {}
+    end
+  end
+
+  context 'with validation off' do
+    before do
+      @md = Mida::Document.new(@html, false)
+    end
+
+    it 'should accept properties for items of known vocabularies even if not valid' do
+      @md.items[0].properties['itemreviewed'].should ==
+        ['Romeo Pizza', 'Some Other Pizza']
+    end
+  end
+
+  after do
+    Mida::Vocabulary.unregister(Review)
+  end
+end
+
 describe Mida::Document, 'when run against a full html document containing itemscopes with and without itemtypes' do
 
   before do

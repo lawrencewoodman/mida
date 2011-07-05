@@ -24,12 +24,13 @@ module Mida
     # its +properties+
     #
     # [itemscope] The itemscope that has been parsed by +Itemscope+
-    def initialize(itemscope)
+    # [validate] Whether to validate the item against known vocabularies
+    def initialize(itemscope, validate=true)
       @type = itemscope.type
       @id = itemscope.id
       @vocabulary = Mida::Vocabulary.find(@type)
       @properties = itemscope.properties
-      validate_properties
+      validate_properties if validate
     end
 
     # Return a Hash representation
@@ -63,7 +64,11 @@ module Mida
       @properties =
       @properties.each_with_object({}) do |(property, values), hash|
         valid_values = validate_values(property, values)
-        hash[property] = valid_values unless valid_values.nil?
+        if valid_values.respond_to?(:any?)
+          hash[property] = valid_values if valid_values.any?
+        else
+          hash[property] = valid_values
+        end
       end
     end
 
@@ -82,9 +87,9 @@ module Mida
     # Return valid values, converted to the correct +DataType+
     # or +Item+ and number if necessary
     def validate_values(property, values)
-      return nil unless valid_property?(property, values)
+      return [] unless valid_property?(property, values)
       prop_num = property_number(property)
-      return nil unless valid_num_values?(prop_num, values)
+      return [] unless valid_num_values?(prop_num, values)
       prop_types = property_types(property)
 
       valid_values = values.each_with_object([]) do |value, valid_values|
