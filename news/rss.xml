@@ -1,0 +1,21 @@
+---
+---
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0">
+	<channel>
+		<title>Mida News</title>
+		<link>http://lawrencewoodman.github.com/mida/news/</link>
+		<description>News from the Mida Project (A Microdata extractor/parser for Ruby)</description>
+		<lastBuildDate>{{site.time | date: "%a, %m %b %y"}}</lastBuildDate>
+		<language>en-gb</language>
+
+		{% for post in site.posts %}
+			<item>
+				<title>{{post.title}}</title>
+				<link>http://lawrencewoodman.github.com/mida{{post.url}}</link>
+				<guid isPermaLink="true">http://lawrencewoodman.github.com/mida{{post.url}}</guid>
+				<pubDate>{{post.date | date: "%a, %m %b %y"}}</pubDate>
+			</item>
+		{% endfor %}
+	</channel>
+</rss>

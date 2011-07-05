@@ -14,6 +14,9 @@
     <link rel="stylesheet" href="/mida/css/news.css" media="screen" type="text/css" />
   {% endif %}
 
+  <link rel="alternate" type="application/rss+xml" title="Mida News RSS Feed" href="/mida/news/rss.xml" />
+
+
 </head>
 
 <body>
@@ -31,6 +34,7 @@
                  href="/mida/contributing">Contributing</a></li>
           <li><a {%if page.menuOption == "bugs"%}id="current"{%endif%}
                  href="/mida/bugs">Bug Reporting</a></li>
+          <li><a id="feed" href="/mida/news/rss.xml" title="Subscribe to Mida's news RSS feed"></a></li>
         </ul>
       </nav>
     </div>

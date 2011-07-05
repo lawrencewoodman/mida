@@ -78,6 +78,12 @@ nav a#current {
   color: black;
 }
 
+nav a#feed {
+  background: black;
+  margin-left: 1em;
+  background: url("/mida/images/feed-icon-28x28.png") no-repeat 0 50%;
+}
+
 
 /* ----- Main content ----- */
 div#content {
