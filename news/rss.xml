@@ -6,7 +6,7 @@
 		<title>Mida News</title>
 		<link>http://lawrencewoodman.github.com/mida/news/</link>
 		<description>News from the Mida Project (A Microdata extractor/parser for Ruby)</description>
-		<lastBuildDate>{{site.time | date: "%a, %m %b %y"}}</lastBuildDate>
+		<lastBuildDate>{{site.time | date: "%a, %m %b %y %H:%M:%S %Z"}}</lastBuildDate>
 		<language>en-gb</language>
 
 		{% for post in site.posts %}
@@ -14,7 +14,7 @@
 				<title>{{post.title}}</title>
 				<link>http://lawrencewoodman.github.com/mida{{post.url}}</link>
 				<guid isPermaLink="true">http://lawrencewoodman.github.com/mida{{post.url}}</guid>
-				<pubDate>{{post.date | date: "%a, %m %b %y"}}</pubDate>
+				<pubDate>{{post.date | date: "%a, %m %b %y 00:00:01 %Z"}}</pubDate>
 			</item>
 		{% endfor %}
 	</channel>
