@@ -1,0 +1,28 @@
+---
+layout: news_article
+title: Mida v0.3.1 Released
+author:
+  name: Lawrence Woodman
+  url: http://techtinkering.com
+---
+The big addition for this release is a command-line tool, `mida`.
+
+To use the tool, supply it with the urls or filenames that you
+would like to be parsed (by default each item is output as yaml):
+{% highlight bash %}
+  mida http://lawrencewoodman.github.com/mida/news/
+{% endhighlight %}
+
+If you want to search for specific types you can use the `-t` switch
+followed by a Regular Expression:
+{% highlight bash %}
+  mida -t /person/i http://lawrencewoodman.github.com/mida/news/
+{% endhighlight %}
+
+For more information look at `mida`'s help:
+{% highlight bash %}
+  mida -h
+{% endhighlight %}
+
+To see the complete list of changes, please have a look at the
+[CHANGELOG](https://github.com/LawrenceWoodman/mida/blob/master/CHANGELOG.rdoc).
