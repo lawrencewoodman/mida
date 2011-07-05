@@ -30,16 +30,6 @@ def match_array(value_array, expected_results)
   end
 end
 
-shared_examples_for 'one root itemscope' do
-  it 'should not match itemscopes with different names' do
-    @md.search(%r{nothing}).size.should == 0
-  end
-
-  it 'should find the correct number of itemscopes' do
-    @md.items.size.should == 1
-  end
-end
-
 describe Mida::Document do
   before do
     html = '
@@ -207,7 +197,13 @@ describe Mida::Document, 'when run against a full html document containing one
     @md = Mida::Document.new(html)
   end
 
-  it_should_behave_like 'one root itemscope'
+  it 'should not match itemscopes with different names' do
+    @md.search(%r{nothing}).size.should == 0
+  end
+
+  it 'should find the correct number of itemscopes' do
+    @md.items.size.should == 1
+  end
 
   it 'should return the correct number of itemscopes' do
     vocabularies = [
