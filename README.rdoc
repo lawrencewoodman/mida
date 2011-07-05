@@ -18,7 +18,20 @@ Mida keeps RubyGems[http://rubygems.org/gems/mida] up-to-date with its latest ve
 
 * +Nokogiri+
 
-== Usage
+== Command Line Usage
+
+To use the command line tool, supply it with the urls or filenames that you
+would like to be parsed (by default each item is output as yaml):
+  mida http://lawrencewoodman.github.com/mida/news/
+
+If you want to search for specific types you can use the <tt>-t</tt> switch
+followed by a Regular Expression:
+  mida -t /person/i http://lawrencewoodman.github.com/mida/news/
+
+For more information look at <tt>mida</tt>'s help:
+  mida -h
+
+== Library Usage
 The following examples assume that you have required +mida+ and
 <tt>open-uri</tt>.
 
