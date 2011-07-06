@@ -15,6 +15,7 @@
 				<link>http://lawrencewoodman.github.com/mida{{post.url}}</link>
 				<guid isPermaLink="true">http://lawrencewoodman.github.com/mida{{post.url}}</guid>
 				<pubDate>{{post.date | date: "%d %b %Y 00:00:01 %Z"}}</pubDate>
+				<description><![CDATA[{{post.content}}]]></description>
 			</item>
 		{% endfor %}
 	</channel>
