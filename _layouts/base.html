@@ -34,15 +34,21 @@
                  href="/mida/contributing">Contributing</a></li>
           <li><a {%if page.menuOption == "bugs"%}id="current"{%endif%}
                  href="/mida/bugs">Bug Reporting</a></li>
-          <li><a id="feed" href="/mida/news/rss.xml" title="Subscribe to Mida's news RSS feed"></a></li>
         </ul>
       </nav>
+
+      <a href="/mida/news/rss.xml" title="Subscribe to Mida's News RSS Feed">
+      <img src="/mida/images/feed-icon-28x28.png" id="feedIcon" alt="News RSS Feed"/>
+      </a>
+      <a href="https://github.com/lawrencewoodman/mida/" title="Fork Mida on Github">
+      <img src="/mida/images/octocat_fluid.png" id="octocatIcon" alt="Fork Mida on Github"/>
+      </a>
+
     </div>
   </div>
 
   <div id="content">
     {{ content }}
   </div>
-
   </body>
 </html>
