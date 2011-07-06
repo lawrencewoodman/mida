@@ -58,12 +58,9 @@ module Mida
 
     # Sets the regular expression to match against the +itemtype+
     # or returns the current regular expression
-    def self.itemtype(regexp_arg=nil)
-      if regexp_arg
-        @itemtype = regexp_arg
-      else
-        @itemtype
-      end
+    def self.itemtype(regexp=nil)
+      return @itemtype unless regexp
+      @itemtype = regexp
     end
 
 
