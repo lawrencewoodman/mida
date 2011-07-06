@@ -77,9 +77,7 @@ Mida allows you to define vocabularies, so that input data can be constrained to
 expected patterns.  By default a generic vocabulary (<tt>Mida::GenericVocabulary</tt>)
 is registered which will match against any +itemtype+ with any number of properties.
 
-If you want to specify a vocabulary you create a class derived from <tt>Mida::Vocabulary</tt>
-and use +itemtype+, +has_one+, +has_many+ and +extract+ to describe the vocabulary.
-
+If you want to specify a vocabulary you create a class derived from <tt>Mida::Vocabulary</tt>.
 As an example the following describes a subset of Google's Review vocabulary:
 
   class Rating < Mida::Vocabulary
@@ -104,6 +102,18 @@ Now if Mida is parsing some input and manages to match against the +Review+ +ite
 will only allow the specified properties and will reject any that don't have the correct number.  It
 will also set <tt>Item#vocabulary</tt> accordingly, e.g.
   doc.items.first.vocabulary      # => Review
+
+If you want to include the properties of another vocabulary you can use +include_vocabulary+:
+  class Thing < Mida::Vocabulary
+    itemtype %r{http://example.com/vocab/thing}i
+    has_one 'description'
+  end
+
+  class Book < Mida::Vocabulary
+    itemtype %r{http://example.com/vocab/book}i
+    include_vocabulary Thing
+    has_one 'title', 'author'
+  end
 
 == Bugs/Feature Requests
 If you find a bug or want to make a feature request, please report it at the
