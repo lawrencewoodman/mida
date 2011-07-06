@@ -85,8 +85,12 @@ def parse_source(source, options)
   begin
     open(source) do |f|
       doc = Mida::Document.new(f, url, options[:validate])
-      type = options[:type] || %r{}
-      items = doc.search(type)
+      items = if options[:type]
+        doc.search(options[:type])
+      else
+        doc.items
+      end
+
       if items.empty?
         puts "No microdata found in this document."; exit
       else
