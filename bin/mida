@@ -54,7 +54,7 @@ ARGV.options do |option|
   begin
     option.parse!
   rescue OptionParser::InvalidOption => error
-    puts "#{error}\n#{option}"; exit
+    puts "#{error.to_s.capitalize}\n#{option}"; exit
   end
   if ARGV.empty? then puts option; exit end
 end
