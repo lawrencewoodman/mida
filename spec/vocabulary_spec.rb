@@ -126,6 +126,10 @@ describe Mida::Vocabulary, 'when subclassed' do
     Mida::Vocabulary.vocabularies.should include(Person)
   end
 
+  it '#included_vocabularies should be empty' do
+    Person.included_vocabularies.empty?.should be_true
+  end
+
 end
 
 describe Mida::Vocabulary, 'when subclassed and has no properties' do
@@ -145,4 +149,49 @@ describe Mida::Vocabulary, 'when subclassed and has no properties' do
     Mida::Vocabulary.properties.should == {}
   end
 
+end
+
+describe Mida::Vocabulary, 'when subclassed and using #include_vocabulary' do
+  before do
+    class Thing < Mida::Vocabulary
+      itemtype %r{http://example\.com.*?thing$}i
+      has_one 'description'
+    end
+
+    class Product < Mida::Vocabulary
+      include_vocabulary Thing
+      itemtype %r{http://example\.com.*?product$}i
+      has_one 'make', 'model'
+      has_many 'addons'
+    end
+
+    class Car < Mida::Vocabulary
+      include_vocabulary Product
+      itemtype %r{http://example\.com.*?car$}i
+      has_one 'colour', 'engine'
+      has_many 'stickers'
+    end
+  end
+
+  it '#itemtype should return the new regexp' do
+    Car.itemtype.should == %r{http://example\.com.*?car$}i
+  end
+
+  it "should contain included vocabularies' properties" do
+    ['description', 'make','model'].each do
+      |prop| Car.properties[prop][:num].should == :one
+    end
+    Car.properties['addons'][:num].should == :many
+  end
+
+  it "should contain new properties" do
+    ['colour','engine'].each {|prop| Car.properties[prop][:num].should == :one}
+    Car.properties['stickers'][:num].should == :many
+  end
+
+  it '#included_vocabularies should return the included vocabularies' do
+    [Thing, Product].each do |vocab|
+      Car.included_vocabularies.should include(vocab)
+    end
+  end
 end

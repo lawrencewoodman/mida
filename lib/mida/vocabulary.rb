@@ -8,15 +8,11 @@ module Mida
   class Vocabulary
 
     class << self
-      # Return the properties specification
-      attr_reader :properties
-
       # Return the registered vocabularies
       attr_reader :vocabularies
     end
 
     @vocabularies = Set.new
-    @properties = {}
 
     # Register a vocabulary that can be used when parsing,
     # later vocabularies are given precedence over earlier ones
@@ -39,6 +35,25 @@ module Mida
 
     def self.inherited(subclass)
       register(subclass)
+    end
+
+    # Return the properties specification
+    def self.properties
+      @properties ||= {}
+    end
+
+    # Return the included vocabularies
+    def self.included_vocabularies
+      @included_vocabularies ||= Set.new
+    end
+
+    # Include the properties from the specified vocabulary.
+    # This is the correct way to inherit properties from another vocabulary,
+    # rather than subclassing.
+    def self.include_vocabulary(vocabulary)
+      included_vocabularies.merge(vocabulary.included_vocabularies)
+      included_vocabularies << vocabulary
+      properties.merge!(vocabulary.properties)
     end
 
     # Sets the regular expression to match against the +itemtype+
