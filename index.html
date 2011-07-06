@@ -19,7 +19,24 @@ $ gem install mida
   <li>Nokogiri</li>
 </ul>
 
-<h2>Usage</h2>
+<h2>Command Line Usage</h2>
+
+To use the command line tool, supply it with the urls or filenames that you would like to be parsed (by default each item is output as yaml):<br />
+{% highlight bash %}
+mida http://lawrencewoodman.github.com/mida/news/
+{% endhighlight %}
+
+If you want to search for specific types you can use the <code>-t</code> switch followed by a Regular Expression:
+{% highlight bash %}
+mida -t /person/i http://lawrencewoodman.github.com/mida/news/
+{% endhighlight %}
+
+For more information look at mida‘s help:
+{% highlight bash %}
+mida -h
+{% endhighlight %}
+
+<h2>Library Usage</h2>
 
 The following examples assume that you have required <code>mida</code>
 and <code>open-uri</code>.
