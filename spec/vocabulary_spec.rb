@@ -165,10 +165,16 @@ describe Mida::Vocabulary, 'when subclassed and using #include_vocabulary' do
       has_many 'addons'
     end
 
+    class Vehicle < Mida::Vocabulary
+      itemtype %r{http://example\.com.*?thing$}i
+      include_vocabulary Thing
+      has_one 'colour'
+    end
+
     class Car < Mida::Vocabulary
-      include_vocabulary Product
+      include_vocabulary Product, Vehicle
       itemtype %r{http://example\.com.*?car$}i
-      has_one 'colour', 'engine'
+      has_one 'engine'
       has_many 'stickers'
     end
   end
@@ -178,19 +184,19 @@ describe Mida::Vocabulary, 'when subclassed and using #include_vocabulary' do
   end
 
   it "should contain included vocabularies' properties" do
-    ['description', 'make','model'].each do
+    ['description', 'make','model', 'colour'].each do
       |prop| Car.properties[prop][:num].should == :one
     end
     Car.properties['addons'][:num].should == :many
   end
 
   it "should contain new properties" do
-    ['colour','engine'].each {|prop| Car.properties[prop][:num].should == :one}
+    Car.properties['engine'][:num].should == :one
     Car.properties['stickers'][:num].should == :many
   end
 
   it '#included_vocabularies should return the included vocabularies' do
-    [Thing, Product].each do |vocab|
+    [Thing, Product, Vehicle].each do |vocab|
       Car.included_vocabularies.should include(vocab)
     end
   end

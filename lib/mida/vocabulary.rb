@@ -47,13 +47,15 @@ module Mida
       @included_vocabularies ||= Set.new
     end
 
-    # Include the properties from the specified vocabulary.
+    # Include the properties from the specified <tt>vocabularies</tt>.
     # This is the correct way to inherit properties from another vocabulary,
     # rather than subclassing.
-    def self.include_vocabulary(vocabulary)
-      included_vocabularies.merge(vocabulary.included_vocabularies)
-      included_vocabularies << vocabulary
-      properties.merge!(vocabulary.properties)
+    def self.include_vocabulary(*vocabularies)
+      vocabularies.each do |vocabulary|
+        included_vocabularies.merge(vocabulary.included_vocabularies)
+        included_vocabularies << vocabulary
+        properties.merge!(vocabulary.properties)
+      end
     end
 
     # Sets the regular expression to match against the +itemtype+
