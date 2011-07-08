@@ -58,6 +58,14 @@ module Mida
       end
     end
 
+    # As per the standard <tt>kind_of?</tt>, but also checks to see if vocabulary has
+    # been included by self
+    def self.kind_of?(vocabulary)
+      return true if self == vocabulary
+      return true if self.ancestors.include?(vocabulary)
+      included_vocabularies.include?(vocabulary)
+    end
+
     # Sets the regular expression to match against the +itemtype+
     # or returns the current regular expression
     def self.itemtype(regexp=nil)

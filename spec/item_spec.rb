@@ -257,6 +257,63 @@ describe Mida::Item, 'when initialized with an itemscope containing another corr
 
 end
 
+describe Mida::Item, 'when initialized with an itemscope that has a property type that is a child of the specified type' do
+  before do
+    class Person < Mida::Vocabulary
+      itemtype %r{http://example.com/vocab/person}
+      has_one 'name'
+      has_many 'tel'
+    end
+
+    class Student < Mida::Vocabulary
+      itemtype %r{http://example.com/vocab/student}
+      include_vocabulary Person
+      has_one 'studying'
+    end
+
+    class Organization < Mida::Vocabulary
+      itemtype %r{http://example.com/vocab/organization}
+      has_one 'name'
+      has_many 'employee' do
+        extract Person
+      end
+    end
+
+    student_itemscope = mock(Mida::Itemscope)
+    student_itemscope.stub!(:kind_of?).any_number_of_times.with(Mida::Itemscope).and_return(true)
+    student_itemscope.stub!(:type).and_return("http://example.com/vocab/student")
+    student_itemscope.stub!(:id).and_return(nil)
+    student_itemscope.stub!(:properties).and_return(
+      { 'name' => ['Lorry Woodman'],
+        'tel' => ['000004847582'],
+        'studying' => ['Classics']
+      }
+    )
+
+    org_itemscope = mock(Mida::Itemscope)
+    org_itemscope.stub!(:kind_of?).any_number_of_times.with(Mida::Itemscope).and_return(true)
+    org_itemscope.stub!(:type).and_return("http://example.com/vocab/organization")
+    org_itemscope.stub!(:id).and_return(nil)
+    org_itemscope.stub!(:properties).and_return(
+      { 'name' => ['Acme Inc.'],
+        'employee' => [student_itemscope]
+      }
+    )
+    @item = Mida::Item.new(org_itemscope)
+  end
+
+  it 'should recognise an itemtype that is the child of that specified' do
+    @item.properties['employee'][0].vocabulary.should == Student
+    @item.properties['employee'][0].type.should == 'http://example.com/vocab/student'
+    @item.properties['employee'][0].properties.should == {
+      'name' => 'Lorry Woodman',
+      'tel' => ['000004847582'],
+      'studying' => 'Classics'
+    }
+  end
+
+end
+
 describe Mida::Item, 'when initialized with an itemscope containing another invalid itemscope' do
   before do
     class Person < Mida::Vocabulary

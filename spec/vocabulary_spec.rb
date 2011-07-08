@@ -167,7 +167,7 @@ describe Mida::Vocabulary, 'when subclassed and using #include_vocabulary' do
 
     class Vehicle < Mida::Vocabulary
       itemtype %r{http://example\.com.*?thing$}i
-      include_vocabulary Thing
+      include_vocabulary Product
       has_one 'colour'
     end
 
@@ -199,5 +199,22 @@ describe Mida::Vocabulary, 'when subclassed and using #include_vocabulary' do
     [Thing, Product, Vehicle].each do |vocab|
       Car.included_vocabularies.should include(vocab)
     end
+  end
+
+  it '.kind_of? should still work with plain Vocabulary' do
+    Car.kind_of?(Mida::Vocabulary).should be_true
+  end
+
+  it '.kind_of? should recognize included vocabularies' do
+    Car.kind_of?(Car).should be_true
+    Car.kind_of?(Vehicle).should be_true
+    Vehicle.kind_of?(Product).should be_true
+    Car.kind_of?(Product).should be_true
+    Car.kind_of?(Thing).should be_true
+  end
+
+  it '.kind_of? should recognize vocabularies without a relationship' do
+    Vehicle.kind_of?(Car).should be_false
+    Thing.kind_of?(Product).should be_false
   end
 end

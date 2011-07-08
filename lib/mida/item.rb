@@ -140,10 +140,8 @@ module Mida
     # Returns whether the +itemtype+ is a valid type
     def valid_itemtype?(valid_types, itemtype)
       return true if valid_types.include?(:any)
-
-      valid_types.find do |type|
-        type.respond_to?(:itemtype) && type.itemtype =~ itemtype
-      end
+      vocabulary = Vocabulary.find(itemtype)
+      valid_types.find {|type| vocabulary.kind_of?(type) }
     end
 
     # Returns the extracted value or +nil+ if none of the datatypes
