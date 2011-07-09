@@ -1,3 +1,7 @@
+== 0.3.2 (9th July 2011)
+* Ensure <tt>bin/mida</tt> only searches if type regexp passed
+* Allow vocabularies to be included into other vocabularies
+
 == 0.3.1 (5th July 2011)
 * Add bin/mida exectuable
 * Changed <tt>Item#to_h</tt> to only return keys with values
