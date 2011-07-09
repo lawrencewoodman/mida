@@ -18,6 +18,7 @@ spec = Gem::Specification.new do |s|
   s.rdoc_options << '--main' << 'README.rdoc'
   s.add_dependency('nokogiri', '>= 1.5')
   s.add_development_dependency('rspec', '>= 2.0' )
+  s.add_development_dependency('bundler')
 end
 Gem::PackageTask.new(spec).define
 
