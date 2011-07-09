@@ -1,0 +1,41 @@
+---
+layout: news_article
+title: Mida v0.3.2 Released
+author:
+  name: Lawrence Woodman
+  url: http://techtinkering.com
+---
+After looking at the best way to implement the recently released
+[schema.org Vocabularies](http://schema.org), I decided to allow vocabularies
+to be included into other vocabularies.  This would not only reduce repetition
+when specifying the same properties repeatedly, but would also allow
+vocabularies that include another vocabulary to be used in place of that
+vocabulary.
+It is used as follows:
+{% highlight ruby %}
+class Thing < Mida::Vocabulary
+  itemtype %r{http://example.com/vocab/thing}i
+  has_one 'name', 'description'
+end
+
+class Book < Mida::Vocabulary
+  itemtype %r{http://example.com/vocab/book}i
+  include_vocabulary Thing
+  has_one 'title', 'author'
+end
+
+class Collection < Mida::Vocabulary
+  itemtype %r{http://example.com/vocab/collection}i
+  has_many 'item' do
+    extract Thing
+  end
+end
+{% endhighlight %}
+
+In the above if you gave a `Book` as an item of `Collection` this would be
+accepted because it includes the `Thing` vocabulary.  When examining the item
+you would find `#vocabulary` set to `Book` and you would have access to all the
+properties of `Thing` and all the properties of `Book`.
+
+This release also has a small bug fix so that `mida` no longer defaults to
+searches for `%r{}` and will only make searches if a type regexp is given.
