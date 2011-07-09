@@ -103,10 +103,11 @@ will only allow the specified properties and will reject any that don't have the
 will also set <tt>Item#vocabulary</tt> accordingly, e.g.
   doc.items.first.vocabulary      # => Review
 
-If you want to include the properties of another vocabulary you can use +include_vocabulary+:
+If you want to include the properties of another vocabulary you can use
++include_vocabulary+:
   class Thing < Mida::Vocabulary
     itemtype %r{http://example.com/vocab/thing}i
-    has_one 'description'
+    has_one 'name', 'description'
   end
 
   class Book < Mida::Vocabulary
@@ -114,6 +115,16 @@ If you want to include the properties of another vocabulary you can use +include
     include_vocabulary Thing
     has_one 'title', 'author'
   end
+
+  class Collection < Mida::Vocabulary
+    itemtype %r{http://example.com/vocab/collection}i
+    has_many 'item' do
+      extract Thing
+    end
+  end
+
+In the above if you gave a +Book+ as an item of +Collection+ this would be
+accepted because it includes the +Thing+ vocabulary.
 
 == Bugs/Feature Requests
 If you find a bug or want to make a feature request, please report it at the
