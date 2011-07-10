@@ -138,3 +138,28 @@ also set <code>Item#vocabulary</code> accordingly, e.g.
 doc.items.first.vocabulary      # => Review
 {% endhighlight %}
 
+If you want to include the properties of another vocabulary you can use <code>include_vocabulary</code>:
+{% highlight ruby %}
+class Thing < Mida::Vocabulary
+  itemtype %r{http://example.com/vocab/thing}i
+  has_one 'name', 'description'
+end
+
+class Book < Mida::Vocabulary
+  itemtype %r{http://example.com/vocab/book}i
+  include_vocabulary Thing
+  has_one 'title', 'author'
+end
+
+class Collection < Mida::Vocabulary
+  itemtype %r{http://example.com/vocab/collection}i
+  has_many 'item' do
+    extract Thing
+  end
+end
+{% endhighlight %}
+
+In the above if you gave a <code>Book</code> as an item of <code>Collection</code> this would be accepted
+because it includes the <code>Thing</code> vocabulary. When examining the item you would
+find <code>#vocabulary</code> set to <code>Book</code> and you would have access to all the properties of
+<code>Thing</code> and all the properties of Book.
