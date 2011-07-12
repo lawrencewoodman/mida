@@ -32,7 +32,17 @@ rescue LoadError
   raise
 end
 
-options = {sourcename: true, validate: true}
+# Turn off validation by unregistering all the vocabularies apart from
+# GenericVocabulary
+def turnOffValidation
+  Mida::Vocabulary.vocabularies.each do |vocabulary|
+    unless vocabulary == Mida::GenericVocabulary
+      Mida::Vocabulary.unregister(vocabulary)
+    end
+  end
+end
+
+options = {sourcename: true}
 ARGV.options do |option|
   option.banner = banner
   option.on('-c','--count', 'Display the counts of each Microdata Type') do
@@ -47,7 +57,7 @@ ARGV.options do |option|
   end
   option.on('-v','--no-validate',
             "Don't validate the items against known Vocabularies") do
-    options[:validate] = false
+    turnOffValidation
   end
   option.on_tail('-h','--help', 'This help message') {puts option; exit}
 
@@ -84,7 +94,7 @@ def parse_source(source, options)
   url = get_url  
   begin
     open(source) do |f|
-      doc = Mida::Document.new(f, url, options[:validate])
+      doc = Mida::Document.new(f, url)
       items = if options[:type]
         doc.search(options[:type])
       else

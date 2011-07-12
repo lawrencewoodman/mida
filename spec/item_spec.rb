@@ -153,10 +153,10 @@ describe Mida::Item, 'when initialized with an itemscope of a known type that do
       end
     end
 
-    @itemscope = mock(Mida::Itemscope)
-    @itemscope.stub!(:type).and_return("http://example.com/vocab/person")
-    @itemscope.stub!(:id).and_return(nil)
-    @itemscope.stub!(:properties).and_return(
+    itemscope = mock(Mida::Itemscope)
+    itemscope.stub!(:type).and_return("http://example.com/vocab/person")
+    itemscope.stub!(:id).and_return(nil)
+    itemscope.stub!(:properties).and_return(
       { 'name' => ['Lorry Woodman'],
         'tel' => ['000004847582', '111111857485'],
         'url' => ['http://example.com/user/lorry'],
@@ -164,42 +164,19 @@ describe Mida::Item, 'when initialized with an itemscope of a known type that do
         'dob' => 'When I was born'
       }
     )
+    @item = Mida::Item.new(itemscope)
   end
 
-  context 'when validation selected' do
-    before do
-      @item = Mida::Item.new(@itemscope)
-    end
-
-    it '#vocabulary should return the correct vocabulary' do
-      @item.vocabulary.should == Person
-    end
-
-    it 'should not keep properties that have too many values' do
-      @item.properties.should_not have_key('tel')
-    end
-
-    it 'should not keep properties that have the wrong DataType' do
-      @item.properties.should_not have_key('dob')
-    end
+  it '#vocabulary should return the correct vocabulary' do
+    @item.vocabulary.should == Person
   end
 
-  context 'when validation not selected' do
-    before do
-      @item = Mida::Item.new(@itemscope, false)
-    end
+  it 'should not keep properties that have too many values' do
+    @item.properties.should_not have_key('tel')
+  end
 
-    it '#vocabulary should return the correct vocabulary' do
-      @item.vocabulary.should == Person
-    end
-
-    it 'should keep properties even if they have too many values' do
-      @item.properties.should have_key('tel')
-    end
-
-    it 'should keep properties even if they have the wrong DataType' do
-      @item.properties.should have_key('dob')
-    end
+  it 'should not keep properties that have the wrong DataType' do
+    @item.properties.should_not have_key('dob')
   end
 
 end
@@ -253,6 +230,22 @@ describe Mida::Item, 'when initialized with an itemscope containing another corr
 
   it 'should accept the text tel' do
     @item.properties['tel'][0].should == '000004847582'
+  end
+
+  it "#to_h shouldnt return nested items properly" do
+    @item.to_h.should == {
+      type: 'http://example.com/vocab/person',
+      properties: {
+        'name' => 'Lorry Woodman',
+        'tel' => [ '000004847582',
+                   { type: 'http://example.com/vocab/tel',
+                     properties: { 'dial_code' => '0248583',
+                                   'number' => '000004847582'
+                     }
+                   }
+        ]
+      }
+    }
   end
 
 end
@@ -316,6 +309,10 @@ end
 
 describe Mida::Item, 'when initialized with an itemscope containing another invalid itemscope' do
   before do
+    # Make sure the class is redefined afresh to make sure that
+    # inherited() hook is called
+    Mida::Vocabulary.unregister(Person)
+    Object.send(:remove_const, :Person)
     class Person < Mida::Vocabulary
       itemtype %r{http://example.com/vocab/person}
       has_one 'name'

@@ -24,13 +24,12 @@ module Mida
     # its +properties+
     #
     # [itemscope] The itemscope that has been parsed by +Itemscope+
-    # [validate] Whether to validate the item against known vocabularies
-    def initialize(itemscope, validate=true)
+    def initialize(itemscope)
       @type = itemscope.type
       @id = itemscope.id
       @vocabulary = Mida::Vocabulary.find(@type)
       @properties = itemscope.properties
-      validate_properties if validate
+      validate_properties
     end
 
     # Return a Hash representation

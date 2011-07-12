@@ -15,11 +15,10 @@ module Mida
     # [target] The string containing the html that you want to parse.
     # [page_url] The url of target used for form absolute urls. This must
     #            include the filename, e.g. index.html.
-    # [validate] Whether to validate the items against known vocabularies.
-    def initialize(target, page_url=nil, validate=true)
+    def initialize(target, page_url=nil)
       @doc = Nokogiri(target)
       @page_url = page_url
-      @items = extract_items(validate)
+      @items = extract_items
     end
 
     # Implements method for Enumerable
@@ -46,13 +45,13 @@ module Mida
     end
 
   private
-    def extract_items(validate)
+    def extract_items
       itemscopes = @doc.search('//*[@itemscope and not(@itemprop)]')
       return nil unless itemscopes
 
       itemscopes.collect do |itemscope|
         itemscope = Itemscope.new(itemscope, @page_url)
-        Item.new(itemscope, validate)
+        Item.new(itemscope)
       end
     end
 
