@@ -1,18 +1,30 @@
+require 'mida/datatype/generic'
+
 module Mida
   module DataType
 
     # Boolean data type
-    module Boolean
+    # Provides access to TrueClass/FalseClass methods
+    class Boolean < Generic
 
-      # Returns the +value+ as a boolean
-      # or raises ArgumentError if not valid
-      def self.extract(value)
-        case value.downcase
-        when 'true' then true
-        when 'false' then false
-        else raise ArgumentError, 'Invalid value'
-        end
+      # Raises +ArgumentError+ if value not valid boolean
+      def initialize(value)
+        @parsedValue = case value.downcase
+                       when 'true' then true
+                       when 'false' then false
+                       else raise ::ArgumentError, 'Invalid value'
+                       end
       end
+
+      def to_s
+        @parsedValue.to_s.capitalize
+      end
+
+      def !@
+        !@parsedValue
+      end
+
     end
+
   end
 end

@@ -1,20 +1,27 @@
 require 'mida/datatype'
+require 'yaml'
 
 describe Mida::DataType::URL do
 
-  it '#extract should raise an exception if a bad url passed' do
-    test = lambda {Mida::DataType::URL.extract('example.com')}
+  it '#parse should raise an exception if a bad url passed' do
+    test = lambda {Mida::DataType::URL.parse('example.com')}
     test.should raise_error(ArgumentError)
   end
 
-  it '#extract should raise an exception if value is empty' do
-    test = lambda {Mida::DataType::URL.extract('')}
+  it '#parse should raise an exception if value is empty' do
+    test = lambda {Mida::DataType::URL.parse('')}
     test.should raise_error(ArgumentError)
   end
 
-  it '#extract? should return the input value' do
-    url = "http://example.com/test/"
-    Mida::DataType::URL.extract(url).should == URI.parse(url)
-    Mida::DataType::URL.extract(url).to_s.should == url
+  it '#parse should accept a valid url' do
+    url_text = 'http://example.com/test/'
+    url = Mida::DataType::URL.parse(url_text)
+    url.to_s.should == url_text
+  end
+
+
+  it '#parse should accept a valid url' do
+    url_text = 'http://example.com/test/'
+    url = Mida::DataType::URL.parse(url_text)
   end
 end

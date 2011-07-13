@@ -1,17 +1,23 @@
+require 'mida/datatype/generic'
 require 'date'
 
 module Mida
   module DataType
 
     # ISO 8601 Date data type
-    module ISO8601Date
+    # Provides access to DateTime methods
+    class ISO8601Date < Generic
 
-      # Returns the +value+ as a +DateTime+ instance
-      # Relies on <tt>DateTime#iso8601</tt> to raise
-      # +ArgumentError+ if not valid
-      def self.extract(value)
-        DateTime.iso8601(value)
+      # Raises +ArgumentError+ if value not valid
+      def initialize(value)
+        @parsedValue = ::DateTime.iso8601(value)
       end
+
+      def to_s
+        @parsedValue.rfc822
+      end
+
     end
+
   end
 end

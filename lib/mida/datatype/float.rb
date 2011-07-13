@@ -1,15 +1,18 @@
+require 'mida/datatype/generic'
+
 module Mida
   module DataType
 
     # Float data type
-    module Float
+    # Provides access to Float methods
+    class Float < Generic
 
-      # Returns the +value+ as a floating point number
-      # Relies on +Float+ to raise +ArgumentError+ if not valid
-      def self.extract(value)
-        Float(value)
+      # Raises +ArgumentError+ if value not valid
+      def initialize(value)
+        @parsedValue = ::Kernel.Float(value)
       end
 
     end
+
   end
 end

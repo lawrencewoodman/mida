@@ -2,12 +2,14 @@ module Mida
   module DataType
 
     # Text data type
-    module Text
+    class Text < Generic
 
       # Returns the value extracted
-      def self.extract(value)
-        value
+      def initialize(value)
+        @parsedValue = value
       end
+
     end
+
   end
 end

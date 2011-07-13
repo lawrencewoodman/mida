@@ -1,16 +1,20 @@
-require 'date'
+require 'mida/datatype/generic'
+require 'uri'
 
 module Mida
   module DataType
 
     # URL data type
-    module URL
-      # Returns the +value+ as a +URI+ instance
+    # Provides access to URI methods
+    class URL < Generic
+
       # Raises +ArgumentError+ if value not valid url
-      def self.extract(value)
-        raise ArgumentError unless value =~ URI::DEFAULT_PARSER.regexp[:ABS_URI]
-        URI.parse(value)
+      def initialize(value)
+        raise ::ArgumentError unless value =~ ::URI::DEFAULT_PARSER.regexp[:ABS_URI]
+        @parsedValue = ::URI.parse(value)
       end
+
     end
+
   end
 end

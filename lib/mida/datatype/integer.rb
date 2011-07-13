@@ -2,12 +2,12 @@ module Mida
   module DataType
 
     # Integer data type
-    module Integer
+    # Provides access to Integer methods
+    class Integer < Generic
 
-      # Returns the +value+ as an integer
-      # Relies on +Integer+ to raise +ArgumentError+ if not valid
-      def self.extract(value)
-        Integer(value)
+      # Raises +ArgumentError+ if value not valid
+      def initialize(value)
+        @parsedValue = ::Kernel.Integer(value)
       end
 
     end

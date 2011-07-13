@@ -148,7 +148,7 @@ module Mida
     def datatype_extract(valid_types, value)
       valid_types.find do |type|
         begin
-          return type.extract(value) if type.respond_to?(:extract)
+          return type.parse(value) if type.respond_to?(:parse)
         rescue ArgumentError
         end
       end

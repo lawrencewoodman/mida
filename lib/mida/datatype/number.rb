@@ -2,14 +2,15 @@ module Mida
   module DataType
 
     # Number data type
-    module Number
+    # Provides access to Float methods
+    class Number < Generic
 
-      # Returns the +value+ as a number
-      # Relies on +Float+ to raise +ArgumentError+ if not valid
-      def self.extract(value)
-        Float(value)
+      # Raises +ArgumentError+ if value not valid
+      def initialize(value)
+        @parsedValue = ::Kernel.Float(value)
       end
 
     end
+
   end
 end

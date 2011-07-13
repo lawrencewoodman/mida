@@ -2,19 +2,26 @@ require 'mida/datatype'
 
 describe Mida::DataType::ISO8601Date do
 
-  it '#extract should raise an exception if some other text' do
-    test = lambda {Mida::DataType::ISO8601Date.extract('27th Aug 2009')}
+  it '#parse should raise an exception if invalid date format' do
+    test = lambda {Mida::DataType::ISO8601Date.parse('27th August 2009')}
     test.should raise_error(ArgumentError)
   end
 
-  it '#extract should raise an exception if value is empty' do
-    test = lambda {Mida::DataType::ISO8601Date.extract('')}
+  it '#parse should raise an exception if value is empty' do
+    test = lambda {Mida::DataType::ISO8601Date.parse('')}
     test.should raise_error(ArgumentError)
   end
 
-  it '#extract? should return the input value' do
-    date = "2009-08-27T01:13:04+05:10"
-    Mida::DataType::ISO8601Date.extract(date).should == DateTime.parse(date)
-    Mida::DataType::ISO8601Date.extract(date).to_s.should == date
+  context 'when passed a valid date' do
+    before do
+      @date_text = "2009-08-27T01:13:04+05:10"
+      @date = Mida::DataType::ISO8601Date.parse(@date_text)
+    end
+
+    it '#to_s should return the date as an rfc822 text string' do
+      @date.to_s.should == "Thu, 27 Aug 2009 01:13:04 +0510"
+    end
+
   end
+
 end

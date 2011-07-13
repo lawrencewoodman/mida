@@ -82,7 +82,9 @@ describe Mida::Item, 'when initialized with an itemscope of a known type' do
       has_many 'date' do
         extract Mida::DataType::ISO8601Date, Mida::DataType::Text
       end
-      has_many 'url'
+      has_many 'url' do
+        extract Mida::DataType::URL
+      end
     end
 
     itemscope = mock(Mida::Itemscope)
@@ -106,7 +108,8 @@ describe Mida::Item, 'when initialized with an itemscope of a known type' do
   end
 
   it 'should return has_many properties as an array' do
-    @item.properties['url'].should == ['http://example.com/user/lorry']
+    @item.properties['url'].length == 1
+    @item.properties['url'].first.to_s.should == 'http://example.com/user/lorry'
   end
 
   it 'should accept datatypes that are valid' do
@@ -114,25 +117,18 @@ describe Mida::Item, 'when initialized with an itemscope of a known type' do
   end
 
   it 'should accept datatypes that are valid' do
-    @item.properties['date'][1].should == Date.iso8601('2009-10-02')
+    @item.properties['date'][1].should.to_s == Date.iso8601('2009-10-02').rfc822
   end
 
   it '#properties should return the same properties as the itemscope' do
-    @item.properties.should == {
-      'name' => 'Lorry Woodman',
-      'date' => ['2nd October 2009', Date.iso8601('2009-10-02')],
-      'url' => ['http://example.com/user/lorry']
-    }
+    @item.properties.keys.should == ['name', 'date', 'url']
+    @item.properties['date'].length == 2
   end
 
   it '#to_h should return the correct type and properties' do
     @item.to_h.should == {
       type: 'http://example.com/vocab/person',
-      properties: {
-        'name' => 'Lorry Woodman',
-        'date' => ['2nd October 2009', Date.iso8601('2009-10-02')],
-        'url' => ['http://example.com/user/lorry']
-      }
+      properties: @item.properties
     }
   end
 
