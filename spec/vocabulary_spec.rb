@@ -218,3 +218,54 @@ describe Mida::Vocabulary, 'when subclassed and using #include_vocabulary' do
     Thing.kind_of?(Product).should be_false
   end
 end
+
+describe Mida::Vocabulary, 'when subclassed with circular dependancies' do
+  before do
+    # Dummy classes to allow forward references
+    class Medicine < Mida::Vocabulary; end
+    class Potion < Mida::Vocabulary; end
+
+    class Medicine < Mida::Vocabulary
+      itemtype %r{http://example\.com.*?medicine$}i
+      include_vocabulary Potion
+      has_one 'type'
+      has_one 'creator'
+
+      has_many 'derived_from' do
+        extract Medicine
+      end
+
+      has_many 'alternatives' do
+        extract Potion
+      end
+    end
+
+    class Potion < Mida::Vocabulary
+      include_vocabulary Medicine
+      itemtype %r{http://example\.com.*?potion$}i
+      has_many 'cures'
+
+      has_many 'use_with' do
+        extract Medicine
+      end
+
+      has_many 'similar_to' do
+        extract Potion
+      end
+    end
+  end
+
+  it "both classes should have its own and included properties" do
+    expected_properties = {
+      'type' => {types: [Mida::DataType::Text], num: :one},
+      'creator' => {types: [Mida::DataType::Text], num: :one},
+      'derived_from' => {types: [Medicine], num: :many},
+      'alternatives' => {types: [Potion], num: :many},
+      'cures' => {types: [Mida::DataType::Text], num: :many},
+      'use_with' => {types: [Medicine], num: :many},
+      'similar_to' => {types: [Potion], num: :many}
+    }
+    Medicine.properties.should == expected_properties
+    Potion.properties.should == expected_properties
+  end
+end

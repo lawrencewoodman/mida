@@ -38,8 +38,15 @@ module Mida
     end
 
     # Return the properties specification
+    # This won't work properly until all the included_vocabularies
+    # have finished being defined in case of circular dependancies
     def self.properties
-      @properties ||= {}
+      return @properties if @properties
+      @properties = @this_properties || {}
+      included_vocabularies.each do |vocabulary|
+        @properties.merge!(vocabulary.properties)
+      end
+      @properties
     end
 
     # Return the included vocabularies
@@ -47,14 +54,13 @@ module Mida
       @included_vocabularies ||= Set.new
     end
 
-    # Include the properties from the specified <tt>vocabularies</tt>.
+    # Specify which +vocabularies+ will have their properties included.
     # This is the correct way to inherit properties from another vocabulary,
     # rather than subclassing.
     def self.include_vocabulary(*vocabularies)
       vocabularies.each do |vocabulary|
         included_vocabularies.merge(vocabulary.included_vocabularies)
         included_vocabularies << vocabulary
-        properties.merge!(vocabulary.properties)
       end
     end
 
@@ -73,7 +79,6 @@ module Mida
       @itemtype = regexp
     end
 
-
     # Defines the properties as only containing one value
     # If want to say any property name, then use +:any+ as a name
     # Within a block you can use the methods of the class +PropertyDesc+
@@ -89,8 +94,8 @@ module Mida
     end
 
     def self.has(num, *property_names, &block)
-      @properties ||= {}
-      property_names.each_with_object(@properties) do |name, properties|
+      @this_properties ||= {}
+      property_names.each_with_object(@this_properties) do |name, properties|
         property_desc = PropertyDesc.new(num, &block)
         properties[name] = property_desc.to_h
       end
