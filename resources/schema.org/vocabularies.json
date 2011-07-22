@@ -1,0 +1,5860 @@
+[
+  {
+    "name": "AboutPage",
+    "description": "Web page type: About page.",
+    "ancestors": [
+      "Thing",
+      "CreativeWork",
+      "WebPage"
+    ],
+    "vocabularies": [
+      "Thing",
+      "CreativeWork",
+      "WebPage"
+    ]
+  },
+  {
+    "name": "AccountingService",
+    "description": "Accountancy business.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness",
+      "FinancialService"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "AdministrativeArea",
+    "description": "A geographical region under the jurisdiction of a particular government.",
+    "ancestors": [
+      "Thing",
+      "Place"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place"
+    ]
+  },
+  {
+    "name": "AdultEntertainment",
+    "description": "An adult entertainment establishment.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness",
+      "EntertainmentBusiness"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "AggregateOffer",
+    "description": "When a single product that has different offers (for example, the same pair of shoes is offered by different merchants), then AggregateOffer can be used.",
+    "ancestors": [
+      "Thing",
+      "Intangible",
+      "Offer"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Offer"
+    ],
+    "properties": [
+      {
+        "name": "highPrice",
+        "types": [
+          "Number",
+          "Text"
+        ],
+        "description": "The highest price of all offers available."
+      },
+      {
+        "name": "lowPrice",
+        "types": [
+          "Number",
+          "Text"
+        ],
+        "description": "The lowest price of all offers available."
+      },
+      {
+        "name": "offerCount",
+        "types": [
+          "Integer"
+        ],
+        "description": "The number of offers for the product."
+      }
+    ]
+  },
+  {
+    "name": "AggregateRating",
+    "description": "The average rating based on multiple ratings or reviews.",
+    "ancestors": [
+      "Thing",
+      "Intangible",
+      "Rating"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Rating"
+    ],
+    "properties": [
+      {
+        "name": "itemReviewed",
+        "types": [
+          "Thing"
+        ],
+        "description": "The item that is being reviewed/rated."
+      },
+      {
+        "name": "ratingCount",
+        "types": [
+          "Number"
+        ],
+        "description": "The count of total number of ratings."
+      },
+      {
+        "name": "reviewCount",
+        "types": [
+          "Number"
+        ],
+        "description": "The count of total number of reviews."
+      }
+    ]
+  },
+  {
+    "name": "Airport",
+    "description": "An airport.",
+    "ancestors": [
+      "Thing",
+      "Place",
+      "CivicStructure"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "CivicStructure"
+    ]
+  },
+  {
+    "name": "AmusementPark",
+    "description": "An amusement park.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness",
+      "EntertainmentBusiness"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "AnimalShelter",
+    "description": "Animal shelter.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "ApartmentComplex",
+    "description": "Residence type: Apartment complex.",
+    "ancestors": [
+      "Thing",
+      "Place",
+      "Residence"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place"
+    ]
+  },
+  {
+    "name": "Aquarium",
+    "description": "Aquarium.",
+    "ancestors": [
+      "Thing",
+      "Place",
+      "CivicStructure"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "CivicStructure"
+    ]
+  },
+  {
+    "name": "ArtGallery",
+    "description": "An art gallery.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness",
+      "EntertainmentBusiness"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "Article",
+    "description": "An article, such as a news article or piece of investigative report. Newspapers and magazines have articles of many different types and this is intended to cover them all.",
+    "ancestors": [
+      "Thing",
+      "CreativeWork"
+    ],
+    "vocabularies": [
+      "Thing",
+      "CreativeWork"
+    ],
+    "properties": [
+      {
+        "name": "articleBody",
+        "types": [
+          "Text"
+        ],
+        "description": "The actual body of the article."
+      },
+      {
+        "name": "articleSection",
+        "types": [
+          "Text"
+        ],
+        "description": "Articles may belong to one or more 'sections' in a magazine or newspaper, such as Sports, Lifestyle, etc."
+      }
+    ]
+  },
+  {
+    "name": "Attorney",
+    "description": "Professional service: Attorney.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness",
+      "ProfessionalService"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "AudioObject",
+    "description": "An audio file.",
+    "ancestors": [
+      "Thing",
+      "CreativeWork",
+      "MediaObject"
+    ],
+    "vocabularies": [
+      "Thing",
+      "CreativeWork",
+      "MediaObject"
+    ]
+  },
+  {
+    "name": "AutoBodyShop",
+    "description": "Auto body shop.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness",
+      "AutomotiveBusiness"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "AutoDealer",
+    "description": "An car dealership.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness",
+      "AutomotiveBusiness"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "AutoPartsStore",
+    "description": "An auto parts store.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness",
+      "Store"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "AutoRental",
+    "description": "A car rental business.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness",
+      "AutomotiveBusiness"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "AutoRepair",
+    "description": "Car repair business.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness",
+      "AutomotiveBusiness"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "AutoWash",
+    "description": "A car wash business.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness",
+      "AutomotiveBusiness"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "AutomatedTeller",
+    "description": "ATM/cash machine.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness",
+      "FinancialService"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "AutomotiveBusiness",
+    "description": "Car repair, sales, or parts.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "Bakery",
+    "description": "A bakery.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness",
+      "FoodEstablishment"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness",
+      "FoodEstablishment"
+    ]
+  },
+  {
+    "name": "BankOrCreditUnion",
+    "description": "Bank or credit union.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness",
+      "FinancialService"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "BarOrPub",
+    "description": "A bar or pub.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness",
+      "FoodEstablishment"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness",
+      "FoodEstablishment"
+    ]
+  },
+  {
+    "name": "Beach",
+    "description": "Beach.",
+    "ancestors": [
+      "Thing",
+      "Place",
+      "CivicStructure"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "CivicStructure"
+    ]
+  },
+  {
+    "name": "BeautySalon",
+    "description": "Beauty salon.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness",
+      "HealthAndBeautyBusiness"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "BedAndBreakfast",
+    "description": "Bed and breakfast.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness",
+      "LodgingBusiness"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "BikeStore",
+    "description": "A bike store.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness",
+      "Store"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "Blog",
+    "description": "A blog",
+    "ancestors": [
+      "Thing",
+      "CreativeWork"
+    ],
+    "vocabularies": [
+      "Thing",
+      "CreativeWork"
+    ],
+    "properties": [
+      {
+        "name": "blogPosts",
+        "types": [
+          "BlogPosting"
+        ],
+        "description": "The postings that are part of this blog"
+      }
+    ]
+  },
+  {
+    "name": "BlogPosting",
+    "description": "A blog post.",
+    "ancestors": [
+      "Thing",
+      "CreativeWork",
+      "Article"
+    ],
+    "vocabularies": [
+      "Thing",
+      "CreativeWork",
+      "Article"
+    ]
+  },
+  {
+    "name": "BodyOfWater",
+    "description": "A body of water, such as a sea, ocean, or lake.",
+    "ancestors": [
+      "Thing",
+      "Place",
+      "Landform"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place"
+    ]
+  },
+  {
+    "name": "Book",
+    "description": "A book.",
+    "ancestors": [
+      "Thing",
+      "CreativeWork"
+    ],
+    "vocabularies": [
+      "Thing",
+      "CreativeWork"
+    ],
+    "properties": [
+      {
+        "name": "bookEdition",
+        "types": [
+          "Text"
+        ],
+        "description": "The edition of the book."
+      },
+      {
+        "name": "bookFormat",
+        "types": [
+          "BookFormatType"
+        ],
+        "description": "The format of the book."
+      },
+      {
+        "name": "illustrator",
+        "types": [
+          "Person"
+        ],
+        "description": "The illustrator of the book."
+      },
+      {
+        "name": "isbn",
+        "types": [
+          "Text"
+        ],
+        "description": "The ISBN of the book."
+      },
+      {
+        "name": "numberOfPages",
+        "types": [
+          "Integer"
+        ],
+        "description": "The number of pages in the book."
+      }
+    ]
+  },
+  {
+    "name": "BookFormatType",
+    "description": "The publication format of the book.",
+    "ancestors": [
+      "Thing",
+      "Intangible",
+      "Enumeration"
+    ],
+    "vocabularies": [
+      "Thing"
+    ],
+    "instances": [
+      "EBook",
+      "Hardcover",
+      "Paperback"
+    ]
+  },
+  {
+    "name": "BookStore",
+    "description": "A bookstore.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness",
+      "Store"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "BowlingAlley",
+    "description": "A bowling alley.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness",
+      "SportsActivityLocation"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "Brewery",
+    "description": "Brewery.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness",
+      "FoodEstablishment"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness",
+      "FoodEstablishment"
+    ]
+  },
+  {
+    "name": "BuddhistTemple",
+    "description": "A Buddhist temple.",
+    "ancestors": [
+      "Thing",
+      "Place",
+      "CivicStructure",
+      "PlaceOfWorship"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "CivicStructure"
+    ]
+  },
+  {
+    "name": "BusStation",
+    "description": "A bus station.",
+    "ancestors": [
+      "Thing",
+      "Place",
+      "CivicStructure"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "CivicStructure"
+    ]
+  },
+  {
+    "name": "BusStop",
+    "description": "A bus stop.",
+    "ancestors": [
+      "Thing",
+      "Place",
+      "CivicStructure"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "CivicStructure"
+    ]
+  },
+  {
+    "name": "BusinessEvent",
+    "description": "Event type: Business event.",
+    "ancestors": [
+      "Thing",
+      "Event"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Event"
+    ]
+  },
+  {
+    "name": "CafeOrCoffeeShop",
+    "description": "A cafe or coffee shop.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness",
+      "FoodEstablishment"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness",
+      "FoodEstablishment"
+    ]
+  },
+  {
+    "name": "Campground",
+    "description": "A campground.",
+    "ancestors": [
+      "Thing",
+      "Place",
+      "CivicStructure"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "CivicStructure"
+    ]
+  },
+  {
+    "name": "Canal",
+    "description": "A canal, like the Panama Canal",
+    "ancestors": [
+      "Thing",
+      "Place",
+      "Landform",
+      "BodyOfWater"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place"
+    ]
+  },
+  {
+    "name": "Casino",
+    "description": "A casino.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness",
+      "EntertainmentBusiness"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "CatholicChurch",
+    "description": "A Catholic church.",
+    "ancestors": [
+      "Thing",
+      "Place",
+      "CivicStructure",
+      "PlaceOfWorship"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "CivicStructure"
+    ]
+  },
+  {
+    "name": "Cemetery",
+    "description": "A graveyard.",
+    "ancestors": [
+      "Thing",
+      "Place",
+      "CivicStructure"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "CivicStructure"
+    ]
+  },
+  {
+    "name": "CheckoutPage",
+    "description": "Web page type: Checkout page.",
+    "ancestors": [
+      "Thing",
+      "CreativeWork",
+      "WebPage"
+    ],
+    "vocabularies": [
+      "Thing",
+      "CreativeWork",
+      "WebPage"
+    ]
+  },
+  {
+    "name": "ChildCare",
+    "description": "A Childcare center.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "ChildrensEvent",
+    "description": "Event type: Children's event.",
+    "ancestors": [
+      "Thing",
+      "Event"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Event"
+    ]
+  },
+  {
+    "name": "Church",
+    "description": "A church.",
+    "ancestors": [
+      "Thing",
+      "Place",
+      "CivicStructure",
+      "PlaceOfWorship"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "CivicStructure"
+    ]
+  },
+  {
+    "name": "City",
+    "description": "A city or town.",
+    "ancestors": [
+      "Thing",
+      "Place",
+      "AdministrativeArea"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place"
+    ]
+  },
+  {
+    "name": "CityHall",
+    "description": "A city hall.",
+    "ancestors": [
+      "Thing",
+      "Place",
+      "CivicStructure",
+      "GovernmentBuilding"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "CivicStructure"
+    ]
+  },
+  {
+    "name": "CivicStructure",
+    "description": "A public structure, such as a town hall or concert hall.",
+    "ancestors": [
+      "Thing",
+      "Place"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place"
+    ],
+    "properties": [
+      {
+        "name": "openingHours",
+        "types": [
+          "Duration"
+        ],
+        "description": "The opening hours for a business. Opening hours can be specified as a weekly time range, starting with days, then times per day. Multiple days can be listed with commas ',' separating each day. Day or time ranges are specified using a hyphen '-'.- Days are specified using the following two-letter combinations: Mo, Tu, We, Th, Fr, Sa, Su.- Times are specified using 24:00 time. For example, 3pm is specified as 15:00. - Here is an example: <time itemprop=\"openingHours\" datetime=\"Tu,Th 16:00-20:00\">Tuesdays and Thursdays 4-8pm</time>. - If a business is open 7 days a week, then it can be specified as <time itemprop=\"openingHours\" datetime=\"Mo-Su\">Monday through Sunday, all day</time>."
+      }
+    ]
+  },
+  {
+    "name": "ClothingStore",
+    "description": "A clothing store.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness",
+      "Store"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "CollectionPage",
+    "description": "Web page type: Collection page.",
+    "ancestors": [
+      "Thing",
+      "CreativeWork",
+      "WebPage"
+    ],
+    "vocabularies": [
+      "Thing",
+      "CreativeWork",
+      "WebPage"
+    ]
+  },
+  {
+    "name": "CollegeOrUniversity",
+    "description": "A college, university, or other third-level educational institution.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "EducationalOrganization"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Organization",
+      "EducationalOrganization"
+    ]
+  },
+  {
+    "name": "ComedyClub",
+    "description": "A comedy club.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness",
+      "EntertainmentBusiness"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "ComedyEvent",
+    "description": "Event type: Comedy event.",
+    "ancestors": [
+      "Thing",
+      "Event"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Event"
+    ]
+  },
+  {
+    "name": "ComputerStore",
+    "description": "A computer store.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness",
+      "Store"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "ContactPage",
+    "description": "Web page type: Contact page.",
+    "ancestors": [
+      "Thing",
+      "CreativeWork",
+      "WebPage"
+    ],
+    "vocabularies": [
+      "Thing",
+      "CreativeWork",
+      "WebPage"
+    ]
+  },
+  {
+    "name": "ContactPoint",
+    "description": "A contact point - for example, a Customer Complaints department.",
+    "ancestors": [
+      "Thing",
+      "Intangible",
+      "StructuredValue"
+    ],
+    "vocabularies": [
+      "Thing"
+    ],
+    "properties": [
+      {
+        "name": "contactType",
+        "types": [
+          "Text"
+        ],
+        "description": "A person or organization can have different contact points, for different purposes. For example, a sales contact point, a PR contact point and so on. This property is used to specify the kind of contact point."
+      },
+      {
+        "name": "email",
+        "types": [
+          "Text"
+        ],
+        "description": "Email address."
+      },
+      {
+        "name": "faxNumber",
+        "types": [
+          "Text"
+        ],
+        "description": "The fax number."
+      },
+      {
+        "name": "telephone",
+        "types": [
+          "Text"
+        ],
+        "description": "The telephone number."
+      }
+    ]
+  },
+  {
+    "name": "Continent",
+    "description": "One of the continents (for example, Europe or Africa).",
+    "ancestors": [
+      "Thing",
+      "Place",
+      "Landform"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place"
+    ]
+  },
+  {
+    "name": "ConvenienceStore",
+    "description": "A convenience store.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness",
+      "Store"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "Corporation",
+    "description": "Organization: A business corporation.",
+    "ancestors": [
+      "Thing",
+      "Organization"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Organization"
+    ]
+  },
+  {
+    "name": "Country",
+    "description": "A country.",
+    "ancestors": [
+      "Thing",
+      "Place",
+      "AdministrativeArea"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place"
+    ]
+  },
+  {
+    "name": "Courthouse",
+    "description": "A courthouse.",
+    "ancestors": [
+      "Thing",
+      "Place",
+      "CivicStructure",
+      "GovernmentBuilding"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "CivicStructure"
+    ]
+  },
+  {
+    "name": "CreativeWork",
+    "description": "The most generic kind of creative work, including books, movies, photographs, software programs, etc.",
+    "ancestors": [
+      "Thing"
+    ],
+    "vocabularies": [
+      "Thing"
+    ],
+    "properties": [
+      {
+        "name": "about",
+        "types": [
+          "Thing"
+        ],
+        "description": "The subject matter of the content."
+      },
+      {
+        "name": "aggregateRating",
+        "types": [
+          "AggregateRating"
+        ],
+        "description": "The overall rating, based on a collection of reviews or ratings, of the item."
+      },
+      {
+        "name": "audio",
+        "types": [
+          "AudioObject"
+        ],
+        "description": "An embedded audio object."
+      },
+      {
+        "name": "author",
+        "types": [
+          "Person",
+          "Organization"
+        ],
+        "description": "The author of this content. Please note that author is special in that HTML 5 provides a special mechanism for indicating authorship via the rel tag. That is equivalent to this and may be used interchangabely."
+      },
+      {
+        "name": "awards",
+        "types": [
+          "Text"
+        ],
+        "description": "Awards won by this person or for this creative work."
+      },
+      {
+        "name": "contentLocation",
+        "types": [
+          "Place"
+        ],
+        "description": "The location of the content."
+      },
+      {
+        "name": "contentRating",
+        "types": [
+          "Text"
+        ],
+        "description": "Official rating of a piece of content - for example,'MPAA PG-13'."
+      },
+      {
+        "name": "datePublished",
+        "types": [
+          "Date"
+        ],
+        "description": "Date of first broadcast/publication."
+      },
+      {
+        "name": "editor",
+        "types": [
+          "Person"
+        ],
+        "description": "Editor for this content."
+      },
+      {
+        "name": "encodings",
+        "types": [
+          "MediaObject"
+        ],
+        "description": "The media objects that encode this creative work"
+      },
+      {
+        "name": "genre",
+        "types": [
+          "Text"
+        ],
+        "description": "Genre of the creative work"
+      },
+      {
+        "name": "headline",
+        "types": [
+          "Text"
+        ],
+        "description": "Headline of the article"
+      },
+      {
+        "name": "inLanguage",
+        "types": [
+          "Text"
+        ],
+        "description": "The language of the content. please use one of the language codes from the IETF BCP 47 standard."
+      },
+      {
+        "name": "interactionCount",
+        "types": [
+          "Text"
+        ],
+        "description": "A count of a specific user interactions with this item - for example, 20 UserLikes, 5 UserComments, or 300 UserDownloads. The user interaction type should be one of the sub types of UserInteraction."
+      },
+      {
+        "name": "isFamilyFriendly",
+        "types": [
+          "Boolean"
+        ],
+        "description": "Indicates whether this content is family friendly."
+      },
+      {
+        "name": "keywords",
+        "types": [
+          "Text"
+        ],
+        "description": "The keywords/tags used to describe this content."
+      },
+      {
+        "name": "offers",
+        "types": [
+          "Offer"
+        ],
+        "description": "An offer to sell this item - for example, an offer to sell a product, the DVD of a movie, or tickets to an event."
+      },
+      {
+        "name": "publisher",
+        "types": [
+          "Organization"
+        ],
+        "description": "The publisher of the creative work."
+      },
+      {
+        "name": "reviews",
+        "types": [
+          "Review"
+        ],
+        "description": "Review of the item."
+      },
+      {
+        "name": "video",
+        "types": [
+          "VideoObject"
+        ],
+        "description": "An embedded video object."
+      }
+    ]
+  },
+  {
+    "name": "Crematorium",
+    "description": "A crematorium.",
+    "ancestors": [
+      "Thing",
+      "Place",
+      "CivicStructure"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "CivicStructure"
+    ]
+  },
+  {
+    "name": "DanceEvent",
+    "description": "Event type: A social dance.",
+    "ancestors": [
+      "Thing",
+      "Event"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Event"
+    ]
+  },
+  {
+    "name": "DanceGroup",
+    "description": "A dance group - for example, the Alvin Ailey Dance Theater or Riverdance.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "PerformingGroup"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Organization"
+    ]
+  },
+  {
+    "name": "DaySpa",
+    "description": "A day spa.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness",
+      "HealthAndBeautyBusiness"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "DefenceEstablishment",
+    "description": "A defence establishment, such as an army or navy base.",
+    "ancestors": [
+      "Thing",
+      "Place",
+      "CivicStructure",
+      "GovernmentBuilding"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "CivicStructure"
+    ]
+  },
+  {
+    "name": "Dentist",
+    "description": "A dentist.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness",
+      "MedicalOrganization"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "DepartmentStore",
+    "description": "A department store.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness",
+      "Store"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "Distance",
+    "description": "Properties that take Distances as values are of the form '<Number> <Length unit of measure>'. E.g., '7 ft'",
+    "ancestors": [
+      "Thing",
+      "Intangible",
+      "Quantity"
+    ],
+    "vocabularies": [
+      "Thing"
+    ]
+  },
+  {
+    "name": "DryCleaningOrLaundry",
+    "description": "A dry-cleaning business.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "Duration",
+    "description": "Quantity: Duration (use  ISO 8601 duration format).",
+    "ancestors": [
+      "Thing",
+      "Intangible",
+      "Quantity"
+    ]
+  },
+  {
+    "name": "EducationEvent",
+    "description": "Event type: Education event.",
+    "ancestors": [
+      "Thing",
+      "Event"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Event"
+    ]
+  },
+  {
+    "name": "EducationalOrganization",
+    "description": "An educational organization.",
+    "ancestors": [
+      "Thing",
+      "Organization"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Organization"
+    ],
+    "properties": [
+      {
+        "name": "alumni",
+        "types": [
+          "Person"
+        ],
+        "description": "Alumni of educational organization."
+      }
+    ]
+  },
+  {
+    "name": "Electrician",
+    "description": "An electrician.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness",
+      "HomeAndConstructionBusiness"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "ElectronicsStore",
+    "description": "An electronics store.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness",
+      "Store"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "ElementarySchool",
+    "description": "An elementary school.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "EducationalOrganization"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Organization",
+      "EducationalOrganization"
+    ]
+  },
+  {
+    "name": "Embassy",
+    "description": "An embassy.",
+    "ancestors": [
+      "Thing",
+      "Place",
+      "CivicStructure",
+      "GovernmentBuilding"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "CivicStructure"
+    ]
+  },
+  {
+    "name": "EmergencyService",
+    "description": "An emergency service, such as a fire station or ER.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "EmploymentAgency",
+    "description": "An employment agency.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "Energy",
+    "description": "Properties that take Enerygy as values are of the form '<Number> <Energy unit of measure>'",
+    "ancestors": [
+      "Thing",
+      "Intangible",
+      "Quantity"
+    ],
+    "vocabularies": [
+      "Thing"
+    ]
+  },
+  {
+    "name": "EntertainmentBusiness",
+    "description": "A business providing entertainment.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "Enumeration",
+    "description": "Lists or enumerations - for example, a list of cuisines or music genres, etc.",
+    "ancestors": [
+      "Thing",
+      "Intangible"
+    ],
+    "vocabularies": [
+      "Thing"
+    ]
+  },
+  {
+    "name": "Event",
+    "description": "An event happening at a certain time at a certain location.",
+    "ancestors": [
+      "Thing"
+    ],
+    "vocabularies": [
+      "Thing"
+    ],
+    "properties": [
+      {
+        "name": "attendees",
+        "types": [
+          "Person",
+          "Organization"
+        ],
+        "description": "A person attending the event."
+      },
+      {
+        "name": "duration",
+        "types": [
+          "Duration"
+        ],
+        "description": "The duration of the item (movie, audio recording, event, etc.) in ISO 8601 date format."
+      },
+      {
+        "name": "endDate",
+        "types": [
+          "Date"
+        ],
+        "description": "The end date and time of the event (in ISO 8601 date format)."
+      },
+      {
+        "name": "location",
+        "types": [
+          "Place",
+          "PostalAddress"
+        ],
+        "description": "The location of the event or organization."
+      },
+      {
+        "name": "offers",
+        "types": [
+          "Offer"
+        ],
+        "description": "An offer to sell this item - for example, an offer to sell a product, the DVD of a movie, or tickets to an event."
+      },
+      {
+        "name": "performers",
+        "types": [
+          "Person",
+          "Organization"
+        ],
+        "description": "The main performer or performers of the event - for example, a presenter, musician, or actor."
+      },
+      {
+        "name": "startDate",
+        "types": [
+          "Date"
+        ],
+        "description": "The start date and time of the event (in ISO 8601 date format)."
+      },
+      {
+        "name": "subEvents",
+        "types": [
+          "Event"
+        ],
+        "description": "Events that are a part of this event. For example, a conference event includes many presentations, each are subEvents of the conference."
+      },
+      {
+        "name": "superEvent",
+        "types": [
+          "Event"
+        ],
+        "description": "An event that this event is a part of. For example, a collection of individual music performances might each have a music festival as their superEvent."
+      }
+    ]
+  },
+  {
+    "name": "EventVenue",
+    "description": "An event venue.",
+    "ancestors": [
+      "Thing",
+      "Place",
+      "CivicStructure"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "CivicStructure"
+    ]
+  },
+  {
+    "name": "ExerciseGym",
+    "description": "A gym.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness",
+      "SportsActivityLocation"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "FastFoodRestaurant",
+    "description": "A fast-food restaurant.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness",
+      "FoodEstablishment"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness",
+      "FoodEstablishment"
+    ]
+  },
+  {
+    "name": "Festival",
+    "description": "Event type: Festival.",
+    "ancestors": [
+      "Thing",
+      "Event"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Event"
+    ]
+  },
+  {
+    "name": "FinancialService",
+    "description": "Financial services business.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "FireStation",
+    "description": "A fire station. With firemen.",
+    "ancestors": [
+      "Thing",
+      "Place",
+      "CivicStructure"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness",
+      "CivicStructure"
+    ]
+  },
+  {
+    "name": "Florist",
+    "description": "A florist.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness",
+      "Store"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "FoodEstablishment",
+    "description": "A food-related business.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ],
+    "properties": [
+      {
+        "name": "acceptsReservations",
+        "types": [
+          "Text",
+          "URL"
+        ],
+        "description": "Either Yes/No, or a URL at which reservations can be made."
+      },
+      {
+        "name": "menu",
+        "types": [
+          "Text",
+          "URL"
+        ],
+        "description": "Either the actual menu or a URL of the menu."
+      },
+      {
+        "name": "servesCuisine",
+        "types": [
+          "Text"
+        ],
+        "description": "The cuisine of the restaurant."
+      }
+    ]
+  },
+  {
+    "name": "FoodEvent",
+    "description": "Event type: Food event.",
+    "ancestors": [
+      "Thing",
+      "Event"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Event"
+    ]
+  },
+  {
+    "name": "FurnitureStore",
+    "description": "A furniture store.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness",
+      "Store"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "GardenStore",
+    "description": "A garden store.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness",
+      "Store"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "GasStation",
+    "description": "A gas station.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness",
+      "AutomotiveBusiness"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "GatedResidenceCommunity",
+    "description": "Residence type: Gated community.",
+    "ancestors": [
+      "Thing",
+      "Place",
+      "Residence"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place"
+    ]
+  },
+  {
+    "name": "GeneralContractor",
+    "description": "A general contractor.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness",
+      "HomeAndConstructionBusiness"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "GeoCoordinates",
+    "description": "The geographic coordinates of a place or event.",
+    "ancestors": [
+      "Thing",
+      "Intangible",
+      "StructuredValue"
+    ],
+    "vocabularies": [
+      "Thing"
+    ],
+    "properties": [
+      {
+        "name": "elevation",
+        "types": [
+          "Number",
+          "Text"
+        ],
+        "description": "The elevation of a location."
+      },
+      {
+        "name": "latitude",
+        "types": [
+          "Number",
+          "Text"
+        ],
+        "description": "The latitude of a location. For example 37.42242."
+      },
+      {
+        "name": "longitude",
+        "types": [
+          "Number",
+          "Text"
+        ],
+        "description": "The longitude of a location. For example -122.08585."
+      }
+    ]
+  },
+  {
+    "name": "GolfCourse",
+    "description": "A golf course.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness",
+      "SportsActivityLocation"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "GovernmentBuilding",
+    "description": "A government building.",
+    "ancestors": [
+      "Thing",
+      "Place",
+      "CivicStructure"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "CivicStructure"
+    ]
+  },
+  {
+    "name": "GovernmentOffice",
+    "description": "A government office - for example, an IRS or DMV office.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "GovernmentOrganization",
+    "description": "A governmental organization or agency.",
+    "ancestors": [
+      "Thing",
+      "Organization"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Organization"
+    ]
+  },
+  {
+    "name": "GroceryStore",
+    "description": "A grocery store.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness",
+      "Store"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "HVACBusiness",
+    "description": "An HVAC service.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness",
+      "HomeAndConstructionBusiness"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "HairSalon",
+    "description": "A hair salon.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness",
+      "HealthAndBeautyBusiness"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "HardwareStore",
+    "description": "A hardware store.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness",
+      "Store"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "HealthAndBeautyBusiness",
+    "description": "Health and beauty.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "HealthClub",
+    "description": "A health club.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness",
+      "HealthAndBeautyBusiness"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "HighSchool",
+    "description": "A high school.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "EducationalOrganization"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Organization",
+      "EducationalOrganization"
+    ]
+  },
+  {
+    "name": "HinduTemple",
+    "description": "A Hindu temple.",
+    "ancestors": [
+      "Thing",
+      "Place",
+      "CivicStructure",
+      "PlaceOfWorship"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "CivicStructure"
+    ]
+  },
+  {
+    "name": "HobbyShop",
+    "description": "A hobby store.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness",
+      "Store"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "HomeAndConstructionBusiness",
+    "description": "A construction business.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "HomeGoodsStore",
+    "description": "A home goods store.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness",
+      "Store"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "Hospital",
+    "description": "A hospital.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness",
+      "MedicalOrganization"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness",
+      "CivicStructure"
+    ]
+  },
+  {
+    "name": "Hostel",
+    "description": "A hostel.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness",
+      "LodgingBusiness"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "Hotel",
+    "description": "A hotel.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness",
+      "LodgingBusiness"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "HousePainter",
+    "description": "A house painting service.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness",
+      "HomeAndConstructionBusiness"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "IceCreamShop",
+    "description": "An ice cream shop",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness",
+      "FoodEstablishment"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness",
+      "FoodEstablishment"
+    ]
+  },
+  {
+    "name": "ImageGallery",
+    "description": "Web page type: Image gallery page.",
+    "ancestors": [
+      "Thing",
+      "CreativeWork",
+      "WebPage",
+      "CollectionPage"
+    ],
+    "vocabularies": [
+      "Thing",
+      "CreativeWork",
+      "WebPage"
+    ]
+  },
+  {
+    "name": "ImageObject",
+    "description": "An image file.",
+    "ancestors": [
+      "Thing",
+      "CreativeWork",
+      "MediaObject"
+    ],
+    "vocabularies": [
+      "Thing",
+      "CreativeWork",
+      "MediaObject"
+    ],
+    "properties": [
+      {
+        "name": "caption",
+        "types": [
+          "Text"
+        ],
+        "description": "The caption for this object."
+      },
+      {
+        "name": "exifData",
+        "types": [
+          "Text"
+        ],
+        "description": "exif data for this object."
+      },
+      {
+        "name": "representativeOfPage",
+        "types": [
+          "Boolean"
+        ],
+        "description": "Indicates whether this image is representative of the content of the page."
+      },
+      {
+        "name": "thumbnail",
+        "types": [
+          "ImageObject"
+        ],
+        "description": "Thumbnail image for an image or video."
+      }
+    ]
+  },
+  {
+    "name": "InsuranceAgency",
+    "description": "Insurance agency.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness",
+      "FinancialService"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "Intangible",
+    "description": "A utility class that serves as the umbrella for a number of 'intangible' things such as quantities, structured values, etc.",
+    "ancestors": [
+      "Thing"
+    ],
+    "vocabularies": [
+      "Thing"
+    ]
+  },
+  {
+    "name": "InternetCafe",
+    "description": "An internet cafe.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "ItemAvailability",
+    "description": "A list of possible product availablity options.",
+    "ancestors": [
+      "Thing",
+      "Intangible",
+      "Enumeration"
+    ],
+    "vocabularies": [
+      "Thing"
+    ],
+    "instances": [
+      "Discontinued",
+      "InStock",
+      "InStoreOnly",
+      "OnlineOnly",
+      "OutOfStock",
+      "PreOrder"
+    ]
+  },
+  {
+    "name": "ItemList",
+    "description": "A list of items of any sort - for example, Top 10 Movies About Weathermen, or Top 100 Party Songs. Not to be confused with HTML lists, which are often used only for formatting.",
+    "ancestors": [
+      "Thing",
+      "CreativeWork"
+    ],
+    "vocabularies": [
+      "Thing",
+      "CreativeWork"
+    ],
+    "properties": [
+      {
+        "name": "itemListElement",
+        "types": [
+          "Text"
+        ],
+        "description": "A single list item."
+      }
+    ]
+  },
+  {
+    "name": "ItemPage",
+    "description": "A page devoted to a single item, such as a particular product or hotel.",
+    "ancestors": [
+      "Thing",
+      "CreativeWork",
+      "WebPage"
+    ],
+    "vocabularies": [
+      "Thing",
+      "CreativeWork",
+      "WebPage"
+    ]
+  },
+  {
+    "name": "JewelryStore",
+    "description": "A jewelry store.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness",
+      "Store"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "LakeBodyOfWater",
+    "description": "A lake (for example, Lake Pontrachain).",
+    "ancestors": [
+      "Thing",
+      "Place",
+      "Landform",
+      "BodyOfWater"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place"
+    ]
+  },
+  {
+    "name": "Landform",
+    "description": "A landform or physical feature.  Landform elements include mountains, plains, lakes, rivers, seascape and oceanic waterbody interface features such as bays, peninsulas, seas and so forth, including sub-aqueous terrain features such as submersed mountain ranges, volcanoes, and the great ocean basins.",
+    "ancestors": [
+      "Thing",
+      "Place"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place"
+    ]
+  },
+  {
+    "name": "LandmarksOrHistoricalBuildings",
+    "description": "An historical landmark or building.",
+    "ancestors": [
+      "Thing",
+      "Place"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place"
+    ]
+  },
+  {
+    "name": "Language",
+    "description": "Natural languages such as Spanish, Tamil, Hindi, English, etc. and programming languages such as Scheme and Lisp.",
+    "ancestors": [
+      "Thing",
+      "Intangible"
+    ],
+    "vocabularies": [
+      "Thing"
+    ]
+  },
+  {
+    "name": "LegislativeBuilding",
+    "description": "A legislative building - for example, the state capitol.",
+    "ancestors": [
+      "Thing",
+      "Place",
+      "CivicStructure",
+      "GovernmentBuilding"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "CivicStructure"
+    ]
+  },
+  {
+    "name": "Library",
+    "description": "A library.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "LiquorStore",
+    "description": "A liquor store.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness",
+      "Store"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "LiteraryEvent",
+    "description": "Event type: Literary event.",
+    "ancestors": [
+      "Thing",
+      "Event"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Event"
+    ]
+  },
+  {
+    "name": "LocalBusiness",
+    "description": "A particular physical business or branch of an organization. Examples of LocalBusiness include a restaurant, a particular branch of a restaurant chain, a branch of a bank, a medical practice, a club, a bowling alley, etc.",
+    "ancestors": [
+      "Thing",
+      "Organization"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization"
+    ],
+    "properties": [
+      {
+        "name": "branchOf",
+        "types": [
+          "Organization"
+        ],
+        "description": "The larger organization that this local business is a branch of, if any."
+      },
+      {
+        "name": "currenciesAccepted",
+        "types": [
+          "Text"
+        ],
+        "description": "The currency accepted (in ISO 4217 currency format)."
+      },
+      {
+        "name": "openingHours",
+        "types": [
+          "Duration"
+        ],
+        "description": "The opening hours for a business. Opening hours can be specified as a weekly time range, starting with days, then times per day. Multiple days can be listed with commas ',' separating each day. Day or time ranges are specified using a hyphen '-'.- Days are specified using the following two-letter combinations: Mo, Tu, We, Th, Fr, Sa, Su.- Times are specified using 24:00 time. For example, 3pm is specified as 15:00. - Here is an example: <time itemprop=\"openingHours\" datetime=\"Tu,Th 16:00-20:00\">Tuesdays and Thursdays 4-8pm</time>. - If a business is open 7 days a week, then it can be specified as <time itemprop=\"openingHours\" datetime=\"Mo-Su\">Monday through Sunday, all day</time>."
+      },
+      {
+        "name": "paymentAccepted",
+        "types": [
+          "Text"
+        ],
+        "description": "Cash, credit card, etc."
+      },
+      {
+        "name": "priceRange",
+        "types": [
+          "Text"
+        ],
+        "description": "The price range of the business, for example $$$."
+      }
+    ]
+  },
+  {
+    "name": "Locksmith",
+    "description": "A locksmith.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness",
+      "HomeAndConstructionBusiness"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "LodgingBusiness",
+    "description": "A lodging business, such as a motel, hotel, or inn.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "Map",
+    "description": "A map.",
+    "ancestors": [
+      "Thing",
+      "CreativeWork"
+    ],
+    "vocabularies": [
+      "Thing",
+      "CreativeWork"
+    ]
+  },
+  {
+    "name": "Mass",
+    "description": "Properties that take Mass as values are of the form '<Number> <Mass unit of measure>'. E.g., '7 kg'",
+    "ancestors": [
+      "Thing",
+      "Intangible",
+      "Quantity"
+    ],
+    "vocabularies": [
+      "Thing"
+    ]
+  },
+  {
+    "name": "MediaObject",
+    "description": "An image, video, or audio object embedded in a web page. Note that a creative work may have many media objects associated with it on the same web page. For example, a page about a single song (MusicRecording) may have a music video (VideoObject), and a high and low bandwidth audio stream (2 AudioObject's).",
+    "ancestors": [
+      "Thing",
+      "CreativeWork"
+    ],
+    "vocabularies": [
+      "Thing",
+      "CreativeWork"
+    ],
+    "properties": [
+      {
+        "name": "bitrate",
+        "types": [
+          "Text"
+        ],
+        "description": "The bitrate of the media object."
+      },
+      {
+        "name": "contentSize",
+        "types": [
+          "Text"
+        ],
+        "description": "File size in (mega/kilo) bytes."
+      },
+      {
+        "name": "contentURL",
+        "types": [
+          "URL"
+        ],
+        "description": "Actual bytes of the media object, for example the image file or video file."
+      },
+      {
+        "name": "duration",
+        "types": [
+          "Duration"
+        ],
+        "description": "The duration of the item (movie, audio recording, event, etc.) in ISO 8601 date format."
+      },
+      {
+        "name": "embedURL",
+        "types": [
+          "URL"
+        ],
+        "description": "A URL pointing to a player for a specific video. In general, this is the information in the src element of an embed tag and should not be the same as the content of the loc tag."
+      },
+      {
+        "name": "encodesCreativeWork",
+        "types": [
+          "CreativeWork"
+        ],
+        "description": "The creative work encoded by this media object"
+      },
+      {
+        "name": "encodingFormat",
+        "types": [
+          "Text"
+        ],
+        "description": "mp3, mpeg4, etc."
+      },
+      {
+        "name": "expires",
+        "types": [
+          "Date"
+        ],
+        "description": "Date the content expires and is no longer useful or available. Useful for videos."
+      },
+      {
+        "name": "height",
+        "types": [
+          "Distance"
+        ],
+        "description": "The height of the media object."
+      },
+      {
+        "name": "playerType",
+        "types": [
+          "Text"
+        ],
+        "description": "Player type required - for example, Flash or Silverlight."
+      },
+      {
+        "name": "regionsAllowed",
+        "types": [
+          "Place"
+        ],
+        "description": "The regions where the media is allowed. If not specified, then it's assumed to be allowed everywhere. Specify the countries in ISO 3166 format."
+      },
+      {
+        "name": "requiresSubscription",
+        "types": [
+          "Boolean"
+        ],
+        "description": "Indicates if use of the media require a subscription  (either paid or free). Allowed values are yes or no."
+      },
+      {
+        "name": "uploadDate",
+        "types": [
+          "Date"
+        ],
+        "description": "Date when this media object was uploaded to this site."
+      },
+      {
+        "name": "width",
+        "types": [
+          "Distance"
+        ],
+        "description": "The width of the media object."
+      }
+    ]
+  },
+  {
+    "name": "MedicalClinic",
+    "description": "A medical clinic.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness",
+      "MedicalOrganization"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "MedicalOrganization",
+    "description": "A medical organization, such as a doctor's office or clinic.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "MensClothingStore",
+    "description": "A men's clothing store.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness",
+      "Store"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "MiddleSchool",
+    "description": "A middle school.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "EducationalOrganization"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Organization",
+      "EducationalOrganization"
+    ]
+  },
+  {
+    "name": "MobilePhoneStore",
+    "description": "A mobile-phone store.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness",
+      "Store"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "Mosque",
+    "description": "A mosque.",
+    "ancestors": [
+      "Thing",
+      "Place",
+      "CivicStructure",
+      "PlaceOfWorship"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "CivicStructure"
+    ]
+  },
+  {
+    "name": "Motel",
+    "description": "A motel.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness",
+      "LodgingBusiness"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "MotorcycleDealer",
+    "description": "A motorcycle dealer.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness",
+      "AutomotiveBusiness"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "MotorcycleRepair",
+    "description": "A motorcycle repair shop.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness",
+      "AutomotiveBusiness"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "Mountain",
+    "description": "A mountain, like Mount Whitney or Mount Everest",
+    "ancestors": [
+      "Thing",
+      "Place",
+      "Landform"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place"
+    ]
+  },
+  {
+    "name": "Movie",
+    "description": "A movie.",
+    "ancestors": [
+      "Thing",
+      "CreativeWork"
+    ],
+    "vocabularies": [
+      "Thing",
+      "CreativeWork"
+    ],
+    "properties": [
+      {
+        "name": "actors",
+        "types": [
+          "Person"
+        ],
+        "description": "A cast member of the movie, TV series, season, or episode, or video."
+      },
+      {
+        "name": "director",
+        "types": [
+          "Person"
+        ],
+        "description": "The director of the movie, TV episode, or series."
+      },
+      {
+        "name": "duration",
+        "types": [
+          "Duration"
+        ],
+        "description": "The duration of the item (movie, audio recording, event, etc.) in ISO 8601 date format."
+      },
+      {
+        "name": "musicBy",
+        "types": [
+          "Person",
+          "MusicGroup"
+        ],
+        "description": "The composer of the movie or TV soundtrack."
+      },
+      {
+        "name": "producer",
+        "types": [
+          "Person"
+        ],
+        "description": "The producer of the movie, TV series, season, or episode, or video."
+      },
+      {
+        "name": "productionCompany",
+        "types": [
+          "Organization"
+        ],
+        "description": "The production company or studio that made the movie, TV series, season, or episode, or video."
+      },
+      {
+        "name": "trailer",
+        "types": [
+          "VideoObject"
+        ],
+        "description": "The trailer of the movie or TV series, season, or episode."
+      }
+    ]
+  },
+  {
+    "name": "MovieRentalStore",
+    "description": "A movie rental store.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness",
+      "Store"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "MovieTheater",
+    "description": "A movie theater.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness",
+      "EntertainmentBusiness"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "CivicStructure",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "MovingCompany",
+    "description": "A moving company.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness",
+      "HomeAndConstructionBusiness"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "Museum",
+    "description": "A museum.",
+    "ancestors": [
+      "Thing",
+      "Place",
+      "CivicStructure"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "CivicStructure"
+    ]
+  },
+  {
+    "name": "MusicAlbum",
+    "description": "A collection of music tracks.",
+    "ancestors": [
+      "Thing",
+      "CreativeWork",
+      "MusicPlaylist"
+    ],
+    "vocabularies": [
+      "Thing",
+      "CreativeWork",
+      "MusicPlaylist"
+    ],
+    "properties": [
+      {
+        "name": "byArtist",
+        "types": [
+          "MusicGroup"
+        ],
+        "description": "The artist that performed this album or recording."
+      }
+    ]
+  },
+  {
+    "name": "MusicEvent",
+    "description": "Event type: Music event.",
+    "ancestors": [
+      "Thing",
+      "Event"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Event"
+    ]
+  },
+  {
+    "name": "MusicGroup",
+    "description": "A musical group, such as a band, an orchestra, or a choir. Can also be a solo musician.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "PerformingGroup"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Organization"
+    ],
+    "properties": [
+      {
+        "name": "albums",
+        "types": [
+          "MusicAlbum"
+        ],
+        "description": "A collection of music albums."
+      },
+      {
+        "name": "musicGroupMember",
+        "types": [
+          "Person"
+        ],
+        "description": "A member of the music group - for example, John, Paul, George, or Ringo."
+      },
+      {
+        "name": "tracks",
+        "types": [
+          "MusicRecording"
+        ],
+        "description": "A music recording (track) - usually a single song."
+      }
+    ]
+  },
+  {
+    "name": "MusicPlaylist",
+    "description": "A collection of music tracks in playlist form.",
+    "ancestors": [
+      "Thing",
+      "CreativeWork"
+    ],
+    "vocabularies": [
+      "Thing",
+      "CreativeWork"
+    ],
+    "properties": [
+      {
+        "name": "numTracks",
+        "types": [
+          "Integer"
+        ],
+        "description": "The number of tracks in this album or playlist."
+      },
+      {
+        "name": "tracks",
+        "types": [
+          "MusicRecording"
+        ],
+        "description": "A music recording (track) - usually a single song."
+      }
+    ]
+  },
+  {
+    "name": "MusicRecording",
+    "description": "A music recording (track), usually a single song.",
+    "ancestors": [
+      "Thing",
+      "CreativeWork"
+    ],
+    "vocabularies": [
+      "Thing",
+      "CreativeWork"
+    ],
+    "properties": [
+      {
+        "name": "byArtist",
+        "types": [
+          "MusicGroup"
+        ],
+        "description": "The artist that performed this album or recording."
+      },
+      {
+        "name": "duration",
+        "types": [
+          "Duration"
+        ],
+        "description": "The duration of the item (movie, audio recording, event, etc.) in ISO 8601 date format."
+      },
+      {
+        "name": "inAlbum",
+        "types": [
+          "MusicAlbum"
+        ],
+        "description": "The album to which this recording belongs."
+      },
+      {
+        "name": "inPlaylist",
+        "types": [
+          "MusicPlaylist"
+        ],
+        "description": "The playlist to which this recording belongs."
+      }
+    ]
+  },
+  {
+    "name": "MusicStore",
+    "description": "A music store.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness",
+      "Store"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "MusicVenue",
+    "description": "A music venue.",
+    "ancestors": [
+      "Thing",
+      "Place",
+      "CivicStructure"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "CivicStructure"
+    ]
+  },
+  {
+    "name": "MusicVideoObject",
+    "description": "A music video file.",
+    "ancestors": [
+      "Thing",
+      "CreativeWork",
+      "MediaObject"
+    ],
+    "vocabularies": [
+      "Thing",
+      "CreativeWork",
+      "MediaObject"
+    ]
+  },
+  {
+    "name": "NGO",
+    "description": "Organization: Non-governmental Organization.",
+    "ancestors": [
+      "Thing",
+      "Organization"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Organization"
+    ]
+  },
+  {
+    "name": "NailSalon",
+    "description": "A nail salon.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness",
+      "HealthAndBeautyBusiness"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "NewsArticle",
+    "description": "A news article",
+    "ancestors": [
+      "Thing",
+      "CreativeWork",
+      "Article"
+    ],
+    "vocabularies": [
+      "Thing",
+      "CreativeWork",
+      "Article"
+    ]
+  },
+  {
+    "name": "NightClub",
+    "description": "A nightclub or discotheque.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness",
+      "EntertainmentBusiness"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "Notary",
+    "description": "A notary.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness",
+      "ProfessionalService"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "NutritionInformation",
+    "description": "Nutritional information about the recipe.",
+    "ancestors": [
+      "Thing",
+      "Intangible",
+      "StructuredValue"
+    ],
+    "vocabularies": [
+      "Thing"
+    ],
+    "properties": [
+      {
+        "name": "calories",
+        "types": [
+          "Energy"
+        ],
+        "description": "The number of calories"
+      },
+      {
+        "name": "carbohydrateContent",
+        "types": [
+          "Mass"
+        ],
+        "description": "The number of grams of carbohydrates."
+      },
+      {
+        "name": "cholesterolContent",
+        "types": [
+          "Mass"
+        ],
+        "description": "The number of milligrams of cholesterol."
+      },
+      {
+        "name": "fatContent",
+        "types": [
+          "Mass"
+        ],
+        "description": "The number of grams of fat."
+      },
+      {
+        "name": "fiberContent",
+        "types": [
+          "Mass"
+        ],
+        "description": "The number of grams of fiber."
+      },
+      {
+        "name": "proteinContent",
+        "types": [
+          "Mass"
+        ],
+        "description": "The number of grams of protein."
+      },
+      {
+        "name": "saturatedFatContent",
+        "types": [
+          "Mass"
+        ],
+        "description": "The number of grams of saturated fat."
+      },
+      {
+        "name": "servingSize",
+        "types": [
+          "Text"
+        ],
+        "description": "The serving size, in terms of the number of volume or mass"
+      },
+      {
+        "name": "sodiumContent",
+        "types": [
+          "Mass"
+        ],
+        "description": "The number of milligrams of sodium."
+      },
+      {
+        "name": "sugarContent",
+        "types": [
+          "Mass"
+        ],
+        "description": "The number of grams of sugar."
+      },
+      {
+        "name": "transFatContent",
+        "types": [
+          "Mass"
+        ],
+        "description": "The number of grams of trans fat."
+      },
+      {
+        "name": "unsaturatedFatContent",
+        "types": [
+          "Mass"
+        ],
+        "description": "The number of grams of unsaturated fat."
+      }
+    ]
+  },
+  {
+    "name": "OceanBodyOfWater",
+    "description": "An ocean (for example, the Pacific).",
+    "ancestors": [
+      "Thing",
+      "Place",
+      "Landform",
+      "BodyOfWater"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place"
+    ]
+  },
+  {
+    "name": "Offer",
+    "description": "An offer to sell an item - for example, an offer to sell a product, the DVD of a movie, or tickets to an event.",
+    "ancestors": [
+      "Thing",
+      "Intangible"
+    ],
+    "vocabularies": [
+      "Thing"
+    ],
+    "properties": [
+      {
+        "name": "aggregateRating",
+        "types": [
+          "AggregateRating"
+        ],
+        "description": "The overall rating, based on a collection of reviews or ratings, of the item."
+      },
+      {
+        "name": "availability",
+        "types": [
+          "ItemAvailability"
+        ],
+        "description": "The availability of this item - for example In stock, Out of stock, Pre-order, etc."
+      },
+      {
+        "name": "itemCondition",
+        "types": [
+          "OfferItemCondition"
+        ],
+        "description": "The condition of the item for sale - for example New, Refurbished, Used, etc."
+      },
+      {
+        "name": "itemOffered",
+        "types": [
+          "Product"
+        ],
+        "description": "The item being sold."
+      },
+      {
+        "name": "price",
+        "types": [
+          "Number",
+          "Text"
+        ],
+        "description": "The offer price of the product."
+      },
+      {
+        "name": "priceCurrency",
+        "types": [
+          "Text"
+        ],
+        "description": "The currency (in 3-letter ISO 4217 format) of the offer price."
+      },
+      {
+        "name": "priceValidUntil",
+        "types": [
+          "Date"
+        ],
+        "description": "The date after which the price is no longer available."
+      },
+      {
+        "name": "reviews",
+        "types": [
+          "Review"
+        ],
+        "description": "Review of the item."
+      },
+      {
+        "name": "seller",
+        "types": [
+          "Organization"
+        ],
+        "description": "The seller of the product."
+      }
+    ]
+  },
+  {
+    "name": "OfferItemCondition",
+    "description": "A list of possible conditions for the item for sale.",
+    "ancestors": [
+      "Thing",
+      "Intangible",
+      "Enumeration"
+    ],
+    "vocabularies": [
+      "Thing"
+    ],
+    "instances": [
+      "DamagedCondition",
+      "NewCondition",
+      "RefurbishedCondition",
+      "UsedCondition"
+    ]
+  },
+  {
+    "name": "OfficeEquipmentStore",
+    "description": "An office equipment store.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness",
+      "Store"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "Optician",
+    "description": "An optician's store.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness",
+      "MedicalOrganization"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "Organization",
+    "description": "An organization such as a school, NGO, corporation, club, etc.",
+    "ancestors": [
+      "Thing"
+    ],
+    "vocabularies": [
+      "Thing"
+    ],
+    "properties": [
+      {
+        "name": "address",
+        "types": [
+          "PostalAddress"
+        ],
+        "description": "Physical address of the item."
+      },
+      {
+        "name": "aggregateRating",
+        "types": [
+          "AggregateRating"
+        ],
+        "description": "The overall rating, based on a collection of reviews or ratings, of the item."
+      },
+      {
+        "name": "contactPoints",
+        "types": [
+          "ContactPoint"
+        ],
+        "description": "A contact point for a person or organization."
+      },
+      {
+        "name": "email",
+        "types": [
+          "Text"
+        ],
+        "description": "Email address."
+      },
+      {
+        "name": "employees",
+        "types": [
+          "Person"
+        ],
+        "description": "People working for this organization."
+      },
+      {
+        "name": "events",
+        "types": [
+          "Event"
+        ],
+        "description": "The events held at this place or organization."
+      },
+      {
+        "name": "faxNumber",
+        "types": [
+          "Text"
+        ],
+        "description": "The fax number."
+      },
+      {
+        "name": "founders",
+        "types": [
+          "Person"
+        ],
+        "description": "A person who founded this organization."
+      },
+      {
+        "name": "foundingDate",
+        "types": [
+          "Date"
+        ],
+        "description": "The date that this organization was founded."
+      },
+      {
+        "name": "interactionCount",
+        "types": [
+          "Text"
+        ],
+        "description": "A count of a specific user interactions with this item - for example, 20 UserLikes, 5 UserComments, or 300 UserDownloads. The user interaction type should be one of the sub types of UserInteraction."
+      },
+      {
+        "name": "location",
+        "types": [
+          "Place",
+          "PostalAddress"
+        ],
+        "description": "The location of the event or organization."
+      },
+      {
+        "name": "members",
+        "types": [
+          "Person",
+          "Organization"
+        ],
+        "description": "A member of this organization."
+      },
+      {
+        "name": "reviews",
+        "types": [
+          "Review"
+        ],
+        "description": "Review of the item."
+      },
+      {
+        "name": "telephone",
+        "types": [
+          "Text"
+        ],
+        "description": "The telephone number."
+      }
+    ]
+  },
+  {
+    "name": "OutletStore",
+    "description": "An outlet store.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness",
+      "Store"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "Painting",
+    "description": "A painting.",
+    "ancestors": [
+      "Thing",
+      "CreativeWork"
+    ],
+    "vocabularies": [
+      "Thing",
+      "CreativeWork"
+    ]
+  },
+  {
+    "name": "Park",
+    "description": "A park.",
+    "ancestors": [
+      "Thing",
+      "Place",
+      "CivicStructure"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "CivicStructure"
+    ]
+  },
+  {
+    "name": "ParkingFacility",
+    "description": "A parking lot or other parking facility.",
+    "ancestors": [
+      "Thing",
+      "Place",
+      "CivicStructure"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "CivicStructure"
+    ]
+  },
+  {
+    "name": "PawnShop",
+    "description": "A pawnstore.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness",
+      "Store"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "PerformingArtsTheater",
+    "description": "A theatre or other performing art center.",
+    "ancestors": [
+      "Thing",
+      "Place",
+      "CivicStructure"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "CivicStructure"
+    ]
+  },
+  {
+    "name": "PerformingGroup",
+    "description": "A performance group, such as a band, an orchestra, or a circus.",
+    "ancestors": [
+      "Thing",
+      "Organization"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Organization"
+    ]
+  },
+  {
+    "name": "Person",
+    "description": "A person (alive, dead, undead, or fictional).",
+    "ancestors": [
+      "Thing"
+    ],
+    "vocabularies": [
+      "Thing"
+    ],
+    "properties": [
+      {
+        "name": "address",
+        "types": [
+          "PostalAddress"
+        ],
+        "description": "Physical address of the item."
+      },
+      {
+        "name": "affiliation",
+        "types": [
+          "Organization"
+        ],
+        "description": "An organization that this person is affiliated with. For example, a school/university, a club, or a team."
+      },
+      {
+        "name": "alumniOf",
+        "types": [
+          "EducationalOrganization"
+        ],
+        "description": "An educational organizations that the person is an alumni of."
+      },
+      {
+        "name": "awards",
+        "types": [
+          "Text"
+        ],
+        "description": "Awards won by this person or for this creative work."
+      },
+      {
+        "name": "birthDate",
+        "types": [
+          "Date"
+        ],
+        "description": "Date of birth."
+      },
+      {
+        "name": "children",
+        "types": [
+          "Person"
+        ],
+        "description": "A child of the person."
+      },
+      {
+        "name": "colleagues",
+        "types": [
+          "Person"
+        ],
+        "description": "A colleague of the person."
+      },
+      {
+        "name": "contactPoints",
+        "types": [
+          "ContactPoint"
+        ],
+        "description": "A contact point for a person or organization."
+      },
+      {
+        "name": "deathDate",
+        "types": [
+          "Date"
+        ],
+        "description": "Date of death."
+      },
+      {
+        "name": "email",
+        "types": [
+          "Text"
+        ],
+        "description": "Email address."
+      },
+      {
+        "name": "faxNumber",
+        "types": [
+          "Text"
+        ],
+        "description": "The fax number."
+      },
+      {
+        "name": "follows",
+        "types": [
+          "Person"
+        ],
+        "description": "The most generic uni-directional social relation."
+      },
+      {
+        "name": "gender",
+        "types": [
+          "Text"
+        ],
+        "description": "Gender of the person."
+      },
+      {
+        "name": "homeLocation",
+        "types": [
+          "Place",
+          "ContactPoint"
+        ],
+        "description": "A contact location for a person's residence."
+      },
+      {
+        "name": "interactionCount",
+        "types": [
+          "Text"
+        ],
+        "description": "A count of a specific user interactions with this item - for example, 20 UserLikes, 5 UserComments, or 300 UserDownloads. The user interaction type should be one of the sub types of UserInteraction."
+      },
+      {
+        "name": "jobTitle",
+        "types": [
+          "Text"
+        ],
+        "description": "The job title of the person (for example, Financial Manager)."
+      },
+      {
+        "name": "knows",
+        "types": [
+          "Person"
+        ],
+        "description": "The most generic bi-directional social/work relation."
+      },
+      {
+        "name": "memberOf",
+        "types": [
+          "Organization"
+        ],
+        "description": "An organization to which the person belongs."
+      },
+      {
+        "name": "nationality",
+        "types": [
+          "Country"
+        ],
+        "description": "Nationality of the person."
+      },
+      {
+        "name": "parents",
+        "types": [
+          "Person"
+        ],
+        "description": "A parents of the person."
+      },
+      {
+        "name": "performerIn",
+        "types": [
+          "Event"
+        ],
+        "description": "Event that this person is a performer or participant in."
+      },
+      {
+        "name": "relatedTo",
+        "types": [
+          "Person"
+        ],
+        "description": "The most generic familial relation."
+      },
+      {
+        "name": "siblings",
+        "types": [
+          "Person"
+        ],
+        "description": "A sibling of the person."
+      },
+      {
+        "name": "spouse",
+        "types": [
+          "Person"
+        ],
+        "description": "The person's spouse."
+      },
+      {
+        "name": "telephone",
+        "types": [
+          "Text"
+        ],
+        "description": "The telephone number."
+      },
+      {
+        "name": "workLocation",
+        "types": [
+          "Place",
+          "ContactPoint"
+        ],
+        "description": "A contact location for a person's place of work."
+      },
+      {
+        "name": "worksFor",
+        "types": [
+          "Organization"
+        ],
+        "description": "Organizations that the person works for."
+      }
+    ]
+  },
+  {
+    "name": "PetStore",
+    "description": "A pet store.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness",
+      "Store"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "Pharmacy",
+    "description": "A pharmacy or drugstore.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness",
+      "MedicalOrganization"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "Photograph",
+    "description": "A photograph.",
+    "ancestors": [
+      "Thing",
+      "CreativeWork"
+    ],
+    "vocabularies": [
+      "Thing",
+      "CreativeWork"
+    ]
+  },
+  {
+    "name": "Physician",
+    "description": "A doctor's office.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness",
+      "MedicalOrganization"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "Place",
+    "description": "Entities that have a somewhat fixed, physical extension.",
+    "ancestors": [
+      "Thing"
+    ],
+    "vocabularies": [
+      "Thing"
+    ],
+    "properties": [
+      {
+        "name": "address",
+        "types": [
+          "PostalAddress"
+        ],
+        "description": "Physical address of the item."
+      },
+      {
+        "name": "aggregateRating",
+        "types": [
+          "AggregateRating"
+        ],
+        "description": "The overall rating, based on a collection of reviews or ratings, of the item."
+      },
+      {
+        "name": "containedIn",
+        "types": [
+          "Place"
+        ],
+        "description": "The basic containment relation between places."
+      },
+      {
+        "name": "events",
+        "types": [
+          "Event"
+        ],
+        "description": "The events held at this place or organization."
+      },
+      {
+        "name": "faxNumber",
+        "types": [
+          "Text"
+        ],
+        "description": "The fax number."
+      },
+      {
+        "name": "geo",
+        "types": [
+          "GeoCoordinates"
+        ],
+        "description": "The geo coordinates of the place."
+      },
+      {
+        "name": "interactionCount",
+        "types": [
+          "Text"
+        ],
+        "description": "A count of a specific user interactions with this item - for example, 20 UserLikes, 5 UserComments, or 300 UserDownloads. The user interaction type should be one of the sub types of UserInteraction."
+      },
+      {
+        "name": "maps",
+        "types": [
+          "URL"
+        ],
+        "description": "A URL to a map of the place."
+      },
+      {
+        "name": "photos",
+        "types": [
+          "Photograph",
+          "ImageObject"
+        ],
+        "description": "Photographs of this place."
+      },
+      {
+        "name": "reviews",
+        "types": [
+          "Review"
+        ],
+        "description": "Review of the item."
+      },
+      {
+        "name": "telephone",
+        "types": [
+          "Text"
+        ],
+        "description": "The telephone number."
+      }
+    ]
+  },
+  {
+    "name": "PlaceOfWorship",
+    "description": "Place of worship, such as a church, synagogue, or mosque.",
+    "ancestors": [
+      "Thing",
+      "Place",
+      "CivicStructure"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "CivicStructure"
+    ]
+  },
+  {
+    "name": "Playground",
+    "description": "A playground.",
+    "ancestors": [
+      "Thing",
+      "Place",
+      "CivicStructure"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "CivicStructure"
+    ]
+  },
+  {
+    "name": "Plumber",
+    "description": "A plumbing service.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness",
+      "HomeAndConstructionBusiness"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "PoliceStation",
+    "description": "A police station.",
+    "ancestors": [
+      "Thing",
+      "Place",
+      "CivicStructure"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness",
+      "CivicStructure"
+    ]
+  },
+  {
+    "name": "Pond",
+    "description": "A pond",
+    "ancestors": [
+      "Thing",
+      "Place",
+      "Landform",
+      "BodyOfWater"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place"
+    ]
+  },
+  {
+    "name": "PostOffice",
+    "description": "A post office.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness",
+      "GovernmentOffice"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "PostalAddress",
+    "description": "The mailing address.",
+    "ancestors": [
+      "Thing",
+      "Intangible",
+      "StructuredValue",
+      "ContactPoint"
+    ],
+    "vocabularies": [
+      "Thing",
+      "ContactPoint"
+    ],
+    "properties": [
+      {
+        "name": "addressCountry",
+        "types": [
+          "Country"
+        ],
+        "description": "The country. For example, USA. You can also provide the two-letter ISO 3166-1 alpha-2 country code."
+      },
+      {
+        "name": "addressLocality",
+        "types": [
+          "Text"
+        ],
+        "description": "The locality. For example, Mountain View."
+      },
+      {
+        "name": "addressRegion",
+        "types": [
+          "Text"
+        ],
+        "description": "The region. For example, CA."
+      },
+      {
+        "name": "postOfficeBoxNumber",
+        "types": [
+          "Text"
+        ],
+        "description": "The post offce box number for PO box addresses."
+      },
+      {
+        "name": "postalCode",
+        "types": [
+          "Text"
+        ],
+        "description": "The postal code. For example, 94043."
+      },
+      {
+        "name": "streetAddress",
+        "types": [
+          "Text"
+        ],
+        "description": "The street address. For example, 1600 Amphitheatre Pkwy."
+      }
+    ]
+  },
+  {
+    "name": "Preschool",
+    "description": "A preschool.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "EducationalOrganization"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Organization",
+      "EducationalOrganization"
+    ]
+  },
+  {
+    "name": "Product",
+    "description": "A product is anything that is made available for sale - for example, a pair of shoes, a concert ticket, or a car.",
+    "ancestors": [
+      "Thing"
+    ],
+    "vocabularies": [
+      "Thing"
+    ],
+    "properties": [
+      {
+        "name": "aggregateRating",
+        "types": [
+          "AggregateRating"
+        ],
+        "description": "The overall rating, based on a collection of reviews or ratings, of the item."
+      },
+      {
+        "name": "brand",
+        "types": [
+          "Organization"
+        ],
+        "description": "The brand of the product."
+      },
+      {
+        "name": "manufacturer",
+        "types": [
+          "Organization"
+        ],
+        "description": "The manufacturer of the product."
+      },
+      {
+        "name": "model",
+        "types": [
+          "Text"
+        ],
+        "description": "The model of the product."
+      },
+      {
+        "name": "offers",
+        "types": [
+          "Offer"
+        ],
+        "description": "An offer to sell this item - for example, an offer to sell a product, the DVD of a movie, or tickets to an event."
+      },
+      {
+        "name": "productID",
+        "types": [
+          "Text"
+        ],
+        "description": "The product identifier, such as ISBN. For example: <meta itemprop='productID' content='isbn:123-456-789'/>."
+      },
+      {
+        "name": "reviews",
+        "types": [
+          "Review"
+        ],
+        "description": "Review of the item."
+      }
+    ]
+  },
+  {
+    "name": "ProfessionalService",
+    "description": "Provider of professional services.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "ProfilePage",
+    "description": "Web page type: Profile page.",
+    "ancestors": [
+      "Thing",
+      "CreativeWork",
+      "WebPage"
+    ],
+    "vocabularies": [
+      "Thing",
+      "CreativeWork",
+      "WebPage"
+    ]
+  },
+  {
+    "name": "PublicSwimmingPool",
+    "description": "A public swimming pool.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness",
+      "SportsActivityLocation"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "Quantity",
+    "description": "Quantities such as distance, time, mass, weight, etc. Particular instances of say Mass are entities like '3 Kg' or '4 milligrams'.",
+    "ancestors": [
+      "Thing",
+      "Intangible"
+    ],
+    "vocabularies": [
+      "Thing"
+    ]
+  },
+  {
+    "name": "RVPark",
+    "description": "An RV park.",
+    "ancestors": [
+      "Thing",
+      "Place",
+      "CivicStructure"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "CivicStructure"
+    ]
+  },
+  {
+    "name": "RadioStation",
+    "description": "A radio station.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "Rating",
+    "description": "The rating of the video.",
+    "ancestors": [
+      "Thing",
+      "Intangible"
+    ],
+    "vocabularies": [
+      "Thing"
+    ],
+    "properties": [
+      {
+        "name": "bestRating",
+        "types": [
+          "Number",
+          "Text"
+        ],
+        "description": "The highest value allowed in this rating system. If bestRating is omitted, 5 is assumed."
+      },
+      {
+        "name": "ratingValue",
+        "types": [
+          "Text"
+        ],
+        "description": "The rating for the content."
+      },
+      {
+        "name": "worstRating",
+        "types": [
+          "Number",
+          "Text"
+        ],
+        "description": "The lowest value allowed in this rating system. If worstRating is omitted, 1 is assumed."
+      }
+    ]
+  },
+  {
+    "name": "RealEstateAgent",
+    "description": "A real-estate agent.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "Recipe",
+    "description": "A recipe.",
+    "ancestors": [
+      "Thing",
+      "CreativeWork"
+    ],
+    "vocabularies": [
+      "Thing",
+      "CreativeWork"
+    ],
+    "properties": [
+      {
+        "name": "cookTime",
+        "types": [
+          "Duration"
+        ],
+        "description": "The time it takes to actually cook the dish, in ISO 8601 duration format."
+      },
+      {
+        "name": "cookingMethod",
+        "types": [
+          "Text"
+        ],
+        "description": "The method of cooking, such as Frying, Steaming, ..."
+      },
+      {
+        "name": "ingredients",
+        "types": [
+          "Text"
+        ],
+        "description": "An ingredient used in the recipe."
+      },
+      {
+        "name": "nutrition",
+        "types": [
+          "NutritionInformation"
+        ],
+        "description": "Nutrition information about the recipe."
+      },
+      {
+        "name": "prepTime",
+        "types": [
+          "Duration"
+        ],
+        "description": "The length of time it takes to prepare the recipe, in ISO 8601 duration format."
+      },
+      {
+        "name": "recipeCategory",
+        "types": [
+          "Text"
+        ],
+        "description": "The category of the recipe - for example, appetizer, entree, etc."
+      },
+      {
+        "name": "recipeCuisine",
+        "types": [
+          "Text"
+        ],
+        "description": "The cuisine of the recipe (for example, French or Ethopian)."
+      },
+      {
+        "name": "recipeInstructions",
+        "types": [
+          "Text"
+        ],
+        "description": "The steps to make the dish."
+      },
+      {
+        "name": "recipeYield",
+        "types": [
+          "Text"
+        ],
+        "description": "The quantity produced by the recipe (for example, number of people served, number of servings, etc)."
+      },
+      {
+        "name": "totalTime",
+        "types": [
+          "Duration"
+        ],
+        "description": "The total time it takes to prepare and cook the recipe, in ISO 8601 duration format."
+      }
+    ]
+  },
+  {
+    "name": "RecyclingCenter",
+    "description": "A recycling center.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "Reservoir",
+    "description": "A reservoir, like the Lake Kariba reservoir.",
+    "ancestors": [
+      "Thing",
+      "Place",
+      "Landform",
+      "BodyOfWater"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place"
+    ]
+  },
+  {
+    "name": "Residence",
+    "description": "The place where a person lives.",
+    "ancestors": [
+      "Thing",
+      "Place"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place"
+    ]
+  },
+  {
+    "name": "Restaurant",
+    "description": "A restaurant.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness",
+      "FoodEstablishment"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness",
+      "FoodEstablishment"
+    ]
+  },
+  {
+    "name": "Review",
+    "description": "A review of an item - for example, a restaurant, movie, or store.",
+    "ancestors": [
+      "Thing",
+      "CreativeWork"
+    ],
+    "vocabularies": [
+      "Thing",
+      "CreativeWork"
+    ],
+    "properties": [
+      {
+        "name": "itemReviewed",
+        "types": [
+          "Thing"
+        ],
+        "description": "The item that is being reviewed/rated."
+      },
+      {
+        "name": "reviewBody",
+        "types": [
+          "Text"
+        ],
+        "description": "The actual body of the review"
+      },
+      {
+        "name": "reviewRating",
+        "types": [
+          "Rating"
+        ],
+        "description": "The rating given in this review. Note that reviews can themselves be rated. The reviewRating applies to rating given by the review. The rating property applies to the review itself, as a creative work."
+      }
+    ]
+  },
+  {
+    "name": "RiverBodyOfWater",
+    "description": "A river (for example, the broad majestic Shannon).",
+    "ancestors": [
+      "Thing",
+      "Place",
+      "Landform",
+      "BodyOfWater"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place"
+    ]
+  },
+  {
+    "name": "RoofingContractor",
+    "description": "A roofing contractor.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness",
+      "HomeAndConstructionBusiness"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "SaleEvent",
+    "description": "Event type: Sales event.",
+    "ancestors": [
+      "Thing",
+      "Event"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Event"
+    ]
+  },
+  {
+    "name": "ScholarlyArticle",
+    "description": "A scholarly article.",
+    "ancestors": [
+      "Thing",
+      "CreativeWork",
+      "Article"
+    ],
+    "vocabularies": [
+      "Thing",
+      "CreativeWork",
+      "Article"
+    ]
+  },
+  {
+    "name": "School",
+    "description": "A school.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "EducationalOrganization"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Organization",
+      "EducationalOrganization"
+    ]
+  },
+  {
+    "name": "Sculpture",
+    "description": "A piece of sculpture.",
+    "ancestors": [
+      "Thing",
+      "CreativeWork"
+    ],
+    "vocabularies": [
+      "Thing",
+      "CreativeWork"
+    ]
+  },
+  {
+    "name": "SeaBodyOfWater",
+    "description": "A sea (for example, the Caspian sea).",
+    "ancestors": [
+      "Thing",
+      "Place",
+      "Landform",
+      "BodyOfWater"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place"
+    ]
+  },
+  {
+    "name": "SearchResultsPage",
+    "description": "Web page type: Search results page.",
+    "ancestors": [
+      "Thing",
+      "CreativeWork",
+      "WebPage"
+    ],
+    "vocabularies": [
+      "Thing",
+      "CreativeWork",
+      "WebPage"
+    ]
+  },
+  {
+    "name": "SelfStorage",
+    "description": "Self-storage facility.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "ShoeStore",
+    "description": "A shoe store.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness",
+      "Store"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "ShoppingCenter",
+    "description": "A shopping center or mall.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "SingleFamilyResidence",
+    "description": "Residence type: Single-family home.",
+    "ancestors": [
+      "Thing",
+      "Place",
+      "Residence"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place"
+    ]
+  },
+  {
+    "name": "SiteNavigationElement",
+    "description": "A navigation element of the page.",
+    "ancestors": [
+      "Thing",
+      "CreativeWork",
+      "WebPageElement"
+    ],
+    "vocabularies": [
+      "Thing",
+      "CreativeWork"
+    ]
+  },
+  {
+    "name": "SkiResort",
+    "description": "A ski resort.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness",
+      "SportsActivityLocation"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "SocialEvent",
+    "description": "Event type: Social event.",
+    "ancestors": [
+      "Thing",
+      "Event"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Event"
+    ]
+  },
+  {
+    "name": "SportingGoodsStore",
+    "description": "A sporting goods store.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness",
+      "Store"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "SportsActivityLocation",
+    "description": "A sports location, such as a playing field.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "SportsClub",
+    "description": "A sports club.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness",
+      "SportsActivityLocation"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "SportsEvent",
+    "description": "Event type: Sports event.",
+    "ancestors": [
+      "Thing",
+      "Event"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Event"
+    ]
+  },
+  {
+    "name": "SportsTeam",
+    "description": "Organization: Sports team.",
+    "ancestors": [
+      "Thing",
+      "Organization"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Organization"
+    ]
+  },
+  {
+    "name": "StadiumOrArena",
+    "description": "A stadium.",
+    "ancestors": [
+      "Thing",
+      "Place",
+      "CivicStructure"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness",
+      "CivicStructure"
+    ]
+  },
+  {
+    "name": "State",
+    "description": "A state or province.",
+    "ancestors": [
+      "Thing",
+      "Place",
+      "AdministrativeArea"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place"
+    ]
+  },
+  {
+    "name": "Store",
+    "description": "A retail good store.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "StructuredValue",
+    "description": "Structured values are strings - for example, addresses - that have certain constraints on their structure.",
+    "ancestors": [
+      "Thing",
+      "Intangible"
+    ],
+    "vocabularies": [
+      "Thing"
+    ]
+  },
+  {
+    "name": "SubwayStation",
+    "description": "A subway station.",
+    "ancestors": [
+      "Thing",
+      "Place",
+      "CivicStructure"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "CivicStructure"
+    ]
+  },
+  {
+    "name": "Synagogue",
+    "description": "A synagogue.",
+    "ancestors": [
+      "Thing",
+      "Place",
+      "CivicStructure",
+      "PlaceOfWorship"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "CivicStructure"
+    ]
+  },
+  {
+    "name": "TVEpisode",
+    "description": "An episode of a TV series or season.",
+    "ancestors": [
+      "Thing",
+      "CreativeWork"
+    ],
+    "vocabularies": [
+      "Thing",
+      "CreativeWork"
+    ],
+    "properties": [
+      {
+        "name": "actors",
+        "types": [
+          "Person"
+        ],
+        "description": "A cast member of the movie, TV series, season, or episode, or video."
+      },
+      {
+        "name": "director",
+        "types": [
+          "Person"
+        ],
+        "description": "The director of the movie, TV episode, or series."
+      },
+      {
+        "name": "episodeNumber",
+        "types": [
+          "Number"
+        ],
+        "description": "The episode number."
+      },
+      {
+        "name": "musicBy",
+        "types": [
+          "Person",
+          "MusicGroup"
+        ],
+        "description": "The composer of the movie or TV soundtrack."
+      },
+      {
+        "name": "partOfSeason",
+        "types": [
+          "TVSeason"
+        ],
+        "description": "The season to which this episode belongs."
+      },
+      {
+        "name": "partOfTVSeries",
+        "types": [
+          "TVSeries"
+        ],
+        "description": "The TV series to which this episode or season belongs."
+      },
+      {
+        "name": "producer",
+        "types": [
+          "Person"
+        ],
+        "description": "The producer of the movie, TV series, season, or episode, or video."
+      },
+      {
+        "name": "productionCompany",
+        "types": [
+          "Organization"
+        ],
+        "description": "The production company or studio that made the movie, TV series, season, or episode, or video."
+      },
+      {
+        "name": "trailer",
+        "types": [
+          "VideoObject"
+        ],
+        "description": "The trailer of the movie or TV series, season, or episode."
+      }
+    ]
+  },
+  {
+    "name": "TVSeason",
+    "description": "A TV season.",
+    "ancestors": [
+      "Thing",
+      "CreativeWork"
+    ],
+    "vocabularies": [
+      "Thing",
+      "CreativeWork"
+    ],
+    "properties": [
+      {
+        "name": "endDate",
+        "types": [
+          "Date"
+        ],
+        "description": "The end date and time of the event (in ISO 8601 date format)."
+      },
+      {
+        "name": "episodes",
+        "types": [
+          "TVEpisode"
+        ],
+        "description": "The episode of a TV series or season."
+      },
+      {
+        "name": "numberOfEpisodes",
+        "types": [
+          "Number"
+        ],
+        "description": "The number of episodes in this season or series."
+      },
+      {
+        "name": "partOfTVSeries",
+        "types": [
+          "TVSeries"
+        ],
+        "description": "The TV series to which this episode or season belongs."
+      },
+      {
+        "name": "seasonNumber",
+        "types": [
+          "Integer"
+        ],
+        "description": "The season number."
+      },
+      {
+        "name": "startDate",
+        "types": [
+          "Date"
+        ],
+        "description": "The start date and time of the event (in ISO 8601 date format)."
+      },
+      {
+        "name": "trailer",
+        "types": [
+          "VideoObject"
+        ],
+        "description": "The trailer of the movie or TV series, season, or episode."
+      }
+    ]
+  },
+  {
+    "name": "TVSeries",
+    "description": "A television series.",
+    "ancestors": [
+      "Thing",
+      "CreativeWork"
+    ],
+    "vocabularies": [
+      "Thing",
+      "CreativeWork"
+    ],
+    "properties": [
+      {
+        "name": "actors",
+        "types": [
+          "Person"
+        ],
+        "description": "A cast member of the movie, TV series, season, or episode, or video."
+      },
+      {
+        "name": "director",
+        "types": [
+          "Person"
+        ],
+        "description": "The director of the movie, TV episode, or series."
+      },
+      {
+        "name": "endDate",
+        "types": [
+          "Date"
+        ],
+        "description": "The end date and time of the event (in ISO 8601 date format)."
+      },
+      {
+        "name": "episodes",
+        "types": [
+          "TVEpisode"
+        ],
+        "description": "The episode of a TV series or season."
+      },
+      {
+        "name": "musicBy",
+        "types": [
+          "Person",
+          "MusicGroup"
+        ],
+        "description": "The composer of the movie or TV soundtrack."
+      },
+      {
+        "name": "numberOfEpisodes",
+        "types": [
+          "Number"
+        ],
+        "description": "The number of episodes in this season or series."
+      },
+      {
+        "name": "producer",
+        "types": [
+          "Person"
+        ],
+        "description": "The producer of the movie, TV series, season, or episode, or video."
+      },
+      {
+        "name": "productionCompany",
+        "types": [
+          "Organization"
+        ],
+        "description": "The production company or studio that made the movie, TV series, season, or episode, or video."
+      },
+      {
+        "name": "seasons",
+        "types": [
+          "TVSeason"
+        ],
+        "description": "The seasons of the TV series."
+      },
+      {
+        "name": "startDate",
+        "types": [
+          "Date"
+        ],
+        "description": "The start date and time of the event (in ISO 8601 date format)."
+      },
+      {
+        "name": "trailer",
+        "types": [
+          "VideoObject"
+        ],
+        "description": "The trailer of the movie or TV series, season, or episode."
+      }
+    ]
+  },
+  {
+    "name": "Table",
+    "description": "A table on the page.",
+    "ancestors": [
+      "Thing",
+      "CreativeWork",
+      "WebPageElement"
+    ],
+    "vocabularies": [
+      "Thing",
+      "CreativeWork"
+    ]
+  },
+  {
+    "name": "TattooParlor",
+    "description": "A tattoo parlor.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness",
+      "HealthAndBeautyBusiness"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "TaxiStand",
+    "description": "A taxi stand.",
+    "ancestors": [
+      "Thing",
+      "Place",
+      "CivicStructure"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "CivicStructure"
+    ]
+  },
+  {
+    "name": "TelevisionStation",
+    "description": "A television station.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "TennisComplex",
+    "description": "A tennis complex.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness",
+      "SportsActivityLocation"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "TheaterEvent",
+    "description": "Event type: Theater performance.",
+    "ancestors": [
+      "Thing",
+      "Event"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Event"
+    ]
+  },
+  {
+    "name": "TheaterGroup",
+    "description": "A theater group or company - for example, the Royal Shakespeare Company or Druid Theatre.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "PerformingGroup"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Organization"
+    ]
+  },
+  {
+    "name": "Thing",
+    "description": "The most generic type of item.",
+    "properties": [
+      {
+        "name": "description",
+        "types": [
+          "Text"
+        ],
+        "description": "A short description of the item."
+      },
+      {
+        "name": "image",
+        "types": [
+          "URL"
+        ],
+        "description": "URL of an image of the item."
+      },
+      {
+        "name": "name",
+        "types": [
+          "Text"
+        ],
+        "description": "The name of the item."
+      },
+      {
+        "name": "url",
+        "types": [
+          "URL"
+        ],
+        "description": "URL of the item."
+      }
+    ]
+  },
+  {
+    "name": "TireShop",
+    "description": "A tire shop.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness",
+      "Store"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "TouristAttraction",
+    "description": "A tourist attraction.",
+    "ancestors": [
+      "Thing",
+      "Place"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place"
+    ]
+  },
+  {
+    "name": "TouristInformationCenter",
+    "description": "A tourist information center.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "ToyStore",
+    "description": "A toystore.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness",
+      "Store"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "TrainStation",
+    "description": "A train station.",
+    "ancestors": [
+      "Thing",
+      "Place",
+      "CivicStructure"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "CivicStructure"
+    ]
+  },
+  {
+    "name": "TravelAgency",
+    "description": "A travel agency.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "UserBlocks",
+    "description": "User interaction: Block this content.",
+    "ancestors": [
+      "Thing",
+      "Event",
+      "UserInteraction"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Event"
+    ]
+  },
+  {
+    "name": "UserCheckins",
+    "description": "User interaction: Check-in at a place.",
+    "ancestors": [
+      "Thing",
+      "Event",
+      "UserInteraction"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Event"
+    ]
+  },
+  {
+    "name": "UserComments",
+    "description": "User interaction: A comment about an item.",
+    "ancestors": [
+      "Thing",
+      "Event",
+      "UserInteraction"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Event"
+    ]
+  },
+  {
+    "name": "UserDownloads",
+    "description": "User interaction: Download of an item.",
+    "ancestors": [
+      "Thing",
+      "Event",
+      "UserInteraction"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Event"
+    ]
+  },
+  {
+    "name": "UserInteraction",
+    "description": "A user interacting with a page",
+    "ancestors": [
+      "Thing",
+      "Event"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Event"
+    ]
+  },
+  {
+    "name": "UserLikes",
+    "description": "User interaction: Like an item.",
+    "ancestors": [
+      "Thing",
+      "Event",
+      "UserInteraction"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Event"
+    ]
+  },
+  {
+    "name": "UserPageVisits",
+    "description": "User interaction: Visit to a web page.",
+    "ancestors": [
+      "Thing",
+      "Event",
+      "UserInteraction"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Event"
+    ]
+  },
+  {
+    "name": "UserPlays",
+    "description": "User interaction: Play count of an item, for example a video or a song.",
+    "ancestors": [
+      "Thing",
+      "Event",
+      "UserInteraction"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Event"
+    ]
+  },
+  {
+    "name": "UserPlusOnes",
+    "description": "User interaction: +1.",
+    "ancestors": [
+      "Thing",
+      "Event",
+      "UserInteraction"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Event"
+    ]
+  },
+  {
+    "name": "UserTweets",
+    "description": "User interaction: Tweets.",
+    "ancestors": [
+      "Thing",
+      "Event",
+      "UserInteraction"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Event"
+    ]
+  },
+  {
+    "name": "VeterinaryCare",
+    "description": "A vet's office.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness",
+      "MedicalOrganization"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "VideoGallery",
+    "description": "Web page type: Video gallery page.",
+    "ancestors": [
+      "Thing",
+      "CreativeWork",
+      "WebPage",
+      "CollectionPage"
+    ],
+    "vocabularies": [
+      "Thing",
+      "CreativeWork",
+      "WebPage"
+    ]
+  },
+  {
+    "name": "VideoObject",
+    "description": "A video file.",
+    "ancestors": [
+      "Thing",
+      "CreativeWork",
+      "MediaObject"
+    ],
+    "vocabularies": [
+      "Thing",
+      "CreativeWork",
+      "MediaObject"
+    ],
+    "properties": [
+      {
+        "name": "caption",
+        "types": [
+          "Text"
+        ],
+        "description": "The caption for this object."
+      },
+      {
+        "name": "productionCompany",
+        "types": [
+          "Organization"
+        ],
+        "description": "The production company or studio that made the movie, TV series, season, or episode, or video."
+      },
+      {
+        "name": "thumbnail",
+        "types": [
+          "ImageObject"
+        ],
+        "description": "Thumbnail image for an image or video."
+      },
+      {
+        "name": "videoFrameSize",
+        "types": [
+          "Text"
+        ],
+        "description": "The frame size of the video."
+      },
+      {
+        "name": "videoQuality",
+        "types": [
+          "Text"
+        ],
+        "description": "The quality of the video."
+      }
+    ]
+  },
+  {
+    "name": "VisualArtsEvent",
+    "description": "Event type: Visual arts event.",
+    "ancestors": [
+      "Thing",
+      "Event"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Event"
+    ]
+  },
+  {
+    "name": "Volcano",
+    "description": "A volcano, like Fuji san",
+    "ancestors": [
+      "Thing",
+      "Place",
+      "Landform"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place"
+    ]
+  },
+  {
+    "name": "WPAdBlock",
+    "description": "An advertising section of the page.",
+    "ancestors": [
+      "Thing",
+      "CreativeWork",
+      "WebPageElement"
+    ],
+    "vocabularies": [
+      "Thing",
+      "CreativeWork"
+    ]
+  },
+  {
+    "name": "WPFooter",
+    "description": "The footer section of the page.",
+    "ancestors": [
+      "Thing",
+      "CreativeWork",
+      "WebPageElement"
+    ],
+    "vocabularies": [
+      "Thing",
+      "CreativeWork"
+    ]
+  },
+  {
+    "name": "WPHeader",
+    "description": "The header section of the page.",
+    "ancestors": [
+      "Thing",
+      "CreativeWork",
+      "WebPageElement"
+    ],
+    "vocabularies": [
+      "Thing",
+      "CreativeWork"
+    ]
+  },
+  {
+    "name": "WPSideBar",
+    "description": "A sidebar section of the page.",
+    "ancestors": [
+      "Thing",
+      "CreativeWork",
+      "WebPageElement"
+    ],
+    "vocabularies": [
+      "Thing",
+      "CreativeWork"
+    ]
+  },
+  {
+    "name": "Waterfall",
+    "description": "A waterfall, like Niagara",
+    "ancestors": [
+      "Thing",
+      "Place",
+      "Landform",
+      "BodyOfWater"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place"
+    ]
+  },
+  {
+    "name": "WebPage",
+    "description": "A web page. Every web page is implicitly assumed to be declared to be of type WebPage, so the various properties about that webpage, such as breadcrumb may be used. We recommend explicit declaration if these properties are specified, but if they are found outside of an itemscope, they will be assumed to be about the page",
+    "ancestors": [
+      "Thing",
+      "CreativeWork"
+    ],
+    "vocabularies": [
+      "Thing",
+      "CreativeWork"
+    ],
+    "properties": [
+      {
+        "name": "breadcrumb",
+        "types": [
+          "Text"
+        ],
+        "description": "A set of links that can help a user understand and navigate a website hierarchy."
+      },
+      {
+        "name": "isPartOf",
+        "types": [
+          "CollectionPage"
+        ],
+        "description": "Indicates the collection or gallery to which the item belongs."
+      },
+      {
+        "name": "mainContentOfPage",
+        "types": [
+          "WebPageElement"
+        ],
+        "description": "Indicates if this web page element is the main subject of the page."
+      },
+      {
+        "name": "primaryImageOfPage",
+        "types": [
+          "ImageObject"
+        ],
+        "description": "Indicates the main image on the page"
+      },
+      {
+        "name": "significantLinks",
+        "types": [
+          "URL"
+        ],
+        "description": "The most significant URLs on the page. Typically, these are the non-navigation links that are clicked on the most"
+      }
+    ]
+  },
+  {
+    "name": "WebPageElement",
+    "description": "A web page element, like a table or an image",
+    "ancestors": [
+      "Thing",
+      "CreativeWork"
+    ],
+    "vocabularies": [
+      "Thing",
+      "CreativeWork"
+    ]
+  },
+  {
+    "name": "WholesaleStore",
+    "description": "A wholesale store.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness",
+      "Store"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness"
+    ]
+  },
+  {
+    "name": "Winery",
+    "description": "A winery.",
+    "ancestors": [
+      "Thing",
+      "Organization",
+      "LocalBusiness",
+      "FoodEstablishment"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "Organization",
+      "LocalBusiness",
+      "FoodEstablishment"
+    ]
+  },
+  {
+    "name": "Zoo",
+    "description": "A zoo.",
+    "ancestors": [
+      "Thing",
+      "Place",
+      "CivicStructure"
+    ],
+    "vocabularies": [
+      "Thing",
+      "Place",
+      "CivicStructure"
+    ]
+  }
+]

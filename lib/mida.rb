@@ -7,3 +7,4 @@ module Mida
 end
 
 require 'mida/vocabularies/genericvocabulary'
+require 'mida/vocabularies/schemaorg'
