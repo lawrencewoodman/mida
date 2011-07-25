@@ -8,6 +8,7 @@ module Mida
 end
 
 require 'mida/datatype/boolean'
+require 'mida/datatype/enumeration'
 require 'mida/datatype/float'
 require 'mida/datatype/integer'
 require 'mida/datatype/iso8601date'
