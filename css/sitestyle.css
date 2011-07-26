@@ -36,15 +36,14 @@ img#logo {
 
 nav {
   position: relative;
-  top: 80px;
-  left: 280px;
   vertical-align: bottom;
-  margin:0;
+  margin: 0;
   padding: 0;
+  padding-top: 80px;
+  margin-left: 280px;
 }
 
 nav ul {
-  max-width: 744px;
   vertical-align: bottom;
   list-style: none;
   padding: 0;
