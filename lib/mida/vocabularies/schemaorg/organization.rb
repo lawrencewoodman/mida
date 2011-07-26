@@ -77,8 +77,8 @@ module Mida
 
       # A member of this organization.
       has_many 'members' do
-        extract Mida::SchemaOrg::Person
         extract Mida::SchemaOrg::Organization
+        extract Mida::SchemaOrg::Person
         extract Mida::DataType::Text
       end
 

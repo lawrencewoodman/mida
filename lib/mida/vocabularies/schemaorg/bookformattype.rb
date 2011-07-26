@@ -1,14 +1,15 @@
-require 'mida/vocabulary'
+require 'mida/datatype'
 
 module Mida
   module SchemaOrg
 
-    autoload :Thing, 'mida/vocabularies/schemaorg/thing'
-
     # The publication format of the book.
-    class BookFormatType < Mida::Vocabulary
-      itemtype %r{http://schema.org/BookFormatType}i
-      include_vocabulary Mida::SchemaOrg::Thing
+    class BookFormatType < Mida::DataType::Enumeration
+      VALID_VALUES = [
+        [::Mida::DataType::URL, %r{http://schema.org/EBook}i],
+        [::Mida::DataType::URL, %r{http://schema.org/Hardcover}i],
+        [::Mida::DataType::URL, %r{http://schema.org/Paperback}i]
+      ]
     end
 
   end

@@ -1,14 +1,18 @@
-require 'mida/vocabulary'
+require 'mida/datatype'
 
 module Mida
   module SchemaOrg
 
-    autoload :Thing, 'mida/vocabularies/schemaorg/thing'
-
     # A list of possible product availablity options.
-    class ItemAvailability < Mida::Vocabulary
-      itemtype %r{http://schema.org/ItemAvailability}i
-      include_vocabulary Mida::SchemaOrg::Thing
+    class ItemAvailability < Mida::DataType::Enumeration
+      VALID_VALUES = [
+        [::Mida::DataType::URL, %r{http://schema.org/Discontinued}i],
+        [::Mida::DataType::URL, %r{http://schema.org/InStock}i],
+        [::Mida::DataType::URL, %r{http://schema.org/InStoreOnly}i],
+        [::Mida::DataType::URL, %r{http://schema.org/OnlineOnly}i],
+        [::Mida::DataType::URL, %r{http://schema.org/OutOfStock}i],
+        [::Mida::DataType::URL, %r{http://schema.org/PreOrder}i]
+      ]
     end
 
   end

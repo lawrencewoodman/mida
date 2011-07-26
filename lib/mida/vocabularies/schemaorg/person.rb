@@ -84,8 +84,8 @@ module Mida
 
       # A contact location for a person's residence.
       has_many 'homeLocation' do
-        extract Mida::SchemaOrg::Place
         extract Mida::SchemaOrg::ContactPoint
+        extract Mida::SchemaOrg::Place
         extract Mida::DataType::Text
       end
 
@@ -148,8 +148,8 @@ module Mida
 
       # A contact location for a person's place of work.
       has_many 'workLocation' do
-        extract Mida::SchemaOrg::Place
         extract Mida::SchemaOrg::ContactPoint
+        extract Mida::SchemaOrg::Place
         extract Mida::DataType::Text
       end
 

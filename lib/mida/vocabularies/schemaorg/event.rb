@@ -4,8 +4,8 @@ module Mida
   module SchemaOrg
 
     autoload :Thing, 'mida/vocabularies/schemaorg/thing'
-    autoload :Person, 'mida/vocabularies/schemaorg/person'
     autoload :Organization, 'mida/vocabularies/schemaorg/organization'
+    autoload :Person, 'mida/vocabularies/schemaorg/person'
     autoload :Duration, 'mida/vocabularies/schemaorg/duration'
     autoload :Place, 'mida/vocabularies/schemaorg/place'
     autoload :PostalAddress, 'mida/vocabularies/schemaorg/postaladdress'
@@ -19,8 +19,8 @@ module Mida
 
       # A person attending the event.
       has_many 'attendees' do
-        extract Mida::SchemaOrg::Person
         extract Mida::SchemaOrg::Organization
+        extract Mida::SchemaOrg::Person
         extract Mida::DataType::Text
       end
 
@@ -50,8 +50,8 @@ module Mida
 
       # The main performer or performers of the event - for example, a presenter, musician, or actor.
       has_many 'performers' do
-        extract Mida::SchemaOrg::Person
         extract Mida::SchemaOrg::Organization
+        extract Mida::SchemaOrg::Person
         extract Mida::DataType::Text
       end
 

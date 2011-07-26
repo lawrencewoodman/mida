@@ -9,8 +9,8 @@ module Mida
     autoload :Place, 'mida/vocabularies/schemaorg/place'
     autoload :Event, 'mida/vocabularies/schemaorg/event'
     autoload :GeoCoordinates, 'mida/vocabularies/schemaorg/geocoordinates'
-    autoload :Photograph, 'mida/vocabularies/schemaorg/photograph'
     autoload :ImageObject, 'mida/vocabularies/schemaorg/imageobject'
+    autoload :Photograph, 'mida/vocabularies/schemaorg/photograph'
     autoload :Review, 'mida/vocabularies/schemaorg/review'
 
     # Entities that have a somewhat fixed, physical extension.
@@ -61,8 +61,8 @@ module Mida
 
       # Photographs of this place.
       has_many 'photos' do
-        extract Mida::SchemaOrg::Photograph
         extract Mida::SchemaOrg::ImageObject
+        extract Mida::SchemaOrg::Photograph
         extract Mida::DataType::Text
       end
 

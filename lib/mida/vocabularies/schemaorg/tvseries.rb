@@ -43,8 +43,8 @@ module Mida
 
       # The composer of the movie or TV soundtrack.
       has_many 'musicBy' do
-        extract Mida::SchemaOrg::Person
         extract Mida::SchemaOrg::MusicGroup
+        extract Mida::SchemaOrg::Person
         extract Mida::DataType::Text
       end
 

@@ -25,13 +25,11 @@ module Mida
       # The availability of this item - for example In stock, Out of stock, Pre-order, etc.
       has_many 'availability' do
         extract Mida::SchemaOrg::ItemAvailability
-        extract Mida::DataType::Text
       end
 
       # The condition of the item for sale - for example New, Refurbished, Used, etc.
       has_many 'itemCondition' do
         extract Mida::SchemaOrg::OfferItemCondition
-        extract Mida::DataType::Text
       end
 
       # The item being sold.

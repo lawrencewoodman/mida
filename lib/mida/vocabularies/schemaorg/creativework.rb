@@ -6,8 +6,8 @@ module Mida
     autoload :Thing, 'mida/vocabularies/schemaorg/thing'
     autoload :AggregateRating, 'mida/vocabularies/schemaorg/aggregaterating'
     autoload :AudioObject, 'mida/vocabularies/schemaorg/audioobject'
-    autoload :Person, 'mida/vocabularies/schemaorg/person'
     autoload :Organization, 'mida/vocabularies/schemaorg/organization'
+    autoload :Person, 'mida/vocabularies/schemaorg/person'
     autoload :Place, 'mida/vocabularies/schemaorg/place'
     autoload :MediaObject, 'mida/vocabularies/schemaorg/mediaobject'
     autoload :Offer, 'mida/vocabularies/schemaorg/offer'
@@ -39,8 +39,8 @@ module Mida
 
       # The author of this content. Please note that author is special in that HTML 5 provides a special mechanism for indicating authorship via the rel tag. That is equivalent to this and may be used interchangabely.
       has_many 'author' do
-        extract Mida::SchemaOrg::Person
         extract Mida::SchemaOrg::Organization
+        extract Mida::SchemaOrg::Person
         extract Mida::DataType::Text
       end
 

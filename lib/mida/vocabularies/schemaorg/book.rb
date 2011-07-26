@@ -20,7 +20,6 @@ module Mida
       # The format of the book.
       has_many 'bookFormat' do
         extract Mida::SchemaOrg::BookFormatType
-        extract Mida::DataType::Text
       end
 
       # The illustrator of the book.
