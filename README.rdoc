@@ -131,6 +131,6 @@ If you find a bug or want to make a feature request, please report it at the
 Mida project's {issues tracker}[https://github.com/LawrenceWoodman/mida/issues]
 on github.
 
-== License
+== Licence
 Copyright (c) 2011 Lawrence Woodman.
-This software is licensed under the MIT License.  Please see the file, LICENSE.rdoc, for details.
+This software is licensed under the MIT Licence.  Please see the file, LICENCE.rdoc, for details.

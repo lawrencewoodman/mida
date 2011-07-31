@@ -14,7 +14,7 @@ spec = Gem::Specification.new do |s|
   s.required_ruby_version = '>=1.9'
   s.files       = Dir['lib/**/*.rb'] + Dir['spec/**/*.rb'] + Dir['*.rdoc'] + Dir['Rakefile']
   s.executables = ['mida']
-  s.extra_rdoc_files = ['README.rdoc', 'LICENSE.rdoc', 'CHANGELOG.rdoc']
+  s.extra_rdoc_files = ['README.rdoc', 'LICENCE.rdoc', 'CHANGELOG.rdoc']
   s.rdoc_options << '--main' << 'README.rdoc'
   s.add_dependency('nokogiri', '>= 1.5')
   s.add_dependency('blankslate')

@@ -1,4 +1,4 @@
-= The MIT License
+= The MIT Licence
 
 Copyright (c) 2011 Lawrence Woodman
 
