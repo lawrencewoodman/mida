@@ -1,0 +1,36 @@
+---
+layout: news_article
+title: Mida v0.3.3 Released
+author:
+  name: Lawrence Woodman
+  url: http://techtinkering.com
+---
+This version now contains all the [schema.org](http://schema.org) datatypes,
+enumerations and vocabularies.  This was achieved by scraping the site using
+[schema.org_scraper](https://github.com/LawrenceWoodman/schema.org_scraper)
+to create a JSON and YAML representation of the types.  These are hosted
+on [github](https://github.com/LawrenceWoodman/schema.org_schemas) so that the
+changes can easily be tracked.
+
+The main problem that I did encounter was that the [Enumeration](http://schema.org/Enumeration)
+type conflicts with the explanation in the [Getting started Guide](http://schema.org/docs/gs.html#advanced_enum).
+In the type list, it says that Enumeration is a vocabulary derived from [Thing](http://schema.org/Thing),
+whereas in the explanation it says to uses the `<link>` tag to specify the
+value of the enumeration.  The latter makes a lot more sense as otherwise it is
+unclear which property should be used to specify the value.  I have therefore
+created an `Enumeration` `DataType`, which can be subclassed to create an
+`Enumeration` with specified valid values, as in the following:
+
+{% highlight ruby %}
+# The publication format of the book.
+class BookFormatType < Mida::DataType::Enumeration
+  VALID_VALUES = [
+    [::Mida::DataType::URL, %r{http://schema.org/EBook}i],
+    [::Mida::DataType::URL, %r{http://schema.org/Hardcover}i],
+    [::Mida::DataType::URL, %r{http://schema.org/Paperback}i]
+  ]
+end
+{% endhighlight %}
+
+To see the complete list of changes, please have a look at the
+[CHANGELOG](https://github.com/LawrenceWoodman/mida/blob/master/CHANGELOG.rdoc).
