@@ -5,8 +5,8 @@ require 'rubygems/package_task'
 spec = Gem::Specification.new do |s|
   s.name        = "mida"
   s.summary     = "A Microdata parser/extractor library"
-  s.description = "A Microdata parser and extractor library, based on the latest published version of the Microdata Specification, dated 5th April 2011."
-  s.version     = "0.3.2"
+  s.description = "A Microdata parser and extractor library which includes support for the schema.org vocabularies"
+  s.version     = "0.3.3"
   s.author      = "Lawrence Woodman"
   s.email       = "lwoodman@vlifesystems.com"
   s.homepage    = %q{http://lawrencewoodman.github.com/mida/}

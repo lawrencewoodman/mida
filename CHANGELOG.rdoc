@@ -1,3 +1,11 @@
+== 0.3.3 (31st July 2011)
+* Removed validation from +new+ for +Item+ and +Document+
+* Created <tt>vocabularies/</tt> to put the vocabularies in
+* Added +URL+ and +Enumeration+ <tt>DataType</tt>s
+* Converted <tt>DataTypes</tt>s to classes derived from +Generic+
+* Now supports circular dependencies in vocabularies
+* Added all the <tt>Schema.org</tt> vocabularies
+
 == 0.3.2 (9th July 2011)
 * Ensure <tt>bin/mida</tt> only searches if type regexp passed
 * Allow vocabularies to be included into other vocabularies
