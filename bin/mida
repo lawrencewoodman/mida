@@ -92,30 +92,28 @@ end
 
 def parse_source(source, options)
   url = get_url  
-  begin
-    open(source) do |f|
-      doc = Mida::Document.new(f, url)
-      items = if options[:type]
-        doc.search(options[:type])
-      else
-        doc.items
-      end
+  open(source) do |f|
+    doc = Mida::Document.new(f, url)
+    items = if options[:type]
+      doc.search(options[:type])
+    else
+      doc.items
+    end
 
-      if items.empty?
-        puts "No microdata found in this document."; exit
+    if items.empty?
+      puts "No microdata found in this document."; exit
+    else
+      if options.include?(:count)
+        display_count(items)
       else
-        if options.include?(:count)
-          display_count(items)
-        else
-          display_items(items)
-        end
+        display_items(items)
       end
     end
-  rescue => e
-    puts "Failed to parse: #{source}"
-    puts "Error: #{e.to_s}"
-    exit
   end
+rescue => e
+  puts "Failed to parse: #{source}"
+  puts "Error: #{e.to_s}"
+  exit
 end
 
 ARGV.each do |source|
