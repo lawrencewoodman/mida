@@ -111,8 +111,9 @@ def parse_source(source, options)
         end
       end
     end
-  rescue
+  rescue => e
     puts "Failed to parse: #{source}"
+    puts "Error: #{e.to_s}"
     exit
   end
 end
