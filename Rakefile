@@ -1,3 +1,7 @@
+require 'rubygems'
+require 'bundler'
+Bundler.setup(:default, :development)
+
 task :default => :spec
 
 desc "Create Gem"
