@@ -77,8 +77,9 @@ module Mida
       element = @element.name
       if non_textcontent_element?(element)
         attribute = NON_TEXTCONTENT_ELEMENTS[element]
-        value = @element.attribute(attribute).value
-        url_attribute?(attribute) ? make_absolute_url(value) : value
+        if attribute_node = @element.attribute(attribute)
+          url_attribute?(attribute) ? make_absolute_url(attribute_node.value) : attribute_node.value
+        end
       else
         @element.inner_text.strip
       end
