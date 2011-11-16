@@ -17,6 +17,11 @@ module Mida
 
       # Articles may belong to one or more 'sections' in a magazine or newspaper, such as Sports, Lifestyle, etc.
       has_many 'articleSection'
+
+      # The number of words in the text of the Article.
+      has_many 'wordCount' do
+        extract Mida::DataType::Integer
+      end
     end
 
   end

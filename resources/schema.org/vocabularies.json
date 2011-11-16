@@ -244,6 +244,13 @@
           "Text"
         ],
         "description": "Articles may belong to one or more 'sections' in a magazine or newspaper, such as Sports, Lifestyle, etc."
+      },
+      {
+        "name": "wordCount",
+        "types": [
+          "Integer"
+        ],
+        "description": "The number of words in the text of the Article."
       }
     ]
   },
@@ -275,6 +282,15 @@
       "Thing",
       "CreativeWork",
       "MediaObject"
+    ],
+    "properties": [
+      {
+        "name": "transcript",
+        "types": [
+          "Text"
+        ],
+        "description": "If this MediaObject is an AudioObject or VideoObject, the transcript of that object."
+      }
     ]
   },
   {
@@ -1112,6 +1128,15 @@
     "vocabularies": [
       "Thing",
       "Organization"
+    ],
+    "properties": [
+      {
+        "name": "tickerSymbol",
+        "types": [
+          "Text"
+        ],
+        "description": "The exchange traded instrument associated with a Corporation object. The tickerSymbol is expressed as an exchange and an instrument name separated by a space character. For the exchange component of the tickerSymbol attribute, we reccommend using the controlled vocaulary of Market Identifier Codes (MIC) specified in ISO15022."
+      }
     ]
   },
   {
@@ -1160,11 +1185,32 @@
         "description": "The subject matter of the content."
       },
       {
+        "name": "accountablePerson",
+        "types": [
+          "Person"
+        ],
+        "description": "Specifies the Person that is legally accountable for the CreativeWork."
+      },
+      {
         "name": "aggregateRating",
         "types": [
           "AggregateRating"
         ],
         "description": "The overall rating, based on a collection of reviews or ratings, of the item."
+      },
+      {
+        "name": "alternativeHeadline",
+        "types": [
+          "Text"
+        ],
+        "description": "A secondary title of the CreativeWork."
+      },
+      {
+        "name": "associatedMedia",
+        "types": [
+          "MediaObject"
+        ],
+        "description": "The media objects that encode this creative work. This property is a synonym for encodings."
       },
       {
         "name": "audio",
@@ -1189,6 +1235,13 @@
         "description": "Awards won by this person or for this creative work."
       },
       {
+        "name": "comment",
+        "types": [
+          "UserComments"
+        ],
+        "description": "Comments, typically from users, on this CreativeWork."
+      },
+      {
         "name": "contentLocation",
         "types": [
           "Place"
@@ -1203,6 +1256,51 @@
         "description": "Official rating of a piece of content - for example,'MPAA PG-13'."
       },
       {
+        "name": "contributor",
+        "types": [
+          "Person",
+          "Organization"
+        ],
+        "description": "A secondary contributor to the CreativeWork."
+      },
+      {
+        "name": "copyrightHolder",
+        "types": [
+          "Person",
+          "Organization"
+        ],
+        "description": "The party holding the legal copyright to the CreativeWork."
+      },
+      {
+        "name": "copyrightYear",
+        "types": [
+          "Number"
+        ],
+        "description": "The year during which the claimed copyright for the CreativeWork was first asserted."
+      },
+      {
+        "name": "creator",
+        "types": [
+          "Person",
+          "Organization"
+        ],
+        "description": "The creator/author of this CreativeWork or UserComments. This is the same as the Author property for CreativeWork."
+      },
+      {
+        "name": "dateCreated",
+        "types": [
+          "Date"
+        ],
+        "description": "The date on which the CreativeWork was created."
+      },
+      {
+        "name": "dateModified",
+        "types": [
+          "Date"
+        ],
+        "description": "The date on which the CreativeWork was most recently modified."
+      },
+      {
         "name": "datePublished",
         "types": [
           "Date"
@@ -1210,11 +1308,18 @@
         "description": "Date of first broadcast/publication."
       },
       {
+        "name": "discussionUrl",
+        "types": [
+          "URL"
+        ],
+        "description": "A link to the page containing the comments of the CreativeWork."
+      },
+      {
         "name": "editor",
         "types": [
           "Person"
         ],
-        "description": "Editor for this content."
+        "description": "Specifies the Person who edited the CreativeWork."
       },
       {
         "name": "encodings",
@@ -1266,11 +1371,26 @@
         "description": "The keywords/tags used to describe this content."
       },
       {
+        "name": "mentions",
+        "types": [
+          "Thing"
+        ],
+        "description": "Indicates that the CreativeWork contains a reference to, but is not necessarily about a concept."
+      },
+      {
         "name": "offers",
         "types": [
           "Offer"
         ],
         "description": "An offer to sell this item - for example, an offer to sell a product, the DVD of a movie, or tickets to an event."
+      },
+      {
+        "name": "provider",
+        "types": [
+          "Person",
+          "Organization"
+        ],
+        "description": "Specifies the Person or Organization that distributed the CreativeWork."
       },
       {
         "name": "publisher",
@@ -1280,11 +1400,39 @@
         "description": "The publisher of the creative work."
       },
       {
+        "name": "publishingPrinciples",
+        "types": [
+          "URL"
+        ],
+        "description": "Link to page describing the editorial principles of the organization primarily responsible for the creation of the CreativeWork."
+      },
+      {
         "name": "reviews",
         "types": [
           "Review"
         ],
         "description": "Review of the item."
+      },
+      {
+        "name": "sourceOrganization",
+        "types": [
+          "Organization"
+        ],
+        "description": "The Organization on whose behalf the creator was working."
+      },
+      {
+        "name": "thumbnailUrl",
+        "types": [
+          "URL"
+        ],
+        "description": "A thumbnail image relevant to the Thing."
+      },
+      {
+        "name": "version",
+        "types": [
+          "Number"
+        ],
+        "description": "The version of the CreativeWork embodied by a specified resource."
       },
       {
         "name": "video",
@@ -1426,7 +1574,7 @@
   },
   {
     "name": "Duration",
-    "description": "Quantity: Duration (use  ISO 8601 duration format).",
+    "description": "Quantity: Duration (use ISO 8601 duration format).",
     "ancestors": [
       "Thing",
       "Intangible",
@@ -1947,6 +2095,56 @@
     ]
   },
   {
+    "name": "GeoShape",
+    "description": "The geographic shape of a place.",
+    "ancestors": [
+      "Thing",
+      "Intangible",
+      "StructuredValue"
+    ],
+    "vocabularies": [
+      "Thing"
+    ],
+    "properties": [
+      {
+        "name": "box",
+        "types": [
+          "Text"
+        ],
+        "description": "A polygon is the area enclosed by a point-to-point path for which the starting and ending points are the same. A polygon is expressed as a series of four or more spacedelimited points where the first and final points are identical."
+      },
+      {
+        "name": "circle",
+        "types": [
+          "Text"
+        ],
+        "description": "A circle is the circular region of a specified radius centered at a specified latitude and longitude. A circle is expressed as a pair followed by a radius in meters."
+      },
+      {
+        "name": "elevation",
+        "types": [
+          "Number",
+          "Text"
+        ],
+        "description": "The elevation of a location."
+      },
+      {
+        "name": "line",
+        "types": [
+          "Text"
+        ],
+        "description": "A line is a point-to-point path consisting of two or more points. A line is expressed as a series of two or more point objects separated by space."
+      },
+      {
+        "name": "polygon",
+        "types": [
+          "Text"
+        ],
+        "description": "A polygon is the area enclosed by a point-to-point path for which the starting and ending points are the same. A polygon is expressed as a series of four or more spacedelimited points where the first and final points are identical."
+      }
+    ]
+  },
+  {
     "name": "GolfCourse",
     "description": "A golf course.",
     "ancestors": [
@@ -2394,6 +2592,13 @@
           "Text"
         ],
         "description": "A single list item."
+      },
+      {
+        "name": "itemListOrder",
+        "types": [
+          "Text"
+        ],
+        "description": "Type of ordering (e.g. Ascending, Descending, Unordered)."
       }
     ]
   },
@@ -2428,6 +2633,145 @@
     ]
   },
   {
+    "name": "JobPosting",
+    "description": "A listing that describes a job opening in a certain organization.",
+    "ancestors": [
+      "Thing",
+      "Intangible"
+    ],
+    "vocabularies": [
+      "Thing"
+    ],
+    "properties": [
+      {
+        "name": "baseSalary",
+        "types": [
+          "Number"
+        ],
+        "description": "The base salary of the job."
+      },
+      {
+        "name": "benefits",
+        "types": [
+          "Text"
+        ],
+        "description": "Description of benefits associated with the job."
+      },
+      {
+        "name": "datePosted",
+        "types": [
+          "Date"
+        ],
+        "description": "Publication date for the job posting."
+      },
+      {
+        "name": "educationRequirements",
+        "types": [
+          "Text"
+        ],
+        "description": "Educational background needed for the position."
+      },
+      {
+        "name": "employmentType",
+        "types": [
+          "Text"
+        ],
+        "description": "Type of employment (e.g. full-time, part-time, contract, temporary, seasonal, internship)."
+      },
+      {
+        "name": "experienceRequirements",
+        "types": [
+          "Text"
+        ],
+        "description": "Description of skills and experience needed for the position."
+      },
+      {
+        "name": "hiringOrganization",
+        "types": [
+          "Organization"
+        ],
+        "description": "Organization offering the job position."
+      },
+      {
+        "name": "incentives",
+        "types": [
+          "Text"
+        ],
+        "description": "Description of bonus and commission compensation aspects of the job."
+      },
+      {
+        "name": "industry",
+        "types": [
+          "Text"
+        ],
+        "description": "The industry associated with the job position."
+      },
+      {
+        "name": "jobLocation",
+        "types": [
+          "Place"
+        ],
+        "description": "A (typically single) geographic location associated with the job position."
+      },
+      {
+        "name": "occupationalCategory",
+        "types": [
+          "Text"
+        ],
+        "description": "Category or categories describing the job. Use BLS O*NET-SOC taxonomy: http://www.onetcenter.org/taxonomy.html. Ideally includes textual label and formal code, with the property repeated for each applicable value."
+      },
+      {
+        "name": "qualifications",
+        "types": [
+          "Text"
+        ],
+        "description": "Specific qualifications required for this role."
+      },
+      {
+        "name": "responsibilities",
+        "types": [
+          "Text"
+        ],
+        "description": "Responsibilities associated with this role."
+      },
+      {
+        "name": "salaryCurrency",
+        "types": [
+          "Text"
+        ],
+        "description": "The currency (coded using ISO 4217, http://en.wikipedia.org/wiki/ISO_4217 used for the main salary information in this job posting."
+      },
+      {
+        "name": "skills",
+        "types": [
+          "Text"
+        ],
+        "description": "Skills required to fulfill this role."
+      },
+      {
+        "name": "specialCommitments",
+        "types": [
+          "Text"
+        ],
+        "description": "Any special commitments associated with this job posting. Valid entries include VeteranCommit, MilitarySpouseCommit, etc."
+      },
+      {
+        "name": "title",
+        "types": [
+          "Text"
+        ],
+        "description": "The title of the job."
+      },
+      {
+        "name": "workHours",
+        "types": [
+          "Text"
+        ],
+        "description": "The typical working hours for this job (e.g. 1st shift, night shift, 8am-5pm)."
+      }
+    ]
+  },
+  {
     "name": "LakeBodyOfWater",
     "description": "A lake (for example, Lake Pontrachain).",
     "ancestors": [
@@ -2443,7 +2787,7 @@
   },
   {
     "name": "Landform",
-    "description": "A landform or physical feature.  Landform elements include mountains, plains, lakes, rivers, seascape and oceanic waterbody interface features such as bays, peninsulas, seas and so forth, including sub-aqueous terrain features such as submersed mountain ranges, volcanoes, and the great ocean basins.",
+    "description": "A landform or physical feature. Landform elements include mountains, plains, lakes, rivers, seascape and oceanic waterbody interface features such as bays, peninsulas, seas and so forth, including sub-aqueous terrain features such as submersed mountain ranges, volcanoes, and the great ocean basins.",
     "ancestors": [
       "Thing",
       "Place"
@@ -2651,6 +2995,13 @@
       "CreativeWork"
     ],
     "properties": [
+      {
+        "name": "associatedArticle",
+        "types": [
+          "NewsArticle"
+        ],
+        "description": "A NewsArticle associated with the Media Object."
+      },
       {
         "name": "bitrate",
         "types": [
@@ -3256,6 +3607,43 @@
       "Thing",
       "CreativeWork",
       "Article"
+    ],
+    "properties": [
+      {
+        "name": "dateline",
+        "types": [
+          "Text"
+        ],
+        "description": "The location where the NewsArticle was produced."
+      },
+      {
+        "name": "printColumn",
+        "types": [
+          "Text"
+        ],
+        "description": "The number of the column in which the NewsArticle appears in the print edition."
+      },
+      {
+        "name": "printEdition",
+        "types": [
+          "Text"
+        ],
+        "description": "The edition of the print product in which the NewsArticle appears."
+      },
+      {
+        "name": "printPage",
+        "types": [
+          "Text"
+        ],
+        "description": "If this NewsArticle appears in print, this field indicates the name of the page on which the article is found. Please note that this field is intended for the exact page name (e.g. A5, B18)."
+      },
+      {
+        "name": "printSection",
+        "types": [
+          "Text"
+        ],
+        "description": "If this NewsArticle appears in print, this field indicates the print section in which the article appeared."
+      }
     ]
   },
   {
@@ -3579,7 +3967,7 @@
         "types": [
           "Event"
         ],
-        "description": "The events held at this place or organization."
+        "description": "Upcoming or past events associated with this place or organization."
       },
       {
         "name": "faxNumber",
@@ -3750,6 +4138,13 @@
     ],
     "properties": [
       {
+        "name": "additionalName",
+        "types": [
+          "Text"
+        ],
+        "description": "An additional name for a Person, can be used for a middle name."
+      },
+      {
         "name": "address",
         "types": [
           "PostalAddress"
@@ -3820,6 +4215,13 @@
         "description": "Email address."
       },
       {
+        "name": "familyName",
+        "types": [
+          "Text"
+        ],
+        "description": "Family name. In the U.S., the last name of an Person. This can be used along with givenName instead of the Name property."
+      },
+      {
         "name": "faxNumber",
         "types": [
           "Text"
@@ -3841,12 +4243,33 @@
         "description": "Gender of the person."
       },
       {
+        "name": "givenName",
+        "types": [
+          "Text"
+        ],
+        "description": "Given name. In the U.S., the first name of a Person. This can be used along with familyName instead of the Name property."
+      },
+      {
         "name": "homeLocation",
         "types": [
           "Place",
           "ContactPoint"
         ],
         "description": "A contact location for a person's residence."
+      },
+      {
+        "name": "honorificPrefix",
+        "types": [
+          "Text"
+        ],
+        "description": "An honorific prefix preceding a Person's name such as Dr/Mrs/Mr."
+      },
+      {
+        "name": "honorificSuffix",
+        "types": [
+          "Text"
+        ],
+        "description": "An honorific suffix preceding a Person's name such as M.D. /PhD/MSCSW."
       },
       {
         "name": "interactionCount",
@@ -4038,7 +4461,7 @@
         "types": [
           "Event"
         ],
-        "description": "The events held at this place or organization."
+        "description": "Upcoming or past events associated with this place or organization."
       },
       {
         "name": "faxNumber",
@@ -4050,7 +4473,8 @@
       {
         "name": "geo",
         "types": [
-          "GeoCoordinates"
+          "GeoCoordinates",
+          "GeoShape"
         ],
         "description": "The geo coordinates of the place."
       },
@@ -4624,7 +5048,7 @@
         "types": [
           "Rating"
         ],
-        "description": "The rating given in this review. Note that reviews can themselves be rated. The reviewRating applies to rating given by the review. The rating property applies to the review itself, as a creative work."
+        "description": "The rating given in this review. Note that reviews can themselves be rated. The reviewRating applies to rating given by the review. The aggregateRating property applies to the review itself, as a creative work."
       }
     ]
   },
@@ -5484,6 +5908,44 @@
     "vocabularies": [
       "Thing",
       "Event"
+    ],
+    "properties": [
+      {
+        "name": "commentText",
+        "types": [
+          "Text"
+        ],
+        "description": "The text of the UserComment."
+      },
+      {
+        "name": "commentTime",
+        "types": [
+          "Date"
+        ],
+        "description": "The time at which the UserComment was made."
+      },
+      {
+        "name": "creator",
+        "types": [
+          "Person",
+          "Organization"
+        ],
+        "description": "The creator/author of this CreativeWork or UserComments. This is the same as the Author property for CreativeWork."
+      },
+      {
+        "name": "discusses",
+        "types": [
+          "CreativeWork"
+        ],
+        "description": "Specifies the CreativeWork associated with the UserComment."
+      },
+      {
+        "name": "replyToUrl",
+        "types": [
+          "URL"
+        ],
+        "description": "The URL at which a reply may be posted to the specified UserComment."
+      }
     ]
   },
   {
@@ -5641,6 +6103,13 @@
           "ImageObject"
         ],
         "description": "Thumbnail image for an image or video."
+      },
+      {
+        "name": "transcript",
+        "types": [
+          "Text"
+        ],
+        "description": "If this MediaObject is an AudioObject or VideoObject, the transcript of that object."
       },
       {
         "name": "videoFrameSize",

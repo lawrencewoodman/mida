@@ -9,6 +9,7 @@ module Mida
     autoload :Place, 'mida/vocabularies/schemaorg/place'
     autoload :Event, 'mida/vocabularies/schemaorg/event'
     autoload :GeoCoordinates, 'mida/vocabularies/schemaorg/geocoordinates'
+    autoload :GeoShape, 'mida/vocabularies/schemaorg/geoshape'
     autoload :ImageObject, 'mida/vocabularies/schemaorg/imageobject'
     autoload :Photograph, 'mida/vocabularies/schemaorg/photograph'
     autoload :Review, 'mida/vocabularies/schemaorg/review'
@@ -36,7 +37,7 @@ module Mida
         extract Mida::DataType::Text
       end
 
-      # The events held at this place or organization.
+      # Upcoming or past events associated with this place or organization.
       has_many 'events' do
         extract Mida::SchemaOrg::Event
         extract Mida::DataType::Text
@@ -48,6 +49,7 @@ module Mida
       # The geo coordinates of the place.
       has_many 'geo' do
         extract Mida::SchemaOrg::GeoCoordinates
+        extract Mida::SchemaOrg::GeoShape
         extract Mida::DataType::Text
       end
 

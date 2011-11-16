@@ -5,6 +5,7 @@ module Mida
 
     autoload :Thing, 'mida/vocabularies/schemaorg/thing'
     autoload :CreativeWork, 'mida/vocabularies/schemaorg/creativework'
+    autoload :NewsArticle, 'mida/vocabularies/schemaorg/newsarticle'
     autoload :Duration, 'mida/vocabularies/schemaorg/duration'
     autoload :Distance, 'mida/vocabularies/schemaorg/distance'
     autoload :Place, 'mida/vocabularies/schemaorg/place'
@@ -14,6 +15,12 @@ module Mida
       itemtype %r{http://schema.org/MediaObject}i
       include_vocabulary Mida::SchemaOrg::Thing
       include_vocabulary Mida::SchemaOrg::CreativeWork
+
+      # A NewsArticle associated with the Media Object.
+      has_many 'associatedArticle' do
+        extract Mida::SchemaOrg::NewsArticle
+        extract Mida::DataType::Text
+      end
 
       # The bitrate of the media object.
       has_many 'bitrate'

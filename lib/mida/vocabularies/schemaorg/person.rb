@@ -18,6 +18,9 @@ module Mida
       itemtype %r{http://schema.org/Person}i
       include_vocabulary Mida::SchemaOrg::Thing
 
+      # An additional name for a Person, can be used for a middle name.
+      has_many 'additionalName'
+
       # Physical address of the item.
       has_many 'address' do
         extract Mida::SchemaOrg::PostalAddress
@@ -70,6 +73,9 @@ module Mida
       # Email address.
       has_many 'email'
 
+      # Family name. In the U.S., the last name of an Person. This can be used along with givenName instead of the Name property.
+      has_many 'familyName'
+
       # The fax number.
       has_many 'faxNumber'
 
@@ -82,12 +88,21 @@ module Mida
       # Gender of the person.
       has_many 'gender'
 
+      # Given name. In the U.S., the first name of a Person. This can be used along with familyName instead of the Name property.
+      has_many 'givenName'
+
       # A contact location for a person's residence.
       has_many 'homeLocation' do
         extract Mida::SchemaOrg::ContactPoint
         extract Mida::SchemaOrg::Place
         extract Mida::DataType::Text
       end
+
+      # An honorific prefix preceding a Person's name such as Dr/Mrs/Mr.
+      has_many 'honorificPrefix'
+
+      # An honorific suffix preceding a Person's name such as M.D. /PhD/MSCSW.
+      has_many 'honorificSuffix'
 
       # A count of a specific user interactions with this item - for example, 20 UserLikes, 5 UserComments, or 300 UserDownloads. The user interaction type should be one of the sub types of UserInteraction.
       has_many 'interactionCount'

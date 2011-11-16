@@ -13,6 +13,9 @@ module Mida
       include_vocabulary Mida::SchemaOrg::Thing
       include_vocabulary Mida::SchemaOrg::CreativeWork
       include_vocabulary Mida::SchemaOrg::MediaObject
+
+      # If this MediaObject is an AudioObject or VideoObject, the transcript of that object.
+      has_many 'transcript'
     end
 
   end

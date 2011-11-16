@@ -14,6 +14,9 @@ module Mida
 
       # A single list item.
       has_many 'itemListElement'
+
+      # Type of ordering (e.g. Ascending, Descending, Unordered).
+      has_many 'itemListOrder'
     end
 
   end

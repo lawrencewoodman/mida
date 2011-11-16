@@ -31,6 +31,9 @@ module Mida
         extract Mida::DataType::Text
       end
 
+      # If this MediaObject is an AudioObject or VideoObject, the transcript of that object.
+      has_many 'transcript'
+
       # The frame size of the video.
       has_many 'videoFrameSize'
 

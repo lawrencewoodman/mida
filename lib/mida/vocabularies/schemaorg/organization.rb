@@ -45,7 +45,7 @@ module Mida
         extract Mida::DataType::Text
       end
 
-      # The events held at this place or organization.
+      # Upcoming or past events associated with this place or organization.
       has_many 'events' do
         extract Mida::SchemaOrg::Event
         extract Mida::DataType::Text
