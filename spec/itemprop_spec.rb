@@ -158,3 +158,17 @@ describe Mida::Itemprop, 'when parsing an element with non text content non url 
     Mida::Itemprop.parse(element).should == {'dtreviewed' => '2011-05-04'}
   end
 end
+
+describe Mida::Itemprop, '#make_absolute_url' do
+  it "should parse url with white spaces" do
+    class ItempropTastCase < Mida::Itemprop
+      def initialize(*args)
+        #nothing
+      end
+    end
+    
+    url = "http://www.imamuseum.org/sites/default/files/imagecache/3_column/product-images/slvr mesh earrings.jpg"
+    
+    ItempropTastCase.new.send(:make_absolute_url, url).should == URI.escape(url)
+  end
+end
