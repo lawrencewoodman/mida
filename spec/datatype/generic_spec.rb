@@ -27,7 +27,7 @@ describe Mida::DataType::Generic do
 
   it '#to_yaml should provide a yaml representation of the items #to_s method' do
     number = Number.parse('2.34')
-    number.to_yaml.should == YAML::dump('2.34')
+    number.to_yaml.should =~ /---\s+['"]2.34['"]\n/
   end
 
   it '#== should match against underlying type, string representation and self' do

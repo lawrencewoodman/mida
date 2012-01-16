@@ -11,6 +11,8 @@ module Mida
       # Raises +ArgumentError+ if value not valid
       def initialize(value)
         @parsedValue = ::DateTime.iso8601(value)
+      rescue => e
+        raise ArgumentError, e
       end
 
       def to_s
