@@ -2,7 +2,7 @@ Gem::Specification.new do |s|
   s.name        = "mida"
   s.summary     = "A Microdata parser/extractor library"
   s.description = "A Microdata parser and extractor library which includes support for the schema.org vocabularies"
-  s.version     = "0.3.3"
+  s.version     = "0.3.4"
   s.author      = "Lawrence Woodman"
   s.email       = "lwoodman@vlifesystems.com"
   s.homepage    = %q{http://lawrencewoodman.github.com/mida/}
@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
   s.extra_rdoc_files = ['README.rdoc', 'LICENCE.rdoc', 'CHANGELOG.rdoc']
   s.rdoc_options << '--main' << 'README.rdoc'
   s.add_dependency('nokogiri', '>= 1.5')
-  s.add_dependency('blankslate')
+  s.add_dependency('mida_vocabulary', '>= 0.1')
   s.add_development_dependency('rspec', '~> 2.7.0' )
   s.add_development_dependency('bundler')
 end
