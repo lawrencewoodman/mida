@@ -1,5 +1,6 @@
 require 'nokogiri'
 require 'mida'
+require 'mida_vocabulary/vocabulary'
 
 module Mida
 
