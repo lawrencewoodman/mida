@@ -26,6 +26,19 @@ module Mida
       @items.each {|item| yield(item)}
     end
 
+    def all_items
+      @items.map(&:find_nested).flatten
+    end
+
+    def errors
+      errors = []
+      all_items.each do |item|
+        item.errors.each {|e| errors << {item: item, error: e} }
+      end
+
+      errors
+    end
+
     # Returns an array of matching <tt>Mida::Item</tt> objects
     #
     # This drills down through each +Item+ to find match items

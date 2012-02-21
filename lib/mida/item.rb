@@ -21,6 +21,8 @@ module Mida
     # or <tt>Mida::Item</tt> instances
     attr_reader :properties
 
+    attr_reader :errors
+
     # Create a new Item object from an +Itemscope+ and validates
     # its +properties+
     #
@@ -30,6 +32,7 @@ module Mida
       @id = itemscope.id
       @vocabulary = Mida::Vocabulary.find(@type)
       @properties = itemscope.properties
+      @errors = [] # [:part, :name, message]
       validate_properties
     end
 
@@ -48,6 +51,11 @@ module Mida
       hash
     end
 
+    # Return self and all nested items recursively
+    def find_nested
+      [self] + @properties.values.select {|v| v.is_a?(Mida::Item) ? v.find_nested : nil }.compact.flatten
+    end
+
     def to_s
       to_h.to_s
     end
@@ -61,13 +69,13 @@ module Mida
 
     # Validate the properties so that they are in their proper form
     def validate_properties
-      @properties =
-      @properties.each_with_object({}) do |(property, values), hash|
+      @properties.each do |property, values|
         valid_values = validate_values(property, values)
-        if valid_values.respond_to?(:any?)
-          hash[property] = valid_values if valid_values.any?
+
+        if valid_values.is_a?(Array) && valid_values == [] || valid_values.nil?
+          @properties.delete(property)
         else
-          hash[property] = valid_values
+          @properties[property] = valid_values
         end
       end
     end
@@ -87,15 +95,22 @@ module Mida
     # Return valid values, converted to the correct +DataType+
     # or +Item+ and number if necessary
     def validate_values(property, values)
-      return [] unless valid_property?(property, values)
+      unless valid_property?(property, values)
+        @errors << [:property, property, :not_allowed]
+        return []
+      end
+
       prop_num = property_number(property)
-      return [] unless valid_num_values?(prop_num, values)
+      unless valid_num_values?(prop_num, values)
+        @errors << [:number_values, property, :allowed_one]
+        return []
+      end
+
       prop_types = property_types(property)
 
-      valid_values = values.each_with_object([]) do |value, valid_values|
-        new_value = validate_value(prop_types, value)
-        valid_values << new_value unless new_value.nil?
-      end
+      valid_values = values.map do |value|
+        validate_value(prop_types, value, property)
+      end.compact
 
       # Convert property to correct number
       prop_num == :many ? valid_values : valid_values.first
@@ -103,14 +118,20 @@ module Mida
 
     # Returns value converted to correct +DataType+ or +Item+
     # or +nil+ if not valid
-    def validate_value(prop_types, value)
+    def validate_value(prop_types, value, property)
       if is_itemscope?(value)
-        valid_itemtype?(prop_types, value.type) ? Item.new(value) : nil
+        if valid_itemtype?(prop_types, value.type)
+          Item.new(value)
+        else
+          @errors << [:nested_item, property, :wrong_itemtype, value.type]
+          nil
+        end
       elsif (extract_value = datatype_extract(prop_types, value))
         extract_value
       elsif prop_types.include?(:any)
         value
       else
+        @errors << [:value, property, :wrong_datatype, value]
         nil
       end
     end

@@ -14,6 +14,6 @@ Gem::Specification.new do |s|
   s.rdoc_options << '--main' << 'README.rdoc'
   s.add_dependency('nokogiri', '>= 1.5')
   s.add_dependency('mida_vocabulary', '>= 0.1')
-  s.add_development_dependency('rspec', '~> 2.7.0' )
+  s.add_development_dependency('rspec', '~> 2.8.0' )
   s.add_development_dependency('bundler')
 end

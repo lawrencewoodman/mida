@@ -160,6 +160,7 @@ describe Mida::Item, 'when initialized with an itemscope of a known type that do
         'dob' => 'When I was born'
       }
     )
+
     @item = Mida::Item.new(itemscope)
   end
 
@@ -192,15 +193,11 @@ describe Mida::Item, 'when initialized with an itemscope containing another corr
       end
     end
 
-    tel_itemscope = mock(Mida::Itemscope)
-    tel_itemscope.stub!(:kind_of?).any_number_of_times.with(Mida::Itemscope).and_return(true)
-    tel_itemscope.stub!(:type).and_return("http://example.com/vocab/tel")
-    tel_itemscope.stub!(:id).and_return(nil)
-    tel_itemscope.stub!(:properties).and_return(
-      { 'dial_code' => ['0248583'],
-        'number' => ['000004847582'],
-      }
-    )
+    tel_itemscope = Mida::Itemscope.allocate
+    tel_itemscope.instance_variable_set(:@type, "http://example.com/vocab/tel")
+    tel_itemscope.instance_variable_set(:@id, nil)
+    tel_itemscope.instance_variable_set(:@properties, 'dial_code' => ['0248583'], 'number' => ['000004847582'])
+    
     person_itemscope = mock(Mida::Itemscope)
     person_itemscope.stub!(:type).and_return("http://example.com/vocab/person")
     person_itemscope.stub!(:id).and_return(nil)
@@ -340,4 +337,28 @@ describe Mida::Item, 'when initialized with an itemscope containing another inva
     @item.properties['tel'][0].should == '000004847582'
   end
 
+end
+
+describe Mida::Item, 'when validating wrong datas' do
+  it "should get item" do
+    content = '
+    <html>
+    <head></head>
+    <body itemscope itemtype="http://schema.org/Person">
+      <time itemprop="birthDate" datetime="1 day before me">wrong datatype</time>
+
+      <span itemscope itemprop="children" itemtype="http://schema.org/Zoo">
+        <h2 itemtype="name">Cat</h2>
+      </span>
+    </body
+    </html>
+    '
+    doc = Mida::Document.new(content, 'http://example.com')
+
+    errors = doc.errors
+
+    errors[0][:item].should == doc.items[0]
+    errors[0][:error].should == [:value, 'birthDate', :wrong_datatype, "1 day before me"]
+    errors[1][:error][0..2].should == [:nested_item, 'children', :wrong_itemtype]
+  end
 end
