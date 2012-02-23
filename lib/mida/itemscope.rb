@@ -20,17 +20,18 @@ module Mida
     #
     # [itemscope_node] The itemscope_node that you want to parse.
     # [page_url] The url of target used for form absolute url.
-    def initialize(itemscope_node, page_url=nil)
+    def initialize(itemscope_node, page_url = nil, doc = nil)
       @itemscope_node, @page_url = itemscope_node, page_url
       @type, @id = extract_attribute('itemtype'), extract_attribute('itemid')
+      @doc = doc
       @properties = {}
       add_itemref_properties
       parse_elements(extract_elements(@itemscope_node))
     end
 
     # Same as +new+ for convenience
-    def self.parse(itemscope, page_url=nil)
-      self.new itemscope, page_url
+    def self.parse(itemscope, page_url=nil, doc = nil)
+      self.new(itemscope, page_url, doc)
     end
 
     def ==(other)
@@ -74,7 +75,7 @@ module Mida
 
     # Add an 'itemprop' to the properties
     def add_itemprop(itemprop)
-      properties = Itemprop.parse(itemprop, @page_url)
+      properties = Itemprop.parse(itemprop, @page_url, @doc)
       properties.each { |name, value| (@properties[name] ||= []) << value }
     end
 

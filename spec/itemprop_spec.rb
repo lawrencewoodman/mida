@@ -1,6 +1,8 @@
 require 'spec_helper'
 require 'mida/itemprop'
-
+require 'mida/document'
+require 'mida/item'
+require 'mida/itemscope'
 
 describe Mida::Itemprop, 'when parsing an element without an itemprop attribute' do
   before do
@@ -170,5 +172,28 @@ describe Mida::Itemprop, '#make_absolute_url' do
     url = "http://www.imamuseum.org/sites/default/files/imagecache/3_column/product-images/slvr mesh earrings.jpg"
     
     ItempropTastCase.new.send(:make_absolute_url, url).should == URI.escape(url)
+  end
+end
+
+describe Mida::Itemprop, 'parse html and parse test' do
+  before do
+    @content = %{
+    <html>
+    <head></head>
+    <body itemscope itemtype="http://schema.org/Offer">
+      <span itemprop="price">$<b>15</b></span>
+    </body
+    </html>
+  }
+  end
+
+  it "should get html" do
+    doc = Mida::Document.new(@content, 'http://example.com', :content => :html)
+    doc.items[0].properties['price'].should == ['$<b>15</b>']
+  end
+
+  it "should get text" do
+    doc = Mida::Document.new(@content, 'http://example.com', :content => :text)
+    doc.items[0].properties['price'].should == ['$15']
   end
 end

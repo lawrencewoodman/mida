@@ -27,11 +27,12 @@ module Mida
     # its +properties+
     #
     # [itemscope] The itemscope that has been parsed by +Itemscope+
-    def initialize(itemscope)
+    def initialize(itemscope, doc = nil)
       @type = itemscope.type
       @id = itemscope.id
       @vocabulary = Mida::Vocabulary.find(@type)
       @properties = itemscope.properties
+      @doc = doc
       @errors = [] # [:part, :name, message]
       validate_properties
     end
@@ -121,7 +122,7 @@ module Mida
     def validate_value(prop_types, value, property)
       if is_itemscope?(value)
         if valid_itemtype?(prop_types, value.type)
-          Item.new(value)
+          Item.new(value, @doc)
         else
           @errors << [:nested_item, property, :wrong_itemtype, value.type]
           nil

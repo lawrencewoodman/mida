@@ -27,8 +27,8 @@ module Mida
     # [element]  The itemprop element to be parsed
     # [page_url] The url of the page, including filename, used to form
     #            absolute urls
-    def initialize(element, page_url=nil)
-      @element, @page_url = element, page_url
+    def initialize(element, page_url = nil, doc = nil)
+      @element, @page_url, @doc = element, page_url, doc
       @properties = extract_properties
     end
 
@@ -37,8 +37,8 @@ module Mida
     # [element]  The itemprop element to be parsed
     # [page_url] The url of the page, including filename, used to form
     #            absolute urls
-    def self.parse(element, page_url=nil)
-      self.new(element, page_url).properties
+    def self.parse(element, page_url = nil, doc = nil)
+      self.new(element, page_url, doc).properties
     end
 
   private
@@ -82,13 +82,17 @@ module Mida
           url_attribute?(attribute) ? make_absolute_url(attribute_node.value) : attribute_node.value
         end
       else
-        @element.inner_text.strip
+        if !@doc || @doc.options[:content] == :text
+          @element.inner_text.strip
+        elsif @doc && @doc.options[:content] == :html
+          @element.inner_html.strip
+        end
       end
     end
 
     def extract_property
       if @element.attribute('itemscope')
-        Itemscope.new(@element, @page_url)
+        Itemscope.new(@element, @page_url, @doc)
       else
         extract_property_value
       end
