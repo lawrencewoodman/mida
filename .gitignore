@@ -3,3 +3,4 @@
 
 # Gem pkg directory
 pkg/
+.rvmrc

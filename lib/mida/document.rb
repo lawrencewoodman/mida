@@ -9,13 +9,15 @@ module Mida
     # An Array of Mida::Item objects.  These are all top-level
     # and hence not properties of other Items
     attr_reader :items
+    attr_reader :options
 
     # Create a new Microdata object
     #
     # [target] The string containing the html that you want to parse.
     # [page_url] The url of target used for form absolute urls. This must
     #            include the filename, e.g. index.html.
-    def initialize(target, page_url=nil)
+    def initialize(target, page_url = nil, options = {})
+      @options = {:content => :text}.merge(options)
       @doc = Nokogiri(target)
       @page_url = page_url
       @items = extract_items
@@ -24,6 +26,19 @@ module Mida
     # Implements method for Enumerable
     def each
       @items.each {|item| yield(item)}
+    end
+
+    def all_items
+      @items.map(&:find_nested).flatten
+    end
+
+    def errors
+      errors = []
+      all_items.each do |item|
+        item.errors.each {|e| errors << {item: item, error: e} }
+      end
+
+      errors
     end
 
     # Returns an array of matching <tt>Mida::Item</tt> objects
@@ -50,8 +65,8 @@ module Mida
       return nil unless itemscopes
 
       itemscopes.collect do |itemscope|
-        itemscope = Itemscope.new(itemscope, @page_url)
-        Item.new(itemscope)
+        itemscope = Itemscope.new(itemscope, @page_url, self)
+        Item.new(itemscope, self)
       end
     end
 
