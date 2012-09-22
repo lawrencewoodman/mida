@@ -76,7 +76,7 @@ end
 
 # Display each item as yaml
 def display_items(items)
-  items.each {|item| puts item.to_h.to_yaml} 
+  items.each {|item| puts item.to_h.to_yaml}
 end
 
 # Returns a hash {type => count}
@@ -91,8 +91,8 @@ def display_count(items)
 end
 
 def parse_source(source, options)
-  url = get_url  
-  open(source) do |f|
+  url = get_url
+  open(source, "Accept" => "text/html;q=0.9,*/*;q=0.8") do |f|
     doc = Mida::Document.new(f, url)
     items = if options[:type]
       doc.search(options[:type])
@@ -120,4 +120,4 @@ ARGV.each do |source|
   puts "Parsing: #{source}" if options[:sourcename]
   parse_source(source, options)
   puts
-end  
+end
