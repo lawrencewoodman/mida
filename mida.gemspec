@@ -18,7 +18,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
   spec.extra_rdoc_files = ['README.rdoc', 'LICENCE.rdoc', 'CHANGELOG.rdoc']
   spec.rdoc_options << '--main' << 'README.rdoc'
-  spec.add_dependency('blankslate')
+  spec.add_dependency('blankslate', '2.1.2.4')
   spec.add_dependency('nokogiri', '>= 1.5')
   spec.add_development_dependency "bundler", "~> 1.3"
   spec.add_development_dependency "rake"
