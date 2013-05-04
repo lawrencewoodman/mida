@@ -3,3 +3,7 @@ rvm:
   - 1.9.2
   - 1.9.3
   - 2.0.0
+branches:
+  only:
+    - master
+    - get_working_on_ruby2
