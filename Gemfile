@@ -1,6 +1,4 @@
-source :rubygems
-gem "nokogiri", "1.5.0"
-gem "rake"
-gem "blankslate"
-gem "rspec", :require => "spec"
+source 'https://rubygems.org'
 
+# Specify your gem's dependencies in mida.gemspec
+gemspec

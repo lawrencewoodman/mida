@@ -1,4 +1,4 @@
-$LOAD_PATH.unshift File.dirname(__FILE__)
+require "mida/version"
 Dir[File.dirname(__FILE__) + '/mida/*.rb'].each { |f| require f }
 
 # Mida is a Microdata parser and extractor.
