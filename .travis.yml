@@ -6,4 +6,3 @@ rvm:
 branches:
   only:
     - master
-    - get_working_on_ruby2
