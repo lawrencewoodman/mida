@@ -1,9 +1,8 @@
 destination: ./_site
 baseurl: /mida
 safe:        true
-auto:        true
 lsi:         false
-server_port: 4000
+port: 4000
 pygments:    true
 markdown:    maruku
 permalink:   pretty
@@ -12,4 +11,5 @@ maruku:
   use_divs:   false
   png_dir:    images/latex
   png_url:    /images/latex
-exclude: ./design
+exclude: [design]
+excerpt_separator: ""
