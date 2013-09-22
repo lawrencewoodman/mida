@@ -1,6 +1,6 @@
 = Mida
 
-* {Mida Project Page}[http://lawrencewoodman.github.com/mida]
+* {Mida Project Page}[http://lawrencewoodman.github.io/mida]
 * {Mida Github Repository}[https://github.com/LawrenceWoodman/mida]
 * {Mida Bug Tracker}[https://github.com/LawrenceWoodman/mida/issues]
 
@@ -22,11 +22,11 @@ Mida keeps RubyGems[http://rubygems.org/gems/mida] up-to-date with its latest ve
 
 To use the command line tool, supply it with the urls or filenames that you
 would like to be parsed (by default each item is output as yaml):
-  mida http://lawrencewoodman.github.com/mida/news/
+  mida http://lawrencewoodman.github.io/mida/news/
 
 If you want to search for specific types you can use the <tt>-t</tt> switch
 followed by a Regular Expression:
-  mida -t /person/i http://lawrencewoodman.github.com/mida/news/
+  mida -t /person/i http://lawrencewoodman.github.io/mida/news/
 
 For more information look at <tt>mida</tt>'s help:
   mida -h

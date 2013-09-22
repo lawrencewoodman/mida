@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email       = "lwoodman@vlifesystems.com"
   spec.description = "A Microdata parser and extractor library which includes support for the schema.org vocabularies"
   spec.summary     = "A Microdata parser/extractor library"
-  spec.homepage    = %q{http://lawrencewoodman.github.com/mida/}
+  spec.homepage    = %q{http://lawrencewoodman.github.io/mida/}
   spec.license       = "MIT"
   spec.files         = `git ls-files`.split($/)
   spec.executables   = ['mida']
