@@ -1,3 +1,7 @@
+== 0.3.4 (22nd September 2013)
+* Ensure works on Ruby v1.9.3 and v2.0
+* Display exception error message from parse_source()
+
 == 0.3.3 (31st July 2011)
 * Removed validation from +new+ for +Item+ and +Document+
 * Created <tt>vocabularies/</tt> to put the vocabularies in
