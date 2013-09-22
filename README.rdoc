@@ -132,5 +132,5 @@ Mida project's {issues tracker}[https://github.com/LawrenceWoodman/mida/issues]
 on github.
 
 == Licence
-Copyright (c) 2011 Lawrence Woodman.
+Copyright (c) 2011-2013 Lawrence Woodman <lwoodman@vlifesystems.com>.
 This software is licensed under the MIT Licence.  Please see the file, LICENCE.rdoc, for details.
