@@ -1,0 +1,8 @@
+---
+layout: news_article
+title: Mida v0.3.4 Released
+author:
+  name: Lawrence Woodman
+  url: http://techtinkering.com
+---
+Mida now supports Ruby v1.9.3 and thanks to [Sam Granieri](https://github.com/samgranieri) v2.0.  There is also a change to `parse_source()` which will now output the exception error message if raised.
