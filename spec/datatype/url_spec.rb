@@ -1,3 +1,5 @@
+#encoding: utf-8
+#
 require 'mida/datatype'
 require 'yaml'
 
@@ -20,8 +22,9 @@ describe Mida::DataType::URL do
   end
 
 
-  it '#parse should accept a valid url' do
-    url_text = 'http://example.com/test/'
+  it '#parse should accept a valid url with special characters' do
+    url_text = 'http://example.com/übergangslösung'
     url = Mida::DataType::URL.parse(url_text)
+    url.to_s.should == ::Addressable::URI.encode(url_text)
   end
 end

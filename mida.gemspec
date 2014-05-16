@@ -20,6 +20,7 @@ Gem::Specification.new do |spec|
   spec.rdoc_options << '--main' << 'README.rdoc'
   spec.add_dependency('blankslate', '2.1.2.4')
   spec.add_dependency('nokogiri', '>= 1.5')
+  spec.add_dependency('addressable', '~> 2.3.6')
   spec.add_development_dependency "bundler", "~> 1.3"
   spec.add_development_dependency "rake"
   spec.add_development_dependency "rspec", "~> 2.10.0"

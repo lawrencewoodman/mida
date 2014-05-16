@@ -1,6 +1,7 @@
 require 'nokogiri'
 require 'uri'
 require 'mida/itemscope'
+require 'addressable/uri'
 
 module Mida
 
@@ -52,6 +53,7 @@ module Mida
     # This returns an empty string if can't form a valid
     # absolute url as per the Microdata spec.
     def make_absolute_url(url)
+      url = ::Addressable::URI.encode(url)
       return url unless URI.parse(url).relative?
       begin
         URI.parse(@page_url).merge(url).to_s
