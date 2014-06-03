@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    mida (0.3.6)
+    mida (0.3.8)
       addressable (~> 2.3.6)
       blankslate (= 2.1.2.4)
       nokogiri (>= 1.5)
