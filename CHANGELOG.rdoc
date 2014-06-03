@@ -1,3 +1,6 @@
+== 0.3.7 (3rd June 2014)
+* Ensures that domains with non 7-bit ASCII characters such as those with umlauts are handled properly.
+
 == 0.3.6 (22nd September 2013)
 * Corrects Gemfile.lock to work properly with bundler
 
