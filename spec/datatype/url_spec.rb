@@ -21,7 +21,6 @@ describe Mida::DataType::URL do
     url.to_s.should == url_text
   end
 
-
   it '#parse should accept a valid url with special characters' do
     url_text = 'http://example.com/übergangslösung'
     url = Mida::DataType::URL.parse(url_text)
