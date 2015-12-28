@@ -2,6 +2,7 @@
 *.swp
 
 # Gem pkg directory
+Gemfile.lock
 pkg/
 *.gem
 *.rbc
