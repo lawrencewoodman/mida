@@ -12,7 +12,7 @@ module Mida
       def initialize(value)
         @parsedValue = ::DateTime.iso8601(value)
       rescue => e
-        raise ArgumentError, e
+        raise ::ArgumentError, e
       end
 
       def to_s

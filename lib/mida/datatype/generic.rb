@@ -1,10 +1,8 @@
-require 'blankslate'
-
 module Mida
   module DataType
 
     # The base DataType Parser
-    class Generic < BlankSlate
+    class Generic < BasicObject
       
       # Convenience method, same as +new+
       def self.parse(value)
