@@ -1,7 +1,13 @@
 language: ruby
+sudo: false
+cache:
+  bundler: true
 rvm:
   - 2.2.4
   - 2.3.0
 branches:
   only:
     - master
+env:
+  global:
+    - NOKOGIRI_USE_SYSTEM_LIBRARIES=true
