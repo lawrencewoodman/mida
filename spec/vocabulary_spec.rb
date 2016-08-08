@@ -11,16 +11,16 @@ describe Mida::Vocabulary, 'when subclassed and given has statements with no blo
   end
 
   it '#itemtype should return the correct regexp' do
-    Organization.itemtype.should == %r{http://example\.com.*?organization$}i
+    expect(Organization.itemtype).to eq(%r{http://example\.com.*?organization$}i)
   end
 
   it 'should specify name to appear once' do
-    Organization.properties['name'][:num].should == :one
+    expect(Organization.properties['name'][:num]).to eq(:one)
   end
 
   it 'should specify tel and url to appear many times' do
-    Organization.properties['tel'][:num].should == :many
-    Organization.properties['url'][:num].should == :many
+    expect(Organization.properties['tel'][:num]).to eq(:many)
+    expect(Organization.properties['url'][:num]).to eq(:many)
   end
 end
 
@@ -49,31 +49,31 @@ describe Mida::Vocabulary, 'when subclassed and given has statements with blocks
   end
 
   it '#itemtype should return the correct regexp' do
-    Review.itemtype.should == %r{http://example\.com.*?review$}i
+    expect(Review.itemtype).to eq(%r{http://example\.com.*?review$}i)
   end
 
   it 'should specify itemreviewed to appear once' do
-    Review.properties['itemreviewed'][:num].should == :one
+    expect(Review.properties['itemreviewed'][:num]).to eq(:one)
   end
 
   it 'should specify that itemreviewed only have the type Mida::DataType::Text' do
-    Review.properties['itemreviewed'][:types].should == [Mida::DataType::Text]
+    expect(Review.properties['itemreviewed'][:types]).to eq([Mida::DataType::Text])
   end
 
   it 'should specify rating to appear once' do
-    Review.properties['rating'][:num].should == :one
+    expect(Review.properties['rating'][:num]).to eq(:one)
   end
 
   it 'should specify rating to only have the types: Rating, Mida::DataType::Text' do
-    Review.properties['rating'][:types].should == [Rating, Mida::DataType::Text]
+    expect(Review.properties['rating'][:types]).to eq([Rating, Mida::DataType::Text])
   end
 
   it 'should specify comments to appear many times' do
-    Review.properties['comments'][:num].should == :many
+    expect(Review.properties['comments'][:num]).to eq(:many)
   end
 
   it 'should specify that comments only have the type Comment' do
-    Review.properties['comments'][:types].should == [Comment]
+    expect(Review.properties['comments'][:types]).to eq([Comment])
   end
 end
 
@@ -89,19 +89,19 @@ describe Mida::Vocabulary, 'when subclassed and used with :any for properties an
   end
 
   it '#itemtype should return the correct regexp' do
-    Person.itemtype.should == %r{http://example.com/vocab/person}
+    expect(Person.itemtype).to eq(%r{http://example.com/vocab/person})
   end
 
   it 'should specify that name only appears once' do
-    Person.properties['name'][:num].should == :one
+    expect(Person.properties['name'][:num]).to eq(:one)
   end
 
   it 'should specify that any other property can appear many times' do
-    Person.properties[:any][:num].should == :many
+    expect(Person.properties[:any][:num]).to eq(:many)
   end
   
   it 'should specify that any other property can have any type' do
-    Person.properties[:any][:types].should == [:any]
+    expect(Person.properties[:any][:types]).to eq([:any])
   end
 end
 
@@ -123,11 +123,11 @@ describe Mida::Vocabulary, 'when subclassed' do
   end
 
   it 'should register the vocabulary subclass' do
-    Mida::Vocabulary.vocabularies.should include(Person)
+    expect(Mida::Vocabulary.vocabularies).to include(Person)
   end
 
   it '#included_vocabularies should be empty' do
-    Person.included_vocabularies.empty?.should be_true
+    expect(Person.included_vocabularies.empty?).to be_truthy
   end
 
 end
@@ -142,11 +142,11 @@ describe Mida::Vocabulary, 'when subclassed and has no properties' do
   end
 
   it 'should register the vocabulary subclass' do
-    Mida::Vocabulary.vocabularies.should include(Empty)
+    expect(Mida::Vocabulary.vocabularies).to include(Empty)
   end
 
   it '#properties should return an empty hash' do
-    Mida::Vocabulary.properties.should == {}
+    expect(Mida::Vocabulary.properties).to eq({})
   end
 
 end
@@ -180,42 +180,42 @@ describe Mida::Vocabulary, 'when subclassed and using #include_vocabulary' do
   end
 
   it '#itemtype should return the new regexp' do
-    Car.itemtype.should == %r{http://example\.com.*?car$}i
+    expect(Car.itemtype).to eq(%r{http://example\.com.*?car$}i)
   end
 
   it "should contain included vocabularies' properties" do
     ['description', 'make','model', 'colour'].each do
-      |prop| Car.properties[prop][:num].should == :one
+      |prop| expect(Car.properties[prop][:num]).to eq(:one)
     end
-    Car.properties['addons'][:num].should == :many
+    expect(Car.properties['addons'][:num]).to eq(:many)
   end
 
   it "should contain new properties" do
-    Car.properties['engine'][:num].should == :one
-    Car.properties['stickers'][:num].should == :many
+    expect(Car.properties['engine'][:num]).to eq(:one)
+    expect(Car.properties['stickers'][:num]).to eq(:many)
   end
 
   it '#included_vocabularies should return the included vocabularies' do
     [Thing, Product, Vehicle].each do |vocab|
-      Car.included_vocabularies.should include(vocab)
+      expect(Car.included_vocabularies).to include(vocab)
     end
   end
 
   it '.kind_of? should still work with plain Vocabulary' do
-    Car.kind_of?(Mida::Vocabulary).should be_true
+    expect(Car.kind_of?(Mida::Vocabulary)).to be_truthy
   end
 
   it '.kind_of? should recognize included vocabularies' do
-    Car.kind_of?(Car).should be_true
-    Car.kind_of?(Vehicle).should be_true
-    Vehicle.kind_of?(Product).should be_true
-    Car.kind_of?(Product).should be_true
-    Car.kind_of?(Thing).should be_true
+    expect(Car.kind_of?(Car)).to be_truthy
+    expect(Car.kind_of?(Vehicle)).to be_truthy
+    expect(Vehicle.kind_of?(Product)).to be_truthy
+    expect(Car.kind_of?(Product)).to be_truthy
+    expect(Car.kind_of?(Thing)).to be_truthy
   end
 
   it '.kind_of? should recognize vocabularies without a relationship' do
-    Vehicle.kind_of?(Car).should be_false
-    Thing.kind_of?(Product).should be_false
+    expect(Vehicle.kind_of?(Car)).to be_falsey
+    expect(Thing.kind_of?(Product)).to be_falsey
   end
 end
 
@@ -265,7 +265,7 @@ describe Mida::Vocabulary, 'when subclassed with circular dependancies' do
       'use_with' => {types: [Medicine], num: :many},
       'similar_to' => {types: [Potion], num: :many}
     }
-    Medicine.properties.should == expected_properties
-    Potion.properties.should == expected_properties
+    expect(Medicine.properties).to eq(expected_properties)
+    expect(Potion.properties).to eq(expected_properties)
   end
 end

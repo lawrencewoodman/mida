@@ -14,10 +14,10 @@ describe Mida::Itemscope, 'when initialized with an itemscope_node containing ju
   end
 
   it '#properties should return the correct name/value pairs' do
-    @itemscope.properties.should == {
+    expect(@itemscope.properties).to eq({
       'first_name' => ['Lorry'],
       'last_name' => ['Woodman']
-    }
+    })
   end
 end
 
@@ -35,7 +35,7 @@ describe Mida::Itemscope, 'when initialized with an itemscope_node not containin
   end
 
   it '#type should return nil' do
-    @itemscope.type.should == nil
+    expect(@itemscope.type).to eq(nil)
   end
 end
 
@@ -52,7 +52,7 @@ describe Mida::Itemscope, 'when initialized with an itemscope_node containing an
   end
 
   it '#type should return nil' do
-    @itemscope.type.should == "person"
+    expect(@itemscope.type).to eq("person")
   end
 end
 
@@ -72,7 +72,7 @@ describe Mida::Itemscope, 'when initialized with an itemscope containing an item
     end
 
     it 'should return the url as an absolute url' do
-      @itemscope.properties['url'].should == ['']
+      expect(@itemscope.properties['url']).to eq([''])
     end
   end
 
@@ -82,7 +82,7 @@ describe Mida::Itemscope, 'when initialized with an itemscope containing an item
     end
 
     it 'should return the url as an absolute url' do
-      @itemscope.properties['url'].should == ['http://example.com/home/lorry']
+      expect(@itemscope.properties['url']).to eq(['http://example.com/home/lorry'])
     end
   end
 
@@ -101,10 +101,10 @@ describe Mida::Itemscope, 'when initialized with an itemscope containing itempro
   end
 
   it '#properties should return the correct name/value pairs' do
-    @itemscope.properties.should == {
+    expect(@itemscope.properties).to eq({
       'first_name' => ['Lorry'],
       'last_name' => ['Woodman']
-    }
+    })
   end
 
 end
@@ -122,9 +122,9 @@ describe Mida::Itemscope, "when initialized with an itemscope containing itempro
   end
 
   it '#properties should return the correct name/value pairs' do
-    @itemscope.properties.should == {
+    expect(@itemscope.properties).to eq({
       'reviewer' => ['Lorry Woodman']
-    }
+    })
   end
 
 end
@@ -142,10 +142,10 @@ describe Mida::Itemscope, "when initialized with an itemscope containing an item
   end
 
   it '#properties should return both properties' do
-    @itemscope.properties.should == {
+    expect(@itemscope.properties).to eq({
       'description' => ['The animal is a green parrot.'],
       'colour' => ['green']
-    }
+    })
   end
 
 end
@@ -173,13 +173,13 @@ describe Mida::Itemscope, 'when initialized with an itemscope containing itempro
   end
 
   it '#properties should return the correct name/value pairs' do
-    @itemscope.properties.should == {
+    expect(@itemscope.properties).to eq({
       'flavour' => [
         'Lemon Sorbet',
         'Apricot Sorbet',
         @strawberry_itemscope
       ]
-    }
+    })
   end
 
 end
@@ -213,11 +213,11 @@ describe Mida::Itemscope, 'when initialized with an itemscope containing itemref
   end
 
   it '#properties should return the correct name/value pairs' do
-    @itemscope.properties.should == {
+    expect(@itemscope.properties).to eq({
       'age' => ['30'],
       'name' => ['Amanda'],
       'band' => [@empty_band_itemscope]
-    }
+    })
   end
 
 end
@@ -237,7 +237,7 @@ describe Mida::Itemscope, 'when initialized with an itemscope containing an item
   end
 
   it '#id should return the correct id' do
-    @itemscope.id.should == 'urn:isbn:978-1-849510-50-9'
+    expect(@itemscope.id).to eq('urn:isbn:978-1-849510-50-9')
   end
 
 end
@@ -269,19 +269,19 @@ describe Mida::Itemscope, 'when initialized with an itemscope containing itemsco
   end
 
   it '#type should return the correct type' do
-    @itemscope.type.should == 'review'
+    expect(@itemscope.type).to eq('review')
   end
 
   it '#id should return the correct id' do
-    @itemscope.id.should == nil
+    expect(@itemscope.id).to eq(nil)
   end
 
   it '#properties should return the correct name/value pairs' do
-    @itemscope.properties.should == {
+    expect(@itemscope.properties).to eq({
       'item_name' => ['Acme Anvil'],
       'rating' => ['5'],
       'reviewer' => [@reviewer_itemscope]
-    }
+    })
   end
 
 end

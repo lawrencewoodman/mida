@@ -4,12 +4,12 @@ describe Mida::DataType::ISO8601Date do
 
   it '#parse should raise an exception if invalid date format' do
     test = lambda {Mida::DataType::ISO8601Date.parse('27th August 2009')}
-    test.should raise_error(ArgumentError)
+    expect(test).to raise_error(ArgumentError)
   end
 
   it '#parse should raise an exception if value is empty' do
     test = lambda {Mida::DataType::ISO8601Date.parse('')}
-    test.should raise_error(ArgumentError)
+    expect(test).to raise_error(ArgumentError)
   end
 
   context 'when passed a valid date' do
@@ -19,7 +19,7 @@ describe Mida::DataType::ISO8601Date do
     end
 
     it '#to_s should return the date as an rfc822 text string' do
-      @date.to_s.should == "Thu, 27 Aug 2009 01:13:04 +0510"
+      expect(@date.to_s).to eq("Thu, 27 Aug 2009 01:13:04 +0510")
     end
 
   end

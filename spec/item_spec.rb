@@ -4,73 +4,73 @@ require 'mida/vocabulary'
 
 describe Mida::Item, 'when initialized with an incomplete itemscope' do
   before do
-    itemscope = mock(Mida::Itemscope)
-    itemscope.stub!(:type).and_return(nil)
-    itemscope.stub!(:id).and_return(nil)
-    itemscope.stub!(:properties).and_return({})
+    itemscope = double(Mida::Itemscope)
+    allow(itemscope).to receive(:type).and_return(nil)
+    allow(itemscope).to receive(:id).and_return(nil)
+    allow(itemscope).to receive(:properties).and_return({})
     @item = Mida::Item.new(itemscope)
   end
 
   it '#type should return the same type as the itemscope' do
-    @item.type.should == nil
+    expect(@item.type).to eq(nil)
   end
 
   it '#vocabulary should return the correct vocabulary' do
-    @item.vocabulary.should == Mida::GenericVocabulary
+    expect(@item.vocabulary).to eq(Mida::GenericVocabulary)
   end
 
   it '#id should return the same id as the itemscope' do
-    @item.id.should == nil
+    expect(@item.id).to eq(nil)
   end
 
   it '#properties should return the same properties as the itemscope' do
-    @item.properties.should == {}
+    expect(@item.properties).to eq({})
   end
 
   it '#to_h should return an empty hash' do
-    @item.to_h.should == {}
+    expect(@item.to_h).to eq({})
   end
 end
 
 describe Mida::Item, 'when initialized with a complete itemscope of an unknown type' do
   before do
-    itemscope = mock(Mida::Itemscope)
-    itemscope.stub!(:type).and_return("book")
-    itemscope.stub!(:id).and_return("urn:isbn:978-1-849510-50-9")
-    itemscope.stub!(:properties).and_return(
+    itemscope = double(Mida::Itemscope)
+    allow(itemscope).to receive(:type).and_return("book")
+    allow(itemscope).to receive(:id).and_return("urn:isbn:978-1-849510-50-9")
+    allow(itemscope).to receive(:properties).and_return(
       {'first_name' => ['Lorry'], 'last_name' => ['Woodman']}
     )
     @item = Mida::Item.new(itemscope)
   end
 
   it '#type should return the same type as the itemscope' do
-    @item.type.should == "book"
+    expect(@item.type).to eq("book")
   end
 
   it '#vocabulary should return the correct vocabulary' do
-    @item.vocabulary.should == Mida::GenericVocabulary
+    expect(@item.vocabulary).to eq(Mida::GenericVocabulary)
   end
 
   it '#id should return the same id as the itemscope' do
-    @item.id.should == "urn:isbn:978-1-849510-50-9"
+    expect(@item.id).to eq("urn:isbn:978-1-849510-50-9")
   end
 
   it '#properties should return the same properties as the itemscope' do
-    @item.properties.should == {
+    expect(@item.properties).to eq({
       'first_name' => ['Lorry'],
       'last_name' => ['Woodman']
-    }
+    })
   end
 
   it '#to_h should return the correct type, id and properties' do
-    @item.to_h.should == {
+    expect(@item.to_h).to eq({
       type: 'book',
       id: "urn:isbn:978-1-849510-50-9",
       properties: {
         'first_name' => ['Lorry'],
         'last_name' => ['Woodman']
       }
-    }
+    })
   end
 end
 
@@ -87,10 +87,10 @@ describe Mida::Item, 'when initialized with an itemscope of a known type' do
       end
     end
 
-    itemscope = mock(Mida::Itemscope)
-    itemscope.stub!(:type).and_return("http://example.com/vocab/person")
-    itemscope.stub!(:id).and_return(nil)
-    itemscope.stub!(:properties).and_return(
+    itemscope = double(Mida::Itemscope)
+    allow(itemscope).to receive(:type).and_return("http://example.com/vocab/person")
+    allow(itemscope).to receive(:id).and_return(nil)
+    allow(itemscope).to receive(:properties).and_return(
       { 'name' => ['Lorry Woodman'],
         'date' => ['2nd October 2009', '2009-10-02'],
         'url' => ['http://example.com/user/lorry']
@@ -100,36 +100,36 @@ describe Mida::Item, 'when initialized with an itemscope of a known type' do
   end
 
   it '#vocabulary should return the correct vocabulary' do
-    @item.vocabulary.should == Person
+    expect(@item.vocabulary).to eq(Person)
   end
 
   it 'should return has_one properties as a single value' do
-    @item.properties['name'].should == 'Lorry Woodman'
+    expect(@item.properties['name']).to eq('Lorry Woodman')
   end
 
   it 'should return has_many properties as an array' do
     @item.properties['url'].length == 1
-    @item.properties['url'].first.to_s.should == 'http://example.com/user/lorry'
+    expect(@item.properties['url'].first.to_s).to eq('http://example.com/user/lorry')
   end
 
   it 'should accept datatypes that are valid' do
-    @item.properties['date'][0].should == '2nd October 2009'
+    expect(@item.properties['date'][0]).to eq('2nd October 2009')
   end
 
   it 'should accept datatypes that are valid' do
-    @item.properties['date'][1].should.to_s == Date.iso8601('2009-10-02').rfc822
+    expect(@item.properties['date'][1].to_s).to eq Date.iso8601('2009-10-02').rfc822
   end
 
   it '#properties should return the same properties as the itemscope' do
-    @item.properties.keys.should == ['name', 'date', 'url']
+    expect(@item.properties.keys).to eq(['name', 'date', 'url'])
     @item.properties['date'].length == 2
   end
 
   it '#to_h should return the correct type and properties' do
-    @item.to_h.should == {
+    expect(@item.to_h).to eq({
       type: 'http://example.com/vocab/person',
       properties: @item.properties
-    }
+    })
   end
 
 end
@@ -149,10 +149,10 @@ describe Mida::Item, 'when initialized with an itemscope of a known type that do
       end
     end
 
-    itemscope = mock(Mida::Itemscope)
-    itemscope.stub!(:type).and_return("http://example.com/vocab/person")
-    itemscope.stub!(:id).and_return(nil)
-    itemscope.stub!(:properties).and_return(
+    itemscope = double(Mida::Itemscope)
+    allow(itemscope).to receive(:type).and_return("http://example.com/vocab/person")
+    allow(itemscope).to receive(:id).and_return(nil)
+    allow(itemscope).to receive(:properties).and_return(
       { 'name' => ['Lorry Woodman'],
         'tel' => ['000004847582', '111111857485'],
         'url' => ['http://example.com/user/lorry'],
@@ -164,15 +164,15 @@ describe Mida::Item, 'when initialized with an itemscope of a known type that do
   end
 
   it '#vocabulary should return the correct vocabulary' do
-    @item.vocabulary.should == Person
+    expect(@item.vocabulary).to eq(Person)
   end
 
   it 'should not keep properties that have too many values' do
-    @item.properties.should_not have_key('tel')
+    expect(@item.properties).not_to have_key('tel')
   end
 
   it 'should not keep properties that have the wrong DataType' do
-    @item.properties.should_not have_key('dob')
+    expect(@item.properties).not_to have_key('dob')
   end
 
 end
@@ -192,19 +192,19 @@ describe Mida::Item, 'when initialized with an itemscope containing another corr
       end
     end
 
-    tel_itemscope = mock(Mida::Itemscope)
-    tel_itemscope.stub!(:kind_of?).any_number_of_times.with(Mida::Itemscope).and_return(true)
-    tel_itemscope.stub!(:type).and_return("http://example.com/vocab/tel")
-    tel_itemscope.stub!(:id).and_return(nil)
-    tel_itemscope.stub!(:properties).and_return(
+    tel_itemscope = double(Mida::Itemscope)
+    allow(tel_itemscope).to receive(:kind_of?).with(Mida::Itemscope).and_return(true)
+    allow(tel_itemscope).to receive(:type).and_return("http://example.com/vocab/tel")
+    allow(tel_itemscope).to receive(:id).and_return(nil)
+    allow(tel_itemscope).to receive(:properties).and_return(
       { 'dial_code' => ['0248583'],
         'number' => ['000004847582'],
       }
     )
-    person_itemscope = mock(Mida::Itemscope)
-    person_itemscope.stub!(:type).and_return("http://example.com/vocab/person")
-    person_itemscope.stub!(:id).and_return(nil)
-    person_itemscope.stub!(:properties).and_return(
+    person_itemscope = double(Mida::Itemscope)
+    allow(person_itemscope).to receive(:type).and_return("http://example.com/vocab/person")
+    allow(person_itemscope).to receive(:id).and_return(nil)
+    allow(person_itemscope).to receive(:properties).and_return(
       { 'name' => ['Lorry Woodman'],
         'tel' => ['000004847582', tel_itemscope],
       }
@@ -213,23 +213,23 @@ describe Mida::Item, 'when initialized with an itemscope containing another corr
   end
 
   it '#vocabulary should return the correct vocabulary' do
-    @item.vocabulary.should == Person
+    expect(@item.vocabulary).to eq(Person)
   end
 
   it 'should validate and convert the nested itemscope' do
-    @item.properties['tel'][1].vocabulary.should == Tel
-    @item.properties['tel'][1].properties.should == {
+    expect(@item.properties['tel'][1].vocabulary).to eq(Tel)
+    expect(@item.properties['tel'][1].properties).to eq({
       'dial_code' => '0248583',
       'number' => '000004847582',
-    }
+    })
   end
 
   it 'should accept the text tel' do
-    @item.properties['tel'][0].should == '000004847582'
+    expect(@item.properties['tel'][0]).to eq('000004847582')
   end
 
   it "#to_h shouldnt return nested items properly" do
-    @item.to_h.should == {
+    expect(@item.to_h).to eq({
       type: 'http://example.com/vocab/person',
       properties: {
         'name' => 'Lorry Woodman',
@@ -241,7 +241,7 @@ describe Mida::Item, 'when initialized with an itemscope containing another corr
                    }
         ]
       }
-    }
+    })
   end
 
 end
@@ -268,22 +268,22 @@ describe Mida::Item, 'when initialized with an itemscope that has a property typ
       end
     end
 
-    student_itemscope = mock(Mida::Itemscope)
-    student_itemscope.stub!(:kind_of?).any_number_of_times.with(Mida::Itemscope).and_return(true)
-    student_itemscope.stub!(:type).and_return("http://example.com/vocab/student")
-    student_itemscope.stub!(:id).and_return(nil)
-    student_itemscope.stub!(:properties).and_return(
+    student_itemscope = double(Mida::Itemscope)
+    allow(student_itemscope).to receive(:kind_of?).with(Mida::Itemscope).and_return(true)
+    allow(student_itemscope).to receive(:type).and_return("http://example.com/vocab/student")
+    allow(student_itemscope).to receive(:id).and_return(nil)
+    allow(student_itemscope).to receive(:properties).and_return(
       { 'name' => ['Lorry Woodman'],
         'tel' => ['000004847582'],
         'studying' => ['Classics']
       }
     )
 
-    org_itemscope = mock(Mida::Itemscope)
-    org_itemscope.stub!(:kind_of?).any_number_of_times.with(Mida::Itemscope).and_return(true)
-    org_itemscope.stub!(:type).and_return("http://example.com/vocab/organization")
-    org_itemscope.stub!(:id).and_return(nil)
-    org_itemscope.stub!(:properties).and_return(
+    org_itemscope = double(Mida::Itemscope)
+    allow(org_itemscope).to receive(:kind_of?).with(Mida::Itemscope).and_return(true)
+    allow(org_itemscope).to receive(:type).and_return("http://example.com/vocab/organization")
+    allow(org_itemscope).to receive(:id).and_return(nil)
+    allow(org_itemscope).to receive(:properties).and_return(
       { 'name' => ['Acme Inc.'],
         'employee' => [student_itemscope]
       }
@@ -292,13 +292,13 @@ describe Mida::Item, 'when initialized with an itemscope that has a property typ
   end
 
   it 'should recognise an itemtype that is the child of that specified' do
-    @item.properties['employee'][0].vocabulary.should == Student
-    @item.properties['employee'][0].type.should == 'http://example.com/vocab/student'
-    @item.properties['employee'][0].properties.should == {
+    expect(@item.properties['employee'][0].vocabulary).to eq(Student)
+    expect(@item.properties['employee'][0].type).to eq('http://example.com/vocab/student')
+    expect(@item.properties['employee'][0].properties).to eq({
       'name' => 'Lorry Woodman',
       'tel' => ['000004847582'],
       'studying' => 'Classics'
-    }
+    })
   end
 
 end
@@ -315,19 +315,19 @@ describe Mida::Item, 'when initialized with an itemscope containing another inva
       has_many 'tel'
     end
 
-    tel_itemscope = mock(Mida::Itemscope)
-    tel_itemscope.stub!(:kind_of?).any_number_of_times.with(Mida::Itemscope).and_return(true)
-    tel_itemscope.stub!(:type).and_return("http://example.com/vocab/tel")
-    tel_itemscope.stub!(:id).and_return(nil)
-    tel_itemscope.stub!(:properties).and_return(
+    tel_itemscope = double(Mida::Itemscope)
+    allow(tel_itemscope).to receive(:kind_of?).with(Mida::Itemscope).and_return(true)
+    allow(tel_itemscope).to receive(:type).and_return("http://example.com/vocab/tel")
+    allow(tel_itemscope).to receive(:id).and_return(nil)
+    allow(tel_itemscope).to receive(:properties).and_return(
       { 'dial_code' => ['0248583'],
         'number' => ['000004847582'],
       }
     )
-    person_itemscope = mock(Mida::Itemscope)
-    person_itemscope.stub!(:type).and_return("http://example.com/vocab/person")
-    person_itemscope.stub!(:id).and_return(nil)
-    person_itemscope.stub!(:properties).and_return(
+    person_itemscope = double(Mida::Itemscope)
+    allow(person_itemscope).to receive(:type).and_return("http://example.com/vocab/person")
+    allow(person_itemscope).to receive(:id).and_return(nil)
+    allow(person_itemscope).to receive(:properties).and_return(
       { 'name' => ['Lorry Woodman'],
         'tel' => ['000004847582', tel_itemscope],
       }
@@ -336,8 +336,8 @@ describe Mida::Item, 'when initialized with an itemscope containing another inva
   end
 
   it 'should only accept values of the correct type' do
-    @item.properties['tel'].size.should == 1
-    @item.properties['tel'][0].should == '000004847582'
+    expect(@item.properties['tel'].size).to eq(1)
+    expect(@item.properties['tel'][0]).to eq('000004847582')
   end
 
 end
