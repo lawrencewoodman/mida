@@ -16,7 +16,7 @@ module Mida
     # [page_url] The url of target used for form absolute urls. This must
     #            include the filename, e.g. index.html.
     def initialize(target, page_url=nil)
-      @doc = Nokogiri(target)
+      @doc = target.kind_of?(Nokogiri::XML::Document) ? target : Nokogiri(target)
       @page_url = page_url
       @items = extract_items
     end

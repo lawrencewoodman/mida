@@ -49,6 +49,8 @@ describe Mida::Document do
       </body></html>
     '
 
+    @nokogiri_document = Nokogiri(html)
+
     @md = Mida::Document.new(html)
   end
 
@@ -65,6 +67,11 @@ describe Mida::Document do
     organization = @md.find {|item| item.type == 'http://data-vocabulary.org/Organization'}
     organization.type.should == 'http://data-vocabulary.org/Organization'
     organization.properties['name'].should == ["An org name"]
+  end
+
+  it 'should not re-parse a nokogiri document' do
+    md = Mida::Document.new(@nokogiri_document)
+    md.instance_variable_get(:@doc).object_id.should == @nokogiri_document.object_id
   end
 end
 
