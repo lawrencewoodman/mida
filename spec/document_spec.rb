@@ -16,11 +16,11 @@ end
 
 def test_properties(item, expected_result)
   item.properties.each do |name, value|
-    match_array(value, expected_result[:properties][name])
+    match_array_legacy(value, expected_result[:properties][name])
   end
 end
 
-def match_array(value_array, expected_results)
+def match_array_legacy(value_array, expected_results)
   value_array.each_with_index do |element, i|
     if element.is_a?(Mida::Item)
       test_properties(element, expected_results[i])
