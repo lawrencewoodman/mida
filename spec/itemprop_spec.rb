@@ -9,7 +9,7 @@ describe Mida::Itemprop, 'when parsing an element without an itemprop attribute'
   end
 
   it '#parse should return an empty Hash' do
-    Mida::Itemprop.parse(@element).should == {}
+    expect(Mida::Itemprop.parse(@element)).to eq({})
   end
 end
 
@@ -20,7 +20,7 @@ describe Mida::Itemprop, 'when parsing an element with one itemprop name' do
   end
 
   it '#parse should return a Hash with the correct name/value pair' do
-    Mida::Itemprop.parse(@element).should == {'reviewer' => 'Lorry Woodman'}
+    expect(Mida::Itemprop.parse(@element)).to eq({'reviewer' => 'Lorry Woodman'})
   end
 end
 
@@ -32,7 +32,7 @@ describe Mida::Itemprop, "when parsing an element who's inner text contains\
   end
 
   it '#parse should return a Hash with the correct name/value pair' do
-    Mida::Itemprop.parse(@itemprop).should == {'reviewer' => 'Lorry Woodman'}
+    expect(Mida::Itemprop.parse(@itemprop)).to eq({'reviewer' => 'Lorry Woodman'})
   end
 end
 
@@ -51,7 +51,7 @@ describe Mida::Itemprop, 'when parsing an itemscope element that has a relative 
 
   it 'should create an absolute url' do
     url = @properties['reviewer'].properties['url']
-    url.should == ['http://example.com/home/LorryWoodman']
+    expect(url).to eq(['http://example.com/home/LorryWoodman'])
   end
 end
 
@@ -63,11 +63,11 @@ describe Mida::Itemprop, 'when parsing an element with multiple itemprop names' 
   end
 
   it 'it should return a Hash with the each of the itemprop names as keys' do
-    @properties.should == {
+    expect(@properties).to eq({
       'reviewer' => 'some text',
       'friend' => 'some text',
       'person' => 'some text'
-    }
+    })
   end
 end
 
@@ -90,7 +90,7 @@ describe Mida::Itemprop, 'when parsing an element with non text content url valu
       URL_ELEMENTS.each do |tag, attr|
         html = html_wrap %Q{<#{tag} itemprop="url" #{attr}="#{url}">The url</#{tag}>}
         element = Nokogiri(html).search('//*[@itemprop]').first
-        Mida::Itemprop.parse(element).should == {'url' => ''}
+        expect(Mida::Itemprop.parse(element)).to eq({'url' => ''})
       end
     end
 
@@ -105,7 +105,7 @@ describe Mida::Itemprop, 'when parsing an element with non text content url valu
         URL_ELEMENTS.each do |tag, attr|
           html = html_wrap %Q{<#{tag} itemprop="url" #{attr}="#{url}">The url</#{tag}>}
           element = Nokogiri(html).search('//*[@itemprop]').first
-          Mida::Itemprop.parse(element).should == {'url' => url}
+          expect(Mida::Itemprop.parse(element)).to eq({'url' => url})
         end
       end
     end
@@ -121,8 +121,9 @@ describe Mida::Itemprop, 'when parsing an element with non text content url valu
       URL_ELEMENTS.each do |tag, attr|
         html = html_wrap %Q{<#{tag} itemprop="url" #{attr}="#{url}">The url</#{tag}>}
         element = Nokogiri(html).search('//*[@itemprop]').first
-        Mida::Itemprop.parse(element, @page_url).should ==
+        expect(Mida::Itemprop.parse(element, @page_url)).to eq(
           {'url' => 'http://example.com/test/register/index.html'}
+        )
       end
     end
 
@@ -137,7 +138,7 @@ describe Mida::Itemprop, 'when parsing an element with non text content url valu
         URL_ELEMENTS.each do |tag, attr|
           html = html_wrap %Q{<#{tag} itemprop="url" #{attr}="#{url}">The url</#{tag}>}
           element = Nokogiri(html).search('//*[@itemprop]').first
-          Mida::Itemprop.parse(element, @page_url).should == {'url' => url}
+          expect(Mida::Itemprop.parse(element, @page_url)).to eq({'url' => url})
         end
       end
     end
@@ -149,12 +150,12 @@ describe Mida::Itemprop, 'when parsing an element with non text content non url 
   it 'should get values from a meta content attribute' do
     html = html_wrap %q{<meta itemprop="reviewer" content="Lorry Woodman"/>}
     element = Nokogiri(html).search('//*[@itemprop]').first
-    Mida::Itemprop.parse(element).should == {'reviewer' => 'Lorry Woodman'}
+    expect(Mida::Itemprop.parse(element)).to eq({'reviewer' => 'Lorry Woodman'})
   end
 
   it 'should get time from an time datatime attribute' do
     html = html_wrap %q{<time itemprop="dtreviewed" datetime="2011-05-04"/>}
     element = Nokogiri(html).search('//*[@itemprop]').first
-    Mida::Itemprop.parse(element).should == {'dtreviewed' => '2011-05-04'}
+    expect(Mida::Itemprop.parse(element)).to eq({'dtreviewed' => '2011-05-04'})
   end
 end

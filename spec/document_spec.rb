@@ -11,7 +11,7 @@ def test_parsing(md, vocabulary, expected_results)
 end
 
 def test_to_h(item, expected_result)
-  item.to_h.should == expected_result
+  expect(item.to_h).to eq(expected_result)
 end
 
 def test_properties(item, expected_result)
@@ -25,7 +25,7 @@ def match_array_legacy(value_array, expected_results)
     if element.is_a?(Mida::Item)
       test_properties(element, expected_results[i])
     else
-      element.should == expected_results[i]
+      expect(element).to eq(expected_results[i])
     end
   end
 end
@@ -56,22 +56,22 @@ describe Mida::Document do
 
   it '#each should pass each item to the block' do
     item_num = 0
-    @md.each {|item| item.should == @md.items[item_num]; item_num += 1}
+    @md.each {|item| expect(item).to eq(@md.items[item_num]); item_num += 1}
   end
 
   it 'should have access to the Enumerable mixin methods such as #find' do
     review = @md.find {|item| item.type == 'http://data-vocabulary.org/Review'}
-    review.type.should == 'http://data-vocabulary.org/Review'
-    review.properties['itemreviewed'].should == ["Romeo Pizza"]
+    expect(review.type).to eq('http://data-vocabulary.org/Review')
+    expect(review.properties['itemreviewed']).to eq(["Romeo Pizza"])
 
     organization = @md.find {|item| item.type == 'http://data-vocabulary.org/Organization'}
-    organization.type.should == 'http://data-vocabulary.org/Organization'
-    organization.properties['name'].should == ["An org name"]
+    expect(organization.type).to eq('http://data-vocabulary.org/Organization')
+    expect(organization.properties['name']).to eq(["An org name"])
   end
 
   it 'should not re-parse a nokogiri document' do
     md = Mida::Document.new(@nokogiri_document)
-    md.instance_variable_get(:@doc).object_id.should == @nokogiri_document.object_id
+    expect(md.instance_variable_get(:@doc).object_id).to eq(@nokogiri_document.object_id)
   end
 end
 
@@ -123,14 +123,14 @@ describe Mida::Document, 'when run against a full html document containing items
 
   it '#search should be able to match against items without an itemtype' do
     items = @md.search(%r{^$})
-    items.size.should == 1
-    items[0].properties['name'].should == ['An org name']
+    expect(items.size).to eq(1)
+    expect(items[0].properties['name']).to eq(['An org name'])
   end
 
   it '#search should be able to match against items with an itemtype' do
     items = @md.search(%r{^.+$})
-    items.size.should == 1
-    items[0].type.should == 'http://data-vocabulary.org/Review'
+    expect(items.size).to eq(1)
+    expect(items[0].type).to eq('http://data-vocabulary.org/Review')
   end
 end
 
@@ -159,7 +159,7 @@ describe Mida::Document, 'when run against a full html document containing two n
   end
 
   it 'should return all the itemscopes' do
-    @md.items.size.should == 2
+    expect(@md.items.size).to eq(2)
   end
 
   it 'should give the type of each itemscope if none specified' do
@@ -172,8 +172,8 @@ describe Mida::Document, 'when run against a full html document containing two n
       itemscope_names[item.type] += 1
     end
 
-    itemscope_names.size.should eq 2
-    itemscope_names.each { |name, num| num.should == 1 }
+    expect(itemscope_names.size).to eq 2
+    itemscope_names.each { |name, num| expect(num).to eq(1) }
   end
 
 
@@ -227,11 +227,11 @@ describe Mida::Document, 'when run against a full html document containing one
   end
 
   it 'should not match itemscopes with different names' do
-    @md.search(%r{nothing}).size.should == 0
+    expect(@md.search(%r{nothing}).size).to eq(0)
   end
 
   it 'should find the correct number of itemscopes' do
-    @md.items.size.should == 1
+    expect(@md.items.size).to eq(1)
   end
 
   it 'should return the correct number of itemscopes' do
@@ -239,7 +239,7 @@ describe Mida::Document, 'when run against a full html document containing one
       %r{http://data-vocabulary.org/Product},
       %r{http://data-vocabulary.org/Review-aggregate}
     ]
-    vocabularies.each {|vocabulary| @md.search(vocabulary).size.should == 1}
+    vocabularies.each {|vocabulary| expect(@md.search(vocabulary).size).to eq(1)}
 
   end
 
@@ -296,16 +296,16 @@ describe Mida::Document, 'when run against a document containing an itemscope
       %r{http://data-vocabulary.org/Product} => 1,
       %r{http://data-vocabulary.org/Review-aggregate} => 1
     }
-    vocabularies.each {|vocabulary, num| @md.search(vocabulary).size.should == num}
+    vocabularies.each {|vocabulary, num| expect(@md.search(vocabulary).size).to eq(num)}
   end
 
   it 'should return the correct number of items' do
-    @md.items.size.should == 2
+    expect(@md.items.size).to eq(2)
   end
 
   context "when no vocabulary specified or looking at the outer vocabulary" do
     it 'should return all the properties from the text with the correct values' do
-      pending("get the contains: feature working")
+      skip("get the contains: feature working")
       expected_result = {
         type: 'http://data-vocabulary.org/Product',
         properties: {
@@ -321,7 +321,7 @@ describe Mida::Document, 'when run against a document containing an itemscope
         }
       }
 
-      @md.search('http://data-vocabulary.org/Product').first.should == expected_result
+      expect(@md.search('http://data-vocabulary.org/Product').first).to eq(expected_result)
     end
   end
 end

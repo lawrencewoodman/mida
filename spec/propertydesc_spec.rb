@@ -7,11 +7,11 @@ describe Mida::PropertyDesc, 'when initialized without a block' do
   end
 
   it '#to_h[:num] should equal num passed' do
-    @propertyDesc.to_h[:num].should == 3
+    expect(@propertyDesc.to_h[:num]).to eq(3)
   end
 
   it '#to_h[:types] should equal DataType::Text' do
-    @propertyDesc.to_h[:types].should == [Mida::DataType::Text]
+    expect(@propertyDesc.to_h[:types]).to eq([Mida::DataType::Text])
   end
 end
 
@@ -21,7 +21,7 @@ describe Mida::PropertyDesc, 'when initialized with a block with no specified ty
   end
 
   it '#to_h[:types] should equal DataType::Text' do
-    @propertyDesc.to_h[:types].should == [Mida::DataType::Text]
+    expect(@propertyDesc.to_h[:types]).to eq([Mida::DataType::Text])
   end
 end
 
@@ -31,7 +31,7 @@ describe Mida::PropertyDesc, 'when initialized with a block that specifies types
   end
 
   it '#to_h[:types] should equal [String, Array]' do
-    @propertyDesc.to_h[:types].should == [String, Array]
+    expect(@propertyDesc.to_h[:types]).to eq([String, Array])
   end
 end
 
@@ -44,13 +44,13 @@ describe Mida::PropertyDesc, 'when initialized with a block that specifies types
   end
 
   it 'should warn on initialization if types() is used in the block' do
-    @error.should eq("[DEPRECATION] Mida::PropertyDesc#types is deprecated.  "+
+    expect(@error).to eq("[DEPRECATION] Mida::PropertyDesc#types is deprecated.  "+
       "Please use Mida::PropertyDesc#extract instead."
     )
   end
 
   it '#to_h[:types] should equal [String, Array]' do
-    @propertyDesc.to_h[:types].should == [String, Array]
+    expect(@propertyDesc.to_h[:types]).to eq([String, Array])
   end
 
 end
