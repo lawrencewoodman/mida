@@ -5,3 +5,6 @@ rvm:
 branches:
   only:
     - master
+env:
+  global:
+    - NOKOGIRI_USE_SYSTEM_LIBRARIES=true
