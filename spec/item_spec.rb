@@ -108,7 +108,7 @@ describe Mida::Item, 'when initialized with an itemscope of a known type' do
   end
 
   it 'should return has_many properties as an array' do
-    @item.properties['url'].length == 1
+    expect(@item.properties['url'].length).to eq(1)
     expect(@item.properties['url'].first.to_s).to eq('http://example.com/user/lorry')
   end
 

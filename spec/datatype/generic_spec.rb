@@ -2,11 +2,9 @@ require 'mida/datatype'
 
 describe Mida::DataType::Generic do
 
-  before do
-    class Number < Mida::DataType::Generic
-      def initialize(value)
-        @parsedValue = Float(value)  
-      end
+  class Number < Mida::DataType::Generic
+    def initialize(value)
+      @parsedValue = Float(value)  
     end
   end
 

@@ -41,8 +41,8 @@ module Mida
     # This won't work properly until all the included_vocabularies
     # have finished being defined in case of circular dependancies
     def self.properties
-      return @properties if @properties
-      @properties = @this_properties || {}
+      return @properties if defined?(@properties) && @properties
+      @properties = defined?(@this_properties) && @this_properties ? @this_properties : {}
       included_vocabularies.each do |vocabulary|
         @properties.merge!(vocabulary.properties)
       end

@@ -2,7 +2,7 @@ module Mida
   module DataType
 
     # The base DataType Parser
-    class Generic < BasicObject
+    class Generic
       
       # Convenience method, same as +new+
       def self.parse(value)

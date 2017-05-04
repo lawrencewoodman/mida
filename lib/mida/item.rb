@@ -1,5 +1,4 @@
 require 'nokogiri'
-require 'mida'
 
 module Mida
 
@@ -91,10 +90,7 @@ module Mida
       return [] unless valid_num_values?(prop_num, values)
       prop_types = property_types(property)
 
-      valid_values = values.each_with_object([]) do |value, valid_values|
-        new_value = validate_value(prop_types, value)
-        valid_values << new_value unless new_value.nil?
-      end
+      valid_values = values.map { |value| validate_value(prop_types, value) }.compact
 
       # Convert property to correct number
       prop_num == :many ? valid_values : valid_values.first

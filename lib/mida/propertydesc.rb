@@ -24,7 +24,7 @@ module Mida
     def types(*types)
       warn "[DEPRECATION] Mida::PropertyDesc#types is deprecated.  "+
            "Please use Mida::PropertyDesc#extract instead."
-      extract *types
+      extract(*types)
     end
 
     def to_h
