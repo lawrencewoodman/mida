@@ -14,7 +14,9 @@ module Mida
     #
     # [target] The string containing the html that you want to parse.
     # [page_url] The url of target used for form absolute urls. This must
-    #            include the filename, e.g. index.html.
+    #            include the filename, e.g. index.html. If page_url is nil or
+    #            invalid, properties with a relative url will be parsed as an
+    #            empty string.
     def initialize(target, page_url=nil)
       @doc = target.kind_of?(Nokogiri::XML::Document) ? target : Nokogiri(target)
       @page_url = page_url

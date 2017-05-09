@@ -71,7 +71,7 @@ end
 
 # Get the url from the source if there is one
 def get_url
-  ARGV.first =~ %r{^http://.*} ? ARGV.first : nil
+  ARGV.first =~ %r{^https?://.*} ? ARGV.first : nil
 end
 
 # Display each item as yaml
